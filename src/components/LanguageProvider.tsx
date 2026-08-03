@@ -22,17 +22,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("en");
 
   useEffect(() => {
-    const stored = window.localStorage.getItem("zemin-lang");
-    // Sync from persisted preference after hydration to avoid SSR mismatch.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (stored === "en" || stored === "de") {
-      setLang(stored);
-      return;
-    }
+    queueMicrotask(() => {
+      const stored = window.localStorage.getItem("zemin-lang");
+      if (stored === "en" || stored === "de") {
+        setLang(stored);
+        return;
+      }
 
-    const browserLang = window.navigator.language.toLowerCase();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setLang(browserLang.startsWith("de") ? "de" : "en");
+      const browserLang = window.navigator.language.toLowerCase();
+      setLang(browserLang.startsWith("de") ? "de" : "en");
+    });
   }, []);
 
   useEffect(() => {

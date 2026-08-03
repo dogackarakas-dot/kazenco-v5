@@ -21,7 +21,9 @@ export function CookieNotice() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setVisible(!hasConsent());
+    queueMicrotask(() => {
+      setVisible(!hasConsent());
+    });
   }, []);
 
   if (!visible) return null;

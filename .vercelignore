@@ -1,0 +1,32 @@
+# Publish only the Kazenco runtime/build surface.
+/*
+
+# Next.js build inputs
+!package.json
+!package-lock.json
+!next.config.ts
+!postcss.config.mjs
+!tsconfig.json
+!next-env.d.ts
+!components.json
+
+# Application source, including local fonts
+!src
+!src/**
+
+# Kazenco content fallback used during static generation
+!data
+!data/content.json
+
+# Public runtime assets
+!public
+!public/certificates
+!public/certificates/**
+!public/images
+!public/images/**
+!public/seo
+!public/seo/**
+
+# Keep large/non-Kazenco media out of the upload
+public/videos/
+public/videos/**
