@@ -4,6 +4,7 @@ import { HeroStack } from "@/components/HeroStack";
 import { IncrediblesCursor } from "@/components/IncrediblesCursor";
 import { KazencoClients } from "@/components/KazencoClients";
 import { KazencoFooter } from "@/components/KazencoFooter";
+import { KazencoHeroContent } from "@/components/KazencoHeroContent";
 import { KazencoIndustries } from "@/components/KazencoIndustries";
 import { KazencoNumbers } from "@/components/KazencoNumbers";
 import { KazencoProducts } from "@/components/KazencoProducts";
@@ -15,14 +16,6 @@ import { PROJECTS } from "@/lib/projects";
 
 const PROJECT_HIGHLIGHTS = PROJECTS.filter((project) => project.image);
 
-const HERO_CLIENTS = [
-  "Fluor",
-  "WorleyParsons",
-  "Schlumberger",
-  "NCOC",
-  "TCO",
-  "Bonatti",
-];
 
 const FAQS = [
   [
@@ -53,43 +46,7 @@ export default function Home() {
 
       <main id="main-content" className="inc-page">
         <HeroStack
-          heroChildren={
-            <div className="kazenco-hero-content">
-              <p className="kazenco-hero-eyebrow">
-                Engineering · Procurement · Construction
-              </p>
-
-              <h1 className="kazenco-hero-title">
-                Engineering.<br />
-                Procurement.<br />
-                Construction.
-              </h1>
-
-              <p className="inc-lead kazenco-hero-lead">
-                Industrial supply and turnkey project solutions for energy,
-                oil &amp; gas, construction and infrastructure projects across Kazakhstan.
-              </p>
-
-              <div className="kazenco-hero-actions">
-                <ContactModal
-                  triggerClassName="kazenco-hero-primary"
-                  triggerLabel="Request a quotation"
-                />
-                <a href="#projects" className="kazenco-hero-secondary">
-                  Explore projects
-                </a>
-              </div>
-
-              <div className="inc-trusted">
-                <p>Trusted by global project leaders</p>
-                <ul>
-                  {HERO_CLIENTS.map((client) => (
-                    <li key={client}>{client}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          }
+          heroChildren={<KazencoHeroContent />}
           heading="Real projects, delivered end to end."
           text="Explore construction, turnkey fit-out, furnishing and industrial supply projects completed across Kazakhstan."
           projects={PROJECT_HIGHLIGHTS}
