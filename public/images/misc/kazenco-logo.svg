@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="360" viewBox="0 0 1600 360" role="img" aria-labelledby="title desc">
+  <title id="title">KAZENCO logo</title>
+  <desc id="desc">Kazenco Engineering Construction Materials and Trade Company logo</desc>
+
+  <rect width="1600" height="360" fill="none"/>
+
+  <!-- Emblem -->
+  <g transform="translate(30,25)">
+    <path d="M170 0 L340 120 L270 190 L270 285 L210 285 L210 215 L245 180 L170 105 L95 180 L130 215 L130 285 L70 285 L70 190 L0 120 Z"
+          fill="#148000"/>
+    <rect x="104" y="54" width="132" height="132" transform="rotate(45 170 120)" fill="#ff0000"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(390,30)">
+    <text x="0" y="110"
+          font-family="Arial, Helvetica, sans-serif"
+          font-size="112"
+          font-weight="700"
+          letter-spacing="24"
+          fill="#148000">KAZENCO</text>
+
+    <text x="0" y="205"
+          font-family="Arial, Helvetica, sans-serif"
+          font-size="54"
+          font-weight="600"
+          letter-spacing="8"
+          fill="#111111">ENGINEERING CONSTRUCTION</text>
+
+    <text x="0" y="278"
+          font-family="Arial, Helvetica, sans-serif"
+          font-size="54"
+          font-weight="600"
+          letter-spacing="6"
+          fill="#111111">MATERIALS &amp; TRADE COMPANY</text>
+  </g>
+
+  <!-- Red baseline -->
+  <rect x="98" y="330" width="1460" height="18" fill="#ff0000"/>
+</svg>

@@ -189,7 +189,29 @@ export function HeroStack({ heroChildren, heading, text, projects }: HeroStackPr
 
   return (
     <div ref={rootRef} className={reducedMotion ? "inc-stack inc-stack-reduced" : "inc-stack"}>
-      <section ref={heroRef} className="inc-hero">
+      <section
+  ref={heroRef}
+  className="inc-hero"
+  style={{
+    backgroundImage: `
+      linear-gradient(
+        90deg,
+        rgba(2, 10, 18, 0.96) 0%,
+        rgba(2, 10, 18, 0.82) 45%,
+        rgba(2, 10, 18, 0.28) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(2, 10, 18, 0.18) 0%,
+        rgba(2, 10, 18, 0.78) 100%
+      ),
+      url("/images/hero/kazenco-refinery-hero.png")
+    `,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+  }}
+>
         <div ref={heroInnerRef} className="inc-hero-inner">
           {heroChildren}
         </div>
