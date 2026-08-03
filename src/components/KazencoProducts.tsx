@@ -6,7 +6,7 @@ const PRODUCTS = [
     description:
       "Carbon steel, stainless steel and alloy steel pipes and tubes for refinery, petrochemical, energy and industrial projects.",
     standards: ["ASTM", "ASME", "API"],
-    accent: "pipes",
+    image: "/images/products/pipes-tubes.png",
   },
   {
     number: "02",
@@ -15,7 +15,7 @@ const PRODUCTS = [
     description:
       "Forged and butt-weld fittings, flanges and connection components supplied to international project standards.",
     standards: ["B16.5", "B16.9", "B16.11"],
-    accent: "fittings",
+    image: "/images/products/fittings-flanges.png",
   },
   {
     number: "03",
@@ -24,7 +24,7 @@ const PRODUCTS = [
     description:
       "Process valves, instrumentation valves, tubing and control components for critical industrial service.",
     standards: ["API", "ASME", "NACE"],
-    accent: "valves",
+    image: "/images/products/valves-instrumentation.png",
   },
   {
     number: "04",
@@ -33,7 +33,7 @@ const PRODUCTS = [
     description:
       "Stud bolts, anchor bolts, nuts, washers and custom fastening packages supported by material documentation.",
     standards: ["A193", "A320", "A194"],
-    accent: "fasteners",
+    image: "/images/products/fasteners-anchor-bolts.png",
   },
   {
     number: "05",
@@ -42,7 +42,7 @@ const PRODUCTS = [
     description:
       "Project-based sourcing of electrical equipment, accessories and supporting industrial materials.",
     standards: ["IEC", "ATEX", "IP"],
-    accent: "electrical",
+    image: "/images/products/electrical-equipment.png",
   },
   {
     number: "06",
@@ -51,19 +51,9 @@ const PRODUCTS = [
     description:
       "Coordinated supply of construction, fit-out, furnishing and site materials for project delivery across Kazakhstan.",
     standards: ["QA/QC", "MTC", "CoC"],
-    accent: "construction",
+    image: "/images/products/construction-materials.png",
   },
 ];
-
-function ProductGraphic({ accent }: { accent: string }) {
-  return (
-    <div className={`kazenco-v9-product-graphic kazenco-v9-${accent}`} aria-hidden="true">
-      <span />
-      <span />
-      <span />
-    </div>
-  );
-}
 
 export function KazencoProducts() {
   return (
@@ -94,7 +84,9 @@ export function KazencoProducts() {
               <span className="kazenco-v9-product-arrow" aria-hidden="true">↗</span>
             </div>
 
-            <ProductGraphic accent={product.accent} />
+            <div className="kazenco-v10-product-media">
+              <img src={product.image} alt={product.title} />
+            </div>
 
             <div className="kazenco-v9-product-copy">
               <h3>{product.title}</h3>
