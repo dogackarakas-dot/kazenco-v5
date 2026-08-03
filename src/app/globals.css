@@ -1480,19 +1480,423 @@ html.inc-has-cursor [role="button"] {
 }
 
 
-/* KAZENCO V4 — client logo artwork */
-.kazenco-client-logo {
-  padding: 24px;
+/* =========================================================
+   KAZENCO V5 — complete homepage system
+   ========================================================= */
+
+:root {
+  --kazenco-green: #188019;
+  --kazenco-red: #ec1c24;
+  --kazenco-navy: #07131d;
+  --kazenco-ink: #111820;
 }
 
-.kazenco-client-logo img {
+.kazenco-v5-section {
+  width: min(100% - 2.4rem, 1180px);
+  margin: 0 auto;
+  padding: clamp(4.5rem, 9vw, 8rem) 0;
+}
+
+.kazenco-v5-section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.55fr);
+  gap: clamp(2rem, 7vw, 7rem);
+  align-items: end;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.kazenco-v5-section-head h2,
+.kazenco-v5-clients h2,
+.kazenco-v5-why h2 {
+  margin: 0;
+  font-family: var(--font-clone-display);
+  font-size: clamp(2.2rem, 5.4vw, 5.6rem);
+  font-weight: 430;
+  line-height: 0.9;
+  letter-spacing: -0.062em;
+}
+
+.kazenco-v5-section-head > p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.kazenco-v5-numbers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  width: min(100% - 2.4rem, 1180px);
+  margin: clamp(2rem, 5vw, 5rem) auto 0;
+  overflow: hidden;
+  border-radius: 28px;
+  background: rgba(43, 43, 43, 0.10);
+}
+
+.kazenco-v5-numbers div {
+  display: grid;
+  min-height: 180px;
+  align-content: center;
+  padding: 28px;
+  background: #ffffff;
+}
+
+.kazenco-v5-numbers strong {
+  font-family: var(--font-clone-display);
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  font-weight: 650;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.kazenco-v5-numbers span {
+  margin-top: 12px;
+  color: var(--muted-foreground);
+  font-size: 13px;
+}
+
+.kazenco-v5-product-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.kazenco-v5-product-card {
+  position: relative;
+  grid-column: span 4;
+  min-height: 310px;
+  overflow: hidden;
+  border: 1px solid rgba(43, 43, 43, 0.09);
+  border-radius: 30px;
+  padding: 28px;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(24, 128, 25, 0.16), transparent 32%),
+    #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.kazenco-v5-product-card:nth-child(1),
+.kazenco-v5-product-card:nth-child(4) {
+  grid-column: span 6;
+}
+
+.kazenco-v5-product-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(24, 128, 25, 0.24);
+  box-shadow: 0 26px 70px rgba(16, 35, 48, 0.12);
+}
+
+.kazenco-v5-product-number {
   display: block;
-  width: min(220px, 82%);
-  max-height: 76px;
-  object-fit: contain;
-  transition: transform 220ms ease;
+  color: var(--kazenco-red);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
 }
 
-.kazenco-client-logo:hover img {
+.kazenco-v5-product-card h3 {
+  max-width: 340px;
+  margin: 72px 0 0;
+  font-family: var(--font-clone-display);
+  font-size: clamp(1.9rem, 3vw, 3.2rem);
+  font-weight: 520;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.kazenco-v5-product-card p {
+  max-width: 390px;
+  margin: 18px 0 0;
+  color: var(--muted-foreground);
+  line-height: 1.45;
+}
+
+.kazenco-v5-card-arrow {
+  position: absolute;
+  right: 26px;
+  bottom: 24px;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--kazenco-ink);
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.kazenco-v5-industry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.kazenco-v5-industry-card {
+  min-height: 260px;
+  border-radius: 28px;
+  padding: 26px;
+  color: #ffffff;
+  background:
+    linear-gradient(135deg, rgba(7, 19, 29, 0.96), rgba(7, 19, 29, 0.70)),
+    radial-gradient(circle at 90% 10%, rgba(236, 28, 36, 0.30), transparent 34%);
+}
+
+.kazenco-v5-industry-card span {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+}
+
+.kazenco-v5-industry-card h3 {
+  margin: 70px 0 0;
+  font-family: var(--font-clone-display);
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 520;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.kazenco-v5-industry-card p {
+  margin: 16px 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.45;
+}
+
+.kazenco-v5-why {
+  display: grid;
+  grid-template-columns: 0.65fr 1fr;
+  gap: clamp(2rem, 7vw, 7rem);
+  align-items: start;
+}
+
+.kazenco-v5-why-copy {
+  position: sticky;
+  top: 130px;
+}
+
+.kazenco-v5-why-list {
+  display: grid;
+  gap: 12px;
+}
+
+.kazenco-v5-why-item {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 22px;
+  border-top: 1px solid rgba(43, 43, 43, 0.13);
+  padding: 24px 0;
+}
+
+.kazenco-v5-why-item strong {
+  color: var(--kazenco-green);
+  font-family: var(--font-clone-display);
+  font-size: 2rem;
+  font-weight: 650;
+}
+
+.kazenco-v5-why-item h3 {
+  margin: 0;
+  font-family: var(--font-clone-display);
+  font-size: clamp(1.5rem, 2.5vw, 2.7rem);
+  font-weight: 450;
+  letter-spacing: -0.045em;
+}
+
+.kazenco-v5-why-item p {
+  margin: 10px 0 0;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+.kazenco-v5-client-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.kazenco-v5-client-card {
+  display: grid;
+  min-height: 135px;
+  place-items: center;
+  border: 1px solid rgba(43, 43, 43, 0.10);
+  border-radius: 24px;
+  padding: 20px;
+  background: #ffffff;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.kazenco-v5-client-card img {
+  display: block;
+  width: min(190px, 85%);
+  max-height: 72px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.72;
+  transition: filter 220ms ease, opacity 220ms ease, transform 220ms ease;
+}
+
+.kazenco-v5-client-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 58px rgba(16, 35, 48, 0.10);
+}
+
+.kazenco-v5-client-card:hover img {
+  filter: grayscale(0);
+  opacity: 1;
   transform: scale(1.04);
+}
+
+.kazenco-v5-rfq {
+  width: min(100% - 2.4rem, 1180px);
+  margin: clamp(2rem, 6vw, 5rem) auto;
+  overflow: hidden;
+  border-radius: 34px;
+  padding: clamp(2rem, 6vw, 5rem);
+  color: #ffffff;
+  background:
+    linear-gradient(115deg, rgba(7, 19, 29, 0.98), rgba(7, 19, 29, 0.76)),
+    url("/images/hero/kazenco-refinery-hero.png") center / cover no-repeat;
+}
+
+.kazenco-v5-rfq h2 {
+  max-width: 800px;
+  margin: 0;
+  font-family: var(--font-clone-display);
+  font-size: clamp(2.3rem, 5.5vw, 5.8rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+}
+
+.kazenco-v5-rfq > p:not(.kazenco-section-kicker) {
+  max-width: 620px;
+  margin: 22px 0 30px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.kazenco-v5-footer-main {
+  display: grid;
+  grid-template-columns: 1.2fr repeat(3, minmax(120px, 0.5fr));
+  gap: 36px;
+  width: min(100% - 2.4rem, 1180px);
+  margin: 0 auto;
+  padding: 60px 0 32px;
+}
+
+.kazenco-v5-footer-brand img {
+  width: min(300px, 100%);
+  height: auto;
+}
+
+.kazenco-v5-footer-brand p {
+  max-width: 430px;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+.kazenco-v5-footer-column h3 {
+  margin: 0 0 16px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.kazenco-v5-footer-column a,
+.kazenco-v5-footer-column p {
+  display: block;
+  margin: 0 0 10px;
+  color: var(--muted-foreground);
+  text-decoration: none;
+}
+
+@media (max-width: 1000px) {
+  .kazenco-v5-client-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .kazenco-v5-section-head,
+  .kazenco-v5-why {
+    grid-template-columns: 1fr;
+  }
+
+  .kazenco-v5-why-copy {
+    position: static;
+  }
+
+  .kazenco-v5-numbers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kazenco-v5-product-card,
+  .kazenco-v5-product-card:nth-child(1),
+  .kazenco-v5-product-card:nth-child(4) {
+    grid-column: span 6;
+  }
+
+  .kazenco-v5-industry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kazenco-v5-footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .kazenco-v5-product-grid,
+  .kazenco-v5-industry-grid,
+  .kazenco-v5-client-grid,
+  .kazenco-v5-footer-main {
+    grid-template-columns: 1fr;
+  }
+
+  .kazenco-v5-product-card,
+  .kazenco-v5-product-card:nth-child(1),
+  .kazenco-v5-product-card:nth-child(4) {
+    grid-column: auto;
+  }
+
+  .kazenco-v5-numbers {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .kazenco-v5-product-card {
+    min-height: 260px;
+  }
+
+  .kazenco-v5-why-item {
+    grid-template-columns: 48px 1fr;
+  }
+}
+
+
+/* KAZENCO V6 — refined homepage sequence */
+.kazenco-v5-clients {
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+}
+
+.kazenco-v5-numbers {
+  margin-top: 0;
+  margin-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+#about {
+  scroll-margin-top: 120px;
+}
+
+#products,
+#industries,
+#projects,
+#clients,
+#contact {
+  scroll-margin-top: 120px;
 }
