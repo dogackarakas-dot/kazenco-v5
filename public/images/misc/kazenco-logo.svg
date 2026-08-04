@@ -6,7 +6,7 @@
 
   <!-- Emblem -->
   <g transform="translate(30,25)">
-    <path d="M170 0 L340 120 L270 190 L270 285 L210 285 L210 215 L245 180 L170 105 L95 180 L130 215 L130 285 L70 285 L70 190 L0 120 Z"
+    <path d="M170 0 L340 140 L340 285 L270 285 L270 140 L170 70 L70 140 L70 285 L0 285 L0 140 Z"
           fill="#148000"/>
     <rect x="104" y="54" width="132" height="132" transform="rotate(45 170 120)" fill="#ff0000"/>
   </g>

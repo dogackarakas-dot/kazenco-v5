@@ -161,7 +161,7 @@ export function FullScreenModal({ open, onClose, labelledBy, children }: FullScr
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-5 top-5 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white text-foreground shadow-sm transition-transform duration-300 hover:rotate-90 hover:scale-110 sm:right-12 sm:top-12"
+          className="absolute right-5 top-5 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-card text-foreground shadow-sm transition-transform duration-300 hover:rotate-90 hover:scale-110 sm:right-12 sm:top-12"
         >
           <CloseIcon className="h-3.5 w-3.5" />
         </button>

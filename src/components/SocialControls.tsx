@@ -14,7 +14,7 @@ const SOCIALS = [
 ];
 
 const BUTTON =
-  "flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-[18px] bg-white text-foreground shadow-sm transition-colors hover:bg-foreground hover:text-background";
+  "flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-[18px] bg-card text-foreground shadow-sm transition-colors hover:bg-foreground hover:text-background";
 
 export function SocialControls() {
   const [open, setOpen] = useState(false);

@@ -1,46 +1,58 @@
-export function KazencoFooter() {
+import Image from "next/image";
+import Link from "next/link";
+import type { Locale } from "@/lib/i18n";
+import { sectionCopy } from "@/lib/section-translations";
+
+export function KazencoFooter({ locale = "en" }: { locale?: Locale }) {
+  const copy = sectionCopy(locale).footer;
+  const home = `/${locale}`;
   return (
     <footer className="kazenco-v5-footer">
       <div className="kazenco-v5-footer-main">
         <div className="kazenco-v5-footer-brand">
-          <img src="/images/misc/kazenco-logo.svg" alt="KAZENCO" />
-          <p>
-            Engineering, construction, turnkey fit-out and industrial material
-            supply across Kazakhstan since 2004.
-          </p>
+          <Image
+            src="/images/misc/kazenco-logo.svg"
+            alt="KAZENCO"
+            width={1600}
+            height={360}
+            sizes="(max-width: 700px) 80vw, 300px"
+          />
+          <p>{copy[0]}</p>
         </div>
 
         <div className="kazenco-v5-footer-column">
-          <h3>Company</h3>
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#clients">Clients</a>
+          <h3>{copy[1]}</h3>
+          <Link href={`${home}#about`}>{copy[2]}</Link>
+          <Link href={`${home}#projects`}>{copy[3]}</Link>
+          <Link href={`${home}#clients`}>{copy[4]}</Link>
         </div>
 
         <div className="kazenco-v5-footer-column">
-          <h3>Capabilities</h3>
-          <a href="#products">Products</a>
-          <a href="#industries">Industries</a>
-          <a href="#contact">Request a quote</a>
+          <h3>{copy[5]}</h3>
+          <Link href={`${home}#capabilities`}>{copy[6]}</Link>
+          <Link href={`${home}#products`}>{copy[7]}</Link>
+          <Link href={`${home}#industries`}>{copy[8]}</Link>
+          <Link href={`${home}#project-map`}>{copy[9]}</Link>
+          <Link href={`${home}#contact`}>{copy[10]}</Link>
         </div>
 
         <div className="kazenco-v5-footer-column">
-          <h3>Location</h3>
-          <p>Atyrau, Kazakhstan</p>
-          <p>English · Russian · Turkish · Kazakh</p>
+          <h3>{copy[11]}</h3>
+          <p>{copy[12]}</p>
+          <p>{copy[13]}</p>
         </div>
       </div>
 
       <div className="inc-footer">
-        <p className="m-0">© {new Date().getFullYear()} KAZENCO. All Rights Reserved.</p>
+        <p className="m-0">© {new Date().getFullYear()} KAZENCO. {copy[14]}</p>
         <a
-          href="http://fibilisim.com.tr/"
+          href="https://fibilisim.com.tr/"
           target="_blank"
           rel="noreferrer"
           className="inc-footer-credit"
         >
-          <span>Developed by</span>
-          <img src="/images/misc/developed-by.ico" alt="Fi Bilişim" />
+          <span>{copy[15]}</span>
+          <Image src="/images/misc/developed-by.ico" alt="Fi Bilişim" width={18} height={18} />
         </a>
       </div>
     </footer>

@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ContactModal } from "@/components/ContactModal";
+import { DeferredContactModal } from "@/components/DeferredContactModal";
+import { HOME_COPY } from "@/lib/home-translations";
+import type { Locale } from "@/lib/i18n";
 
 const CLIENTS = [
   "Fluor",
@@ -71,16 +73,17 @@ function AnimatedValue({
   );
 }
 
-export function KazencoHeroContent() {
+export function KazencoHeroContent({ locale = "en" }: { locale?: Locale }) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const copy = HOME_COPY[locale].hero;
 
   const stats = useMemo(
     () => [
-      { value: 20, suffix: "+", label: "Years of experience" },
-      { value: 10, suffix: "", label: "Recognised client organisations" },
-      { value: 6, suffix: "", label: "Key operating regions" },
+      { value: 20, suffix: "+", label: copy.stats[0] },
+      { value: 17, label: copy.stats[1] },
+      { value: 20, label: copy.stats[2] },
     ],
-    [],
+    [copy.stats],
   );
 
   const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -112,27 +115,26 @@ export function KazencoHeroContent() {
       <div className="kazenco-v7-orbit" aria-hidden="true" />
 
       <p className="kazenco-hero-eyebrow kazenco-v7-reveal kazenco-v7-delay-1">
-        Engineering · Procurement · Construction
+        {copy.eyebrow}
       </p>
 
       <h1 className="kazenco-hero-title kazenco-v8-title">
-        <span className="kazenco-v7-reveal kazenco-v7-delay-2">Building</span>
-        <span className="kazenco-v7-reveal kazenco-v7-delay-3">Industrial</span>
-        <span className="kazenco-v7-reveal kazenco-v7-delay-4">Excellence.</span>
+        <span className="kazenco-v7-reveal kazenco-v7-delay-2">{copy.title[0]}</span>
+        <span className="kazenco-v7-reveal kazenco-v7-delay-3">{copy.title[1]}</span>
+        <span className="kazenco-v7-reveal kazenco-v7-delay-4">{copy.title[2]}</span>
       </h1>
 
       <p className="inc-lead kazenco-hero-lead kazenco-v7-reveal kazenco-v7-delay-5">
-        Engineering, procurement, construction and industrial supply solutions
-        for complex projects across Kazakhstan.
+        {copy.lead}
       </p>
 
       <div className="kazenco-hero-actions kazenco-v7-reveal kazenco-v7-delay-6">
-        <ContactModal
+        <DeferredContactModal
           triggerClassName="kazenco-hero-primary"
-          triggerLabel="Request a quotation"
+          triggerLabel={copy.quote}
         />
         <a href="#projects" className="kazenco-hero-secondary">
-          Explore projects
+          {copy.projects}
         </a>
       </div>
 
@@ -143,7 +145,7 @@ export function KazencoHeroContent() {
       </div>
 
       <div className="inc-trusted kazenco-v7-trusted kazenco-v7-reveal kazenco-v7-delay-8">
-        <p>Trusted by global project leaders</p>
+        <p>{copy.clients}</p>
         <ul>
           {CLIENTS.map((client) => (
             <li key={client}>{client}</li>

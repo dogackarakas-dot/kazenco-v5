@@ -6,9 +6,12 @@ export interface Project {
   /** Cover image path under /public; overrides the gradient when set. */
   image?: string;
   category?: "Fit-out & Furnishing" | "Construction" | "Material Supply" | "Assembly";
+  /** Translated display label; category remains stable for filtering and data logic. */
+  localizedCategory?: string;
   location?: string;
+  client?: string;
   year?: string;
   role?: string;
   summary?: string;
-  externalUrl?: string;
+  gallery?: string[];
 }

@@ -1,0 +1,38 @@
+.page { width: min(100% - 3rem, 1440px); margin: 0 auto; padding: clamp(10rem, 16vw, 15rem) 0 8rem; }
+.header { min-width: 0; max-width: 1100px; margin-bottom: clamp(3rem, 6vw, 6rem); }
+.header > a { display: inline-block; margin-bottom: clamp(3rem, 6vw, 6rem); color: inherit; font-size: .78rem; text-decoration: none; }
+.header > p:nth-of-type(1), .story > div:first-child > p, .gallery header p { margin: 0 0 1.3rem; color: var(--kazenco-red); font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.header h1 { margin: 0; overflow-wrap: anywhere; font-family: var(--font-clone-display); font-size: clamp(4rem, 10vw, 10rem); font-weight: 430; letter-spacing: -.07em; line-height: .82; }
+.header > p:last-child { max-width: 720px; margin: 2rem 0 0; color: var(--muted-foreground); font-size: clamp(1.1rem, 2vw, 1.45rem); line-height: 1.6; }
+.hero { position: relative; width: 100%; height: min(82svh, 980px); min-height: 620px; overflow: hidden; border-radius: clamp(1.5rem, 3vw, 3rem); background: #10271f; isolation: isolate; }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 55%, rgba(3, 12, 9, .65)); pointer-events: none; }
+.hero img { object-fit: cover; }
+.fallback { position: absolute; inset: 0; display: grid; place-items: center; background: radial-gradient(circle at 70% 20%, #315d4e, transparent 38%), #10271f; }
+.fallback span { color: rgba(255, 255, 255, .58); font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.location { position: absolute; right: 2rem; bottom: 2rem; z-index: 2; color: white; font-size: .7rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.story { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 10vw; padding: clamp(6rem, 11vw, 11rem) 0; }
+.story h2, .gallery h2 { margin: 0; font-family: var(--font-clone-display); font-size: clamp(3rem, 5.5vw, 6.2rem); font-weight: 440; letter-spacing: -.06em; line-height: .9; }
+.story > div:last-child > p { margin: 0 0 3rem; color: var(--muted-foreground); font-size: 1.08rem; line-height: 1.7; }
+.story dl { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent); }
+.story dl div { padding: 1rem 0; border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent); }
+.story dt { color: var(--muted-foreground); font-size: .62rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.story dd { margin: .4rem 0 0; font-size: .84rem; }
+.gallery { margin-bottom: clamp(7rem, 12vw, 12rem); }
+.gallery header { margin-bottom: 3rem; }
+.projectNav { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent); }
+.projectNav a { display: grid; gap: .8rem; padding: 2rem 0; color: inherit; text-decoration: none; }
+.projectNav a:last-child { justify-items: end; text-align: right; }
+.projectNav span { color: var(--muted-foreground); font-size: .65rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.projectNav strong { overflow-wrap: anywhere; font-family: var(--font-clone-display); font-size: clamp(1.8rem, 4vw, 4.5rem); font-weight: 440; letter-spacing: -.05em; line-height: .9; }
+
+@media (max-width: 800px) {
+  .story { grid-template-columns: 1fr; }
+  .hero { height: auto; min-height: 0; aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 640px) {
+  .page { width: min(100% - 1.5rem, 1440px); }
+  .header h1 { font-size: clamp(3rem, 15vw, 4rem); }
+  .story dl, .projectNav { grid-template-columns: 1fr; }
+  .projectNav a:last-child { justify-items: start; border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent); text-align: left; }
+}

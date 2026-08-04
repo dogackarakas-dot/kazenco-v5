@@ -1,20 +1,29 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ContactModal } from "@/components/ContactModal";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { KazencoMark } from "@/components/Logo";
+import { NAVIGATION, localeFromPathname } from "@/lib/i18n";
 
 const LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Products", href: "#products" },
-  { label: "Industries", href: "#industries" },
-  { label: "Projects", href: "#projects" },
-  { label: "Clients", href: "#clients" },
-];
+  { key: "about", hash: "about" },
+  { key: "capabilities", hash: "capabilities" },
+  { key: "products", hash: "products" },
+  { key: "industries", hash: "industries" },
+  { key: "projects", hash: "projects" },
+  { key: "clients", hash: "clients" },
+  { key: "certificates", hash: "certificates" },
+  { key: "contact", hash: "contact" },
+] as const;
 
 export function PremiumHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const locale = localeFromPathname(pathname);
+  const copy = NAVIGATION[locale];
+  const homePath = `/${locale}`;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -26,27 +35,22 @@ export function PremiumHeader() {
   return (
     <header className={`inc-header${scrolled ? " kazenco-header-scrolled" : ""}`}>
       <div className="kazenco-header-shell">
-        <Link href="/" className="inc-logo" aria-label="KAZENCO Home">
+        <Link href={homePath} className="inc-logo" aria-label={copy.home}>
           <KazencoMark className="inc-logo-mark" />
         </Link>
 
-        <nav className="inc-nav" aria-label="Main navigation">
+        <nav className="inc-nav" aria-label={copy.navigation}>
           <ul>
             {LINKS.map((link) => (
-              <li key={link.href}>
-                <a className="kazenco-nav-link" href={link.href}>
-                  {link.label}
+              <li key={link.hash}>
+                <a className="kazenco-nav-link" href={`${homePath}#${link.hash}`}>
+                  {copy[link.key]}
                 </a>
               </li>
             ))}
-            <li>
-              <ContactModal
-                triggerClassName="inc-button inc-button-conversation"
-                triggerLabel="Request a quotation"
-              />
-            </li>
           </ul>
         </nav>
+        <LanguageSwitcher />
       </div>
     </header>
   );

@@ -1,0 +1,27 @@
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: clamp(12rem, 24vw, 24rem); gap: .75rem; }
+.grid button { position: relative; grid-column: span 6; min-height: 0; overflow: hidden; border: 0; border-radius: 1.25rem; padding: 0; background: #dfe4e1; cursor: pointer; }
+.grid button:first-child { grid-column: span 7; }
+.grid button:nth-child(2) { grid-column: span 5; }
+.grid button:nth-child(3) { grid-column: span 4; }
+.grid button:nth-child(4) { grid-column: span 8; }
+.grid img { object-fit: cover; transition: transform 650ms cubic-bezier(.16, 1, .3, 1); }
+.grid button:hover img { transform: scale(1.04); }
+.grid button:focus-visible img { transform: scale(1.04); }
+.grid button span { position: absolute; right: .8rem; bottom: .7rem; z-index: 1; color: white; font-size: .65rem; font-weight: 800; text-shadow: 0 1px 8px #000; }
+.lightbox { position: fixed; inset: 0; z-index: 1000; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem; padding: clamp(1rem, 3vw, 3rem); background: rgba(4, 10, 8, .96); color: white; }
+.fullImage { position: relative; width: 100%; height: calc(100svh - 7rem); }
+.fullImage img { object-fit: contain; }
+.lightbox button { z-index: 2; display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid rgba(255, 255, 255, .28); border-radius: 50%; background: rgba(255, 255, 255, .08); color: white; font-size: 1.25rem; cursor: pointer; }
+.close { position: absolute; top: 1.5rem; right: 1.5rem; }
+.lightbox > p { position: absolute; bottom: 1.5rem; left: 50%; margin: 0; transform: translateX(-50%); font-size: .72rem; letter-spacing: .12em; }
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 13rem; }
+  .grid button,
+  .grid button:first-child,
+  .grid button:nth-child(2),
+  .grid button:nth-child(3),
+  .grid button:nth-child(4) { grid-column: span 1; }
+  .lightbox { grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem; gap: .25rem; padding: .5rem; }
+  .lightbox button { width: 2.5rem; height: 2.5rem; }
+}
