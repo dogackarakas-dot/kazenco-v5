@@ -73,7 +73,7 @@ export const PROJECTS: Project[] = [
     category: "Construction",
     location: "Tengiz, Atyrau",
     client: "Sarens / Tengizchevroil (TCO)",
-    role: "Turnkey Fit-Out & Furnishing (Industrial Site Mobilization) & On-Site Utilities",
+    role: "Industrial Access Platform Fabrication, Installation & Site Support",
     summary:
       "Successfully delivered industrial access platform manufacturing and on-site utility support for the TCO project in Tengiz, coordinating workshop fabrication, site installation and final operational access.",
     gallery: [

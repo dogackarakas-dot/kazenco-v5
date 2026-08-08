@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { PROJECTS } from "@/lib/projects";
+import { getLocalizedProjects } from "@/lib/project-translations";
 import type { Locale } from "@/lib/i18n";
 import { sectionCopy } from "@/lib/section-translations";
 import type { Project } from "@/types/project";
@@ -55,9 +55,16 @@ export function KazencoProjectMap({ locale = "en" }: { locale?: Locale }) {
   const [filter, setFilter] = useState<Filter>("All");
   const [activeCity, setActiveCity] = useState<CityKey>("atyrau");
 
+  const localizedProjects = useMemo(
+    () => getLocalizedProjects(locale),
+    [locale],
+  );
+
   const filteredProjects = useMemo(
-    () => PROJECTS.filter((project) => filter === "All" || project.category === filter),
-    [filter],
+    () => localizedProjects.filter(
+      (project) => filter === "All" || project.category === filter,
+    ),
+    [filter, localizedProjects],
   );
 
   const cityProjects = filteredProjects.filter(
@@ -67,7 +74,7 @@ export function KazencoProjectMap({ locale = "en" }: { locale?: Locale }) {
 
   const selectFilter = (nextFilter: Filter) => {
     setFilter(nextFilter);
-    const firstProject = PROJECTS.find(
+    const firstProject = localizedProjects.find(
       (project) => nextFilter === "All" || project.category === nextFilter,
     );
     const firstCity = getCityKey(firstProject?.location);
@@ -84,7 +91,18 @@ export function KazencoProjectMap({ locale = "en" }: { locale?: Locale }) {
         <p>{copy[2]}</p>
       </header>
 
-      <div className={styles.filters} aria-label="Filter map by project category">
+      <div
+        className={styles.filters}
+        aria-label={
+          locale === "ru"
+            ? "Фильтр карты по категории проекта"
+            : locale === "tr"
+              ? "Proje kategorisine göre harita filtresi"
+              : locale === "kz"
+                ? "Жоба санаты бойынша карта сүзгісі"
+                : "Filter map by project category"
+        }
+      >
         {FILTERS.map((item) => (
           <button
             key={item}
@@ -98,7 +116,18 @@ export function KazencoProjectMap({ locale = "en" }: { locale?: Locale }) {
       </div>
 
       <div className={styles.explorer}>
-        <div className={styles.map} aria-label="Interactive map of KAZENCO project locations in Kazakhstan">
+        <div
+          className={styles.map}
+          aria-label={
+            locale === "ru"
+              ? "Интерактивная карта проектов KAZENCO в Казахстане"
+              : locale === "tr"
+                ? "KAZENCO’nun Kazakistan’daki projelerinin etkileşimli haritası"
+                : locale === "kz"
+                  ? "KAZENCO-ның Қазақстандағы жобаларының интерактивті картасы"
+                  : "Interactive map of KAZENCO project locations in Kazakhstan"
+          }
+        >
           <svg className={styles.country} viewBox="0 0 1000 520" aria-hidden="true">
             <defs>
               <linearGradient id="kazenco-map-fill" x1="0" y1="0" x2="1" y2="1">

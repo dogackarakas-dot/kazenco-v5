@@ -7,7 +7,7 @@ import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { CAPABILITIES } from "@/lib/capabilities";
 import { getLocalizedCapability } from "@/lib/capability-translations";
-import { PROJECTS } from "@/lib/projects";
+import { getLocalizedProject } from "@/lib/project-translations";
 import { SITE } from "@/lib/site";
 import { DETAIL_COPY } from "@/lib/detail-translations";
 import { isLocale } from "@/lib/i18n";
@@ -51,7 +51,7 @@ export default async function CapabilityPage({ params }: { params: Promise<{ slu
   if (!capability) notFound();
 
   const relatedProjects = capability.relatedProjectSlugs
-    .map((projectSlug) => PROJECTS.find((project) => project.slug === projectSlug))
+    .map((projectSlug) => getLocalizedProject(projectSlug, locale))
     .filter((project) => project !== undefined);
   const capabilityUrl = `${SITE.url}/${locale}/capabilities/${capability.slug}`;
   const serviceJsonLd = {

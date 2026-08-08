@@ -71,7 +71,7 @@ export default function Home({ locale = "en" }: { locale?: Locale }) {
 
         <section className="inc-section inc-faq">
           <div>
-            <p className="kazenco-section-kicker">FAQ</p>
+            <p className="kazenco-section-kicker">{copy.faq.kicker}</p>
             <h2>{copy.faq.title}</h2>
             <p>
               {copy.faq.intro}{" "}
