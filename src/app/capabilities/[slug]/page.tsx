@@ -39,6 +39,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: capability.description,
       images: [{ url: "/images/hero/kazenco-refinery-hero.jpg", alt: `${capability.title} by KAZENCO` }],
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${capability.title} | KAZENCO`,
+      description: capability.description,
+      images: ["/images/hero/kazenco-refinery-hero.jpg"],
+    },
   };
 }
 

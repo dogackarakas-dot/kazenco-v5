@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { issueSignedToken, presignUrl } from "@vercel/blob";
 import { createRfqReference, RFQ_MAX_FILES, RFQ_MAX_TOTAL_SIZE } from "@/lib/rfq";
+import { isLocale, type Locale } from "@/lib/i18n";
 
 export const runtime = "nodejs";
 
@@ -43,6 +44,7 @@ interface RfqPayload {
   specification?: string;
   consent: boolean;
   website?: string;
+  locale: Locale;
   files: SubmittedFile[];
 }
 
@@ -73,6 +75,8 @@ function isValidPayload(value: unknown): value is RfqPayload {
     isText(data.location, 160) &&
     isText(data.message, 5000) &&
     data.consent === true &&
+    typeof data.locale === "string" &&
+    isLocale(data.locale) &&
     Array.isArray(data.files) &&
     data.files.length <= RFQ_MAX_FILES &&
     data.files.every((file) =>
@@ -86,6 +90,38 @@ function isValidPayload(value: unknown): value is RfqPayload {
     data.files.reduce((sum, file) => sum + file.size, 0) <= RFQ_MAX_TOTAL_SIZE
   );
 }
+
+const CUSTOMER_ACK_COPY: Record<Locale, {
+  subject: (reference: string) => string;
+  heading: string;
+  received: (projectName: string) => string;
+  reference: (reference: string) => string;
+}> = {
+  en: {
+    subject: (reference) => `KAZENCO received your request · ${reference}`,
+    heading: "Thank you for contacting KAZENCO.",
+    received: (projectName) => `We received your quotation request for <strong>${escapeHtml(projectName)}</strong>.`,
+    reference: (reference) => `Your reference is <strong>${reference}</strong>. Please include it in future correspondence.`,
+  },
+  ru: {
+    subject: (reference) => `KAZENCO получил ваш запрос · ${reference}`,
+    heading: "Благодарим за обращение в KAZENCO.",
+    received: (projectName) => `Мы получили ваш запрос коммерческого предложения по проекту <strong>${escapeHtml(projectName)}</strong>.`,
+    reference: (reference) => `Номер вашего запроса: <strong>${reference}</strong>. Указывайте его в дальнейшей переписке.`,
+  },
+  tr: {
+    subject: (reference) => `KAZENCO talebinizi aldı · ${reference}`,
+    heading: "KAZENCO ile iletişime geçtiğiniz için teşekkür ederiz.",
+    received: (projectName) => `<strong>${escapeHtml(projectName)}</strong> projesi için teklif talebinizi aldık.`,
+    reference: (reference) => `Talep referansınız <strong>${reference}</strong>. Lütfen sonraki yazışmalarınızda bu referansı belirtin.`,
+  },
+  kz: {
+    subject: (reference) => `KAZENCO сұрауыңызды қабылдады · ${reference}`,
+    heading: "KAZENCO компаниясына хабарласқаныңыз үшін рақмет.",
+    received: (projectName) => `<strong>${escapeHtml(projectName)}</strong> жобасы бойынша баға ұсынысына сұрауыңызды алдық.`,
+    reference: (reference) => `Сұрау нөмірі: <strong>${reference}</strong>. Кейінгі хат алмасуда осы нөмірді көрсетіңіз.`,
+  },
+};
 
 export async function POST(request: Request) {
   const sender = rfqSender();
@@ -147,12 +183,13 @@ export async function POST(request: Request) {
   });
   if (internalError) return Response.json({ error: "RFQ notification could not be delivered." }, { status: 502 });
 
+  const customerCopy = CUSTOMER_ACK_COPY[payload.locale];
   await resend.emails.send({
     from: sender,
     to: payload.email,
     replyTo: "info@kazenco.com",
-    subject: `KAZENCO received your request · ${reference}`,
-    html: `<h2>Thank you for contacting KAZENCO.</h2><p>We received your quotation request for <strong>${escapeHtml(payload.projectName)}</strong>.</p><p>Your reference is <strong>${reference}</strong>. Please include it in future correspondence.</p><p>KAZENCO · info@kazenco.com</p>`,
+    subject: customerCopy.subject(reference),
+    html: `<h2>${customerCopy.heading}</h2><p>${customerCopy.received(payload.projectName)}</p><p>${customerCopy.reference(reference)}</p><p>KAZENCO · info@kazenco.com</p>`,
   });
 
   return Response.json({ reference });

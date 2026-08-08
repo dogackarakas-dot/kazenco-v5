@@ -250,6 +250,7 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
           specification,
           consent,
           website,
+          locale,
           files: uploadedFiles,
         }),
       });

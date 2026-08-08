@@ -2,7 +2,7 @@ export const SITE = {
   name: "KAZENCO",
   city: "ATYRAU",
   title: "KAZENCO — Engineering, Construction and Industrial Solutions",
-  url: "https://kazenco.com",
+  url: "https://www.kazenco.com",
   est: "(2004)",
   address: "Zheti Kazyna, 2-1, Atyrau, Kazakhstan",
   email: "info@kazenco.com",
