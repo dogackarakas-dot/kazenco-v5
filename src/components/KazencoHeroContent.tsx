@@ -30,13 +30,12 @@ function AnimatedValue({
     const element = ref.current;
     if (!element) return;
 
+    let frame = 0;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) {
-      setDisplay(value);
-      return;
+      frame = requestAnimationFrame(() => setDisplay(value));
+      return () => cancelAnimationFrame(frame);
     }
-
-    let frame = 0;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
