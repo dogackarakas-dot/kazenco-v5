@@ -30,6 +30,12 @@ function AnimatedValue({
     const element = ref.current;
     if (!element) return;
 
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) {
+      setDisplay(value);
+      return;
+    }
+
     let frame = 0;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -64,11 +70,12 @@ function AnimatedValue({
 
   return (
     <div ref={ref} className="kazenco-v7-stat">
-      <strong>
+      <span className="sr-only">{value}{suffix} {label}</span>
+      <strong aria-hidden="true">
         {display}
         {suffix}
       </strong>
-      <span>{label}</span>
+      <span aria-hidden="true">{label}</span>
     </div>
   );
 }
