@@ -151,7 +151,11 @@ export default async function V12ProjectPage({
               <p>{copy[10]}</p>
               <h2>{copy[11]}</h2>
             </header>
-            <ProjectGallery images={project.gallery} title={project.title} />
+            <ProjectGallery
+  images={project.gallery}
+  title={project.title}
+  locale={locale}
+/>
           </section>
         ) : null}
 
