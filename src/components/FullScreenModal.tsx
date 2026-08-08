@@ -10,6 +10,7 @@ interface FullScreenModalProps {
   open: boolean;
   onClose: () => void;
   labelledBy: string;
+  closeLabel: string;
   /** Render prop so content can key its own entrance stagger off the panel's phase. */
   children: (phase: ModalPhase) => ReactNode;
 }
@@ -29,7 +30,13 @@ function prefersReducedMotion() {
  * button. Content is passed as children — this component only owns the
  * chrome, animation and accessibility plumbing.
  */
-export function FullScreenModal({ open, onClose, labelledBy, children }: FullScreenModalProps) {
+export function FullScreenModal({
+  open,
+  onClose,
+  labelledBy,
+  closeLabel,
+  children,
+}: FullScreenModalProps) {
   const [mounted, setMounted] = useState(false);
   const [phase, setPhase] = useState<ModalPhase>("entering");
   const panelRef = useRef<HTMLDivElement>(null);
@@ -160,7 +167,7 @@ export function FullScreenModal({ open, onClose, labelledBy, children }: FullScr
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close"
+          aria-label={closeLabel}
           className="absolute right-5 top-5 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-card text-foreground shadow-sm transition-transform duration-300 hover:rotate-90 hover:scale-110 sm:right-12 sm:top-12"
         >
           <CloseIcon className="h-3.5 w-3.5" />

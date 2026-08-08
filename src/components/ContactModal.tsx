@@ -6,7 +6,11 @@ import { usePathname } from "next/navigation";
 import { FullScreenModal, type ModalPhase } from "@/components/FullScreenModal";
 import { safeFilename } from "@/lib/rfq";
 import { localeFromPathname } from "@/lib/i18n";
-import { RFQ_COPY, SERVICE_LABELS } from "@/lib/modal-translations";
+import {
+  ACCESSIBILITY_COPY,
+  RFQ_COPY,
+  SERVICE_LABELS,
+} from "@/lib/modal-translations";
 
 const RFQ_EMAIL = "info@kazenco.com";
 
@@ -66,6 +70,7 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
   const pathname = usePathname();
   const locale = localeFromPathname(pathname);
   const copy = RFQ_COPY[locale];
+  const accessibility = ACCESSIBILITY_COPY[locale];
   const [open, setOpen] = useState(initialOpen);
   const [status, setStatus] = useState<Status>("idle");
   const [name, setName] = useState("");
@@ -256,7 +261,12 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
         </button>
       ) : null}
 
-      <FullScreenModal open={open} onClose={close} labelledBy={titleId}>
+      <FullScreenModal
+        open={open}
+        onClose={close}
+        labelledBy={titleId}
+        closeLabel={accessibility.close}
+      >
         {(phase: ModalPhase) => {
           const visible = phase === "open";
           return (
@@ -380,14 +390,17 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
                   </p>
                   {attachmentError && <p role="alert" className="m-0 mt-3 text-sm text-destructive">{attachmentError}</p>}
                   {attachments.length > 0 && (
-                    <ul className="m-0 mt-4 grid list-none gap-2 p-0" aria-label="Selected RFQ files">
+                    <ul
+                      className="m-0 mt-4 grid list-none gap-2 p-0"
+                      aria-label={accessibility.selectedRfqFiles}
+                    >
                       {attachments.map(({ file, kind, id }) => (
                         <li key={id} className="flex items-center justify-between gap-3 rounded-lg bg-secondary px-3.5 py-3 text-sm">
                           <span className="min-w-0">
                             <span className="block truncate text-foreground">{file.name}</span>
                             <span className="text-[11px] text-muted-foreground">{ATTACHMENT_COPY[kind].label} · {formatBytes(file.size)}</span>
                           </span>
-                          <button type="button" onClick={() => removeAttachment(id)} className="shrink-0 cursor-pointer border-0 bg-transparent p-1 text-xs text-muted-foreground hover:text-foreground" aria-label={`Remove ${file.name}`}>
+                          <button type="button" onClick={() => removeAttachment(id)} className="shrink-0 cursor-pointer border-0 bg-transparent p-1 text-xs text-muted-foreground hover:text-foreground" aria-label={`${accessibility.removeFile} ${file.name}`}>
                             {copy[23]}
                           </button>
                         </li>

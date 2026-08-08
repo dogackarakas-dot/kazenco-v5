@@ -21,6 +21,51 @@ export const ABOUT_COPY: Record<Locale, string[]> = {
   kz: ["KAZENCO туралы", "Қазақстандағы жобаларға арналған біріктірілген құрылыс, әрлеу, жиһаздандыру және өнеркәсіптік материал жеткізу.", "Біз туралы", "2004 жылдан бергі инженерлік кемелдік", "Орындау үлгіміз", "Компанияның негізгі деректері", "Қызмет көрсететін салалар", "Мүмкіндіктер", "Жеткізу санаттары", "Клиенттеріміз", "Байланыс"],
 };
 
+export const ACCESSIBILITY_COPY: Record<
+  Locale,
+  {
+    close: string;
+    languageSelector: string;
+    openSocial: string;
+    closeSocial: string;
+    selectedRfqFiles: string;
+    removeFile: string;
+  }
+> = {
+  en: {
+    close: "Close",
+    languageSelector: "Language selector",
+    openSocial: "Open social links",
+    closeSocial: "Close social links",
+    selectedRfqFiles: "Selected RFQ files",
+    removeFile: "Remove",
+  },
+  ru: {
+    close: "Закрыть",
+    languageSelector: "Выбор языка",
+    openSocial: "Открыть социальные ссылки",
+    closeSocial: "Закрыть социальные ссылки",
+    selectedRfqFiles: "Выбранные файлы RFQ",
+    removeFile: "Удалить",
+  },
+  tr: {
+    close: "Kapat",
+    languageSelector: "Dil seçici",
+    openSocial: "Sosyal bağlantıları aç",
+    closeSocial: "Sosyal bağlantıları kapat",
+    selectedRfqFiles: "Seçilen RFQ dosyaları",
+    removeFile: "Kaldır",
+  },
+  kz: {
+    close: "Жабу",
+    languageSelector: "Тіл таңдау",
+    openSocial: "Әлеуметтік сілтемелерді ашу",
+    closeSocial: "Әлеуметтік сілтемелерді жабу",
+    selectedRfqFiles: "Таңдалған RFQ файлдары",
+    removeFile: "Жою",
+  },
+};
+
 export const ABOUT_CONTENT: Record<Locale, {
   paragraphs: [string, string];
   highlights: string[];

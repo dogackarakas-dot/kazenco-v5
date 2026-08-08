@@ -6,7 +6,11 @@ import { usePathname } from "next/navigation";
 import { FullScreenModal, type ModalPhase } from "@/components/FullScreenModal";
 import { SocialControls } from "@/components/SocialControls";
 import { localeFromPathname } from "@/lib/i18n";
-import { ABOUT_CONTENT, ABOUT_COPY } from "@/lib/modal-translations";
+import {
+  ABOUT_CONTENT,
+  ABOUT_COPY,
+  ACCESSIBILITY_COPY,
+} from "@/lib/modal-translations";
 
 export interface AboutModalProps {
   triggerLabel: string;
@@ -93,6 +97,7 @@ export function AboutModal({ triggerLabel, triggerClassName, initialOpen = false
   const locale = localeFromPathname(pathname);
   const copy = ABOUT_COPY[locale];
   const content = ABOUT_CONTENT[locale];
+  const accessibility = ACCESSIBILITY_COPY[locale];
   const [open, setOpen] = useState(initialOpen);
   const titleId = useId();
   const close = useCallback(() => setOpen(false), []);
@@ -110,7 +115,12 @@ export function AboutModal({ triggerLabel, triggerClassName, initialOpen = false
         </button>
       ) : null}
 
-      <FullScreenModal open={open} onClose={close} labelledBy={titleId}>
+      <FullScreenModal
+        open={open}
+        onClose={close}
+        labelledBy={titleId}
+        closeLabel={accessibility.close}
+      >
         {(phase: ModalPhase) => {
           const visible = phase === "open";
           return (
@@ -136,7 +146,7 @@ export function AboutModal({ triggerLabel, triggerClassName, initialOpen = false
                   </p>
                   <p className="m-0 text-[0.85rem] text-muted-foreground">Atyrau, Kazakhstan (UTC+5)</p>
                   <div className="flex flex-wrap items-center gap-2">
-                    <SocialControls />
+                    <SocialControls locale={locale} />
                   </div>
                 </div>
               </div>
