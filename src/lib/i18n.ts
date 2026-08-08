@@ -10,10 +10,10 @@ export const LOCALE_NAMES: Record<Locale, string> = {
 };
 
 export const NAVIGATION: Record<Locale, Record<string, string>> = {
-  en: { about: "About", capabilities: "Capabilities", products: "Products", industries: "Industries", projects: "Projects", clients: "Clients", certificates: "Certificates", contact: "Contact", home: "KAZENCO Home", navigation: "Main navigation" },
-  ru: { about: "О компании", capabilities: "Возможности", products: "Продукция", industries: "Отрасли", projects: "Проекты", clients: "Клиенты", certificates: "Сертификаты", contact: "Контакты", home: "Главная KAZENCO", navigation: "Основная навигация" },
-  tr: { about: "Hakkımızda", capabilities: "Yetkinlikler", products: "Ürünler", industries: "Sektörler", projects: "Projeler", clients: "Müşteriler", certificates: "Sertifikalar", contact: "İletişim", home: "KAZENCO Ana Sayfa", navigation: "Ana navigasyon" },
-  kz: { about: "Біз туралы", capabilities: "Мүмкіндіктер", products: "Өнімдер", industries: "Салалар", projects: "Жобалар", clients: "Клиенттер", certificates: "Сертификаттар", contact: "Байланыс", home: "KAZENCO басты беті", navigation: "Негізгі навигация" },
+  en: { about: "About", capabilities: "Capabilities", products: "Products", industries: "Industries", projects: "Projects", clients: "Clients", certificates: "Certificates", contact: "Contact", home: "KAZENCO Home", navigation: "Main navigation", menu: "Open menu", closeMenu: "Close menu" },
+  ru: { about: "О компании", capabilities: "Возможности", products: "Продукция", industries: "Отрасли", projects: "Проекты", clients: "Клиенты", certificates: "Сертификаты", contact: "Контакты", home: "Главная KAZENCO", navigation: "Основная навигация", menu: "Открыть меню", closeMenu: "Закрыть меню" },
+  tr: { about: "Hakkımızda", capabilities: "Yetkinlikler", products: "Ürünler", industries: "Sektörler", projects: "Projeler", clients: "Müşteriler", certificates: "Sertifikalar", contact: "İletişim", home: "KAZENCO Ana Sayfa", navigation: "Ana navigasyon", menu: "Menüyü aç", closeMenu: "Menüyü kapat" },
+  kz: { about: "Біз туралы", capabilities: "Мүмкіндіктер", products: "Өнімдер", industries: "Салалар", projects: "Жобалар", clients: "Клиенттер", certificates: "Сертификаттар", contact: "Байланыс", home: "KAZENCO басты беті", navigation: "Негізгі навигация", menu: "Мәзірді ашу", closeMenu: "Мәзірді жабу" },
 };
 
 export function isLocale(value: string): value is Locale {

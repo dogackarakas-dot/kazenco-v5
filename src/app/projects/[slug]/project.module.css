@@ -1,6 +1,6 @@
 .page { width: min(100% - 3rem, 1440px); margin: 0 auto; padding: clamp(10rem, 16vw, 15rem) 0 8rem; }
 .header { min-width: 0; max-width: 1100px; margin-bottom: clamp(3rem, 6vw, 6rem); }
-.header > a { display: inline-block; margin-bottom: clamp(3rem, 6vw, 6rem); color: inherit; font-size: .78rem; text-decoration: none; }
+.header > a { display: inline-block; margin-bottom: clamp(2rem, 4vw, 4rem); color: inherit; font-size: .78rem; text-decoration: none; }
 .header > p:nth-of-type(1), .story > div:first-child > p, .gallery header p { margin: 0 0 1.3rem; color: var(--kazenco-red); font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 .header h1 { margin: 0; overflow-wrap: anywhere; font-family: var(--font-clone-display); font-size: clamp(4rem, 10vw, 10rem); font-weight: 430; letter-spacing: -.07em; line-height: .82; }
 .header > p:last-child { max-width: 720px; margin: 2rem 0 0; color: var(--muted-foreground); font-size: clamp(1.1rem, 2vw, 1.45rem); line-height: 1.6; }
