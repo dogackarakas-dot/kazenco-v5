@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Home from "@/app/page";
+import { KazencoHome } from "@/components/KazencoHome";
 import { LOCALES, isLocale } from "@/lib/i18n";
 import { localizedAlternates, SEO_COPY } from "@/lib/seo";
 
@@ -39,5 +39,5 @@ export async function generateMetadata({ params }: LocalizedPageProps): Promise<
 export default async function LocalizedHome({ params }: LocalizedPageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  return <Home locale={locale} />;
+  return <KazencoHome locale={locale} />;
 }
