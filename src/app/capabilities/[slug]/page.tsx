@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
@@ -44,7 +44,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function CapabilityPage({ params }: { params: Promise<{ slug: string; locale?: string }> }) {
   const { slug, locale: localeParam } = await params;
-  const locale = localeParam && isLocale(localeParam) ? localeParam : "en";
+  if (!localeParam) permanentRedirect(`/en/capabilities/${slug}`);
+  const locale = isLocale(localeParam) ? localeParam : "en";
   const copy = DETAIL_COPY[locale].capability;
   const home = `/${locale}`;
   const capability = getLocalizedCapability(slug, locale);

@@ -6,5 +6,5 @@ export default async function LegacyProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  permanentRedirect(`/projects/${slug}`);
+  permanentRedirect(`/en/projects/${slug}`);
 }

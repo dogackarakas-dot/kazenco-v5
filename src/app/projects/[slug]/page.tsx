@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
@@ -66,7 +66,8 @@ export default async function V12ProjectPage({
   params: Promise<{ slug: string; locale?: string }>;
 }) {
   const { slug, locale: localeParam } = await params;
-  const locale = localeParam && isLocale(localeParam) ? localeParam : "en";
+  if (!localeParam) permanentRedirect(`/en/projects/${slug}`);
+  const locale = isLocale(localeParam) ? localeParam : "en";
   const copy = DETAIL_COPY[locale].project;
   const home = `/${locale}`;
   const project = getLocalizedProject(slug, locale);
@@ -112,7 +113,7 @@ export default async function V12ProjectPage({
           <p>{project.summary}</p>
         </header>
 
-        <section className={styles.hero} aria-label={`${project.title} project cover`}>
+        <section className={styles.hero} aria-label={`${project.title} ${copy[15]}`}>
           {cover ? (
             <Image
               src={cover}
@@ -152,10 +153,10 @@ export default async function V12ProjectPage({
               <h2>{copy[11]}</h2>
             </header>
             <ProjectGallery
-  images={project.gallery}
-  title={project.title}
-  locale={locale}
-/>
+              images={project.gallery}
+              title={project.title}
+              locale={locale}
+            />
           </section>
         ) : null}
 

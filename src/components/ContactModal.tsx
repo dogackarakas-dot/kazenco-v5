@@ -9,6 +9,8 @@ import { localeFromPathname } from "@/lib/i18n";
 import {
   ACCESSIBILITY_COPY,
   RFQ_COPY,
+  RFQ_EMAIL_COPY,
+  RFQ_VALIDATION_COPY,
   SERVICE_LABELS,
 } from "@/lib/modal-translations";
 
@@ -36,10 +38,12 @@ const MAX_TOTAL_SIZE = 40 * 1024 * 1024;
 const MAX_FILES = 8;
 const ALLOWED_EXTENSIONS = new Set(["pdf", "dwg", "dxf", "xls", "xlsx", "csv", "doc", "docx"]);
 
-const ATTACHMENT_COPY: Record<AttachmentKind, { label: string; accept: string; hint: string }> = {
-  drawings: { label: "Drawings", accept: ".pdf,.dwg,.dxf", hint: "PDF, DWG or DXF" },
-  boq: { label: "BOQ / quantities", accept: ".xls,.xlsx,.csv,.pdf", hint: "XLS, XLSX, CSV or PDF" },
-  documents: { label: "Specifications", accept: ".pdf,.doc,.docx", hint: "PDF, DOC or DOCX" },
+const ATTACHMENT_KINDS: AttachmentKind[] = ["drawings", "boq", "documents"];
+
+const ATTACHMENT_COPY: Record<AttachmentKind, { accept: string; hint: string }> = {
+  drawings: { accept: ".pdf,.dwg,.dxf", hint: "PDF, DWG or DXF" },
+  boq: { accept: ".xls,.xlsx,.csv,.pdf", hint: "XLS, XLSX, CSV or PDF" },
+  documents: { accept: ".pdf,.doc,.docx", hint: "PDF, DOC or DOCX" },
 };
 
 const FIELD_CLASS =
@@ -71,6 +75,10 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
   const locale = localeFromPathname(pathname);
   const copy = RFQ_COPY[locale];
   const accessibility = ACCESSIBILITY_COPY[locale];
+  const validationCopy = RFQ_VALIDATION_COPY[locale];
+  const emailCopy = RFQ_EMAIL_COPY[locale];
+  const attachmentLabel = (kind: AttachmentKind) =>
+    copy[19 + ATTACHMENT_KINDS.indexOf(kind)];
   const [open, setOpen] = useState(initialOpen);
   const [status, setStatus] = useState<Status>("idle");
   const [name, setName] = useState("");
@@ -111,11 +119,11 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
     for (const file of selected) {
       const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
       if (!ALLOWED_EXTENSIONS.has(extension)) {
-        setAttachmentError(`${file.name}: unsupported file type.`);
+        setAttachmentError(`${file.name}: ${validationCopy.unsupportedFileType}`);
         return;
       }
       if (file.size > MAX_FILE_SIZE) {
-        setAttachmentError(`${file.name}: exceeds the 15 MB file limit.`);
+        setAttachmentError(`${file.name}: ${validationCopy.fileTooLarge}`);
         return;
       }
       if (next.some((item) => item.file.name === file.name && item.file.size === file.size)) continue;
@@ -123,11 +131,11 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
     }
 
     if (next.length > MAX_FILES) {
-      setAttachmentError(`A maximum of ${MAX_FILES} files can be added.`);
+      setAttachmentError(validationCopy.maxFiles(MAX_FILES));
       return;
     }
     if (next.reduce((total, item) => total + item.file.size, 0) > MAX_TOTAL_SIZE) {
-      setAttachmentError("The combined file size cannot exceed 40 MB.");
+      setAttachmentError(validationCopy.totalTooLarge);
       return;
     }
     setAttachments(next);
@@ -156,31 +164,40 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
       return;
     }
 
+    const requestTypeIndex = SERVICE_LABELS.en.indexOf(requestType);
+    const localizedRequestType =
+      requestTypeIndex >= 0 ? SERVICE_LABELS[locale][requestTypeIndex] : requestType;
+
     const body = [
-      "KAZENCO quotation request",
+      emailCopy.title,
       "",
-      `Request type: ${requestType}`,
-      `Project name: ${projectName}`,
-      `Project location: ${location}`,
-      `Required by: ${requiredBy || "Not specified"}`,
+      `${emailCopy.requestType}: ${localizedRequestType}`,
+      `${emailCopy.projectName}: ${projectName}`,
+      `${emailCopy.projectLocation}: ${location}`,
+      `${emailCopy.requiredBy}: ${requiredBy || emailCopy.notSpecified}`,
       "",
-      `Name: ${name}`,
-      `Company: ${company}`,
-      `Email: ${email}`,
-      `Phone: ${phone || "Not specified"}`,
+      `${emailCopy.name}: ${name}`,
+      `${emailCopy.company}: ${company}`,
+      `${emailCopy.email}: ${email}`,
+      `${emailCopy.phone}: ${phone || emailCopy.notSpecified}`,
       "",
-      "Requirement:",
+      `${emailCopy.requirement}:`,
       message,
       "",
-      "Specification / standard references:",
-      specification || "Not specified",
+      `${emailCopy.specification}:`,
+      specification || emailCopy.notSpecified,
       "",
-      "Files selected in the RFQ form:",
+      `${emailCopy.selectedFiles}:`,
       attachments.length > 0
-        ? attachments.map(({ file, kind }) => `- ${ATTACHMENT_COPY[kind].label}: ${file.name} (${formatBytes(file.size)})`).join("\n")
-        : "No files selected",
+        ? attachments
+            .map(
+              ({ file, kind }) =>
+                `- ${attachmentLabel(kind)}: ${file.name} (${formatBytes(file.size)})`,
+            )
+            .join("\n")
+        : emailCopy.noFiles,
       "",
-      attachments.length > 0 ? "Important: Please attach the files listed above to this email before sending." : "",
+      attachments.length > 0 ? emailCopy.attachReminder : "",
     ].join("\n");
 
     const openEmailFallback = () => {
@@ -360,7 +377,7 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
                 <div className="mt-8">
                   <GroupHeader number={4} label={copy[18]} />
                   <div className="grid gap-3 sm:grid-cols-3">
-                    {(Object.keys(ATTACHMENT_COPY) as AttachmentKind[]).map((kind) => {
+                    {ATTACHMENT_KINDS.map((kind) => {
                       const copy = ATTACHMENT_COPY[kind];
                       return (
                         <div key={kind}>
@@ -378,7 +395,7 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
                             onClick={() => fileInputs.current[kind]?.click()}
                             className="flex min-h-24 w-full cursor-pointer flex-col items-start justify-center rounded-xl border border-dashed border-border bg-secondary px-4 py-3 text-left transition-colors hover:border-foreground hover:bg-card"
                           >
-                            <span className="text-sm font-medium text-foreground">+ {RFQ_COPY[locale][19 + (Object.keys(ATTACHMENT_COPY) as AttachmentKind[]).indexOf(kind)]}</span>
+                            <span className="text-sm font-medium text-foreground">+ {attachmentLabel(kind)}</span>
                             <span className="mt-1 text-[11px] leading-relaxed text-muted-foreground">{copy.hint}</span>
                           </button>
                         </div>
@@ -398,7 +415,7 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
                         <li key={id} className="flex items-center justify-between gap-3 rounded-lg bg-secondary px-3.5 py-3 text-sm">
                           <span className="min-w-0">
                             <span className="block truncate text-foreground">{file.name}</span>
-                            <span className="text-[11px] text-muted-foreground">{ATTACHMENT_COPY[kind].label} · {formatBytes(file.size)}</span>
+                            <span className="text-[11px] text-muted-foreground">{attachmentLabel(kind)} · {formatBytes(file.size)}</span>
                           </span>
                           <button type="button" onClick={() => removeAttachment(id)} className="shrink-0 cursor-pointer border-0 bg-transparent p-1 text-xs text-muted-foreground hover:text-foreground" aria-label={`${accessibility.removeFile} ${file.name}`}>
                             {copy[23]}

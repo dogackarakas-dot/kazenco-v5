@@ -7,6 +7,131 @@ export const RFQ_COPY: Record<Locale, string[]> = {
   kz: ["Баға ұсынысына сұрау", "Жобаға не қажет екенін айтыңыз.", "Жоба мәліметтерін, сызбаларды, BOQ файлдарын және сипаттамаларды қосыңыз. Қауіпсіз жіберу пошта домені расталғаннан кейін іске қосылады.", "RFQ электрондық поштасы", "Байланыс деректері", "Аты-жөні", "Жұмыс электрондық поштасы", "Компания", "Телефон", "Талап", "Жоба атауы", "Сұрау түрі", "Қызметті таңдаңыз", "Жоба орны", "Қажетті жеткізу немесе басталу күні", "Көлем және сипаттамалар", "Талаптың егжей-тегжейі", "Сипаттамалар, стандарттар немесе көлемдер", "Техникалық файлдар", "Сызбалар", "BOQ / көлемдер", "Сипаттамалар", "8 файлға дейін · әр файл 15 МБ · жалпы 40 МБ", "Жою", "KAZENCO осы деректерді сұрауды қарау және жауап беру үшін пайдалануына келісемін.", "Техникалық файлдар жүктелуде", "Сұрау жіберілуде…", "Сұрау қабылданды", "Қауіпсіз жіберу әлі белсенді емес. Таңдалған файлдарды дайындалған хатқа тіркеңіз.", "Хат жобасы ашылмады. Көрсетілген RFQ мекенжайын пайдаланыңыз.", "RFQ жіберу", "Жүктелуде", "Жіберілуде…"],
 };
 
+export const RFQ_VALIDATION_COPY: Record<
+  Locale,
+  {
+    unsupportedFileType: string;
+    fileTooLarge: string;
+    maxFiles: (count: number) => string;
+    totalTooLarge: string;
+  }
+> = {
+  en: {
+    unsupportedFileType: "unsupported file type.",
+    fileTooLarge: "exceeds the 15 MB file limit.",
+    maxFiles: (count) => `A maximum of ${count} files can be added.`,
+    totalTooLarge: "The combined file size cannot exceed 40 MB.",
+  },
+  ru: {
+    unsupportedFileType: "неподдерживаемый тип файла.",
+    fileTooLarge: "размер файла превышает лимит 15 МБ.",
+    maxFiles: (count) => `Можно добавить не более ${count} файлов.`,
+    totalTooLarge: "Общий размер файлов не может превышать 40 МБ.",
+  },
+  tr: {
+    unsupportedFileType: "desteklenmeyen dosya türü.",
+    fileTooLarge: "15 MB dosya sınırını aşıyor.",
+    maxFiles: (count) => `En fazla ${count} dosya eklenebilir.`,
+    totalTooLarge: "Dosyaların toplam boyutu 40 MB’ı aşamaz.",
+  },
+  kz: {
+    unsupportedFileType: "қолдау көрсетілмейтін файл түрі.",
+    fileTooLarge: "15 МБ файл шегінен асады.",
+    maxFiles: (count) => `Ең көбі ${count} файл қосуға болады.`,
+    totalTooLarge: "Файлдардың жалпы көлемі 40 МБ-тан аспауы керек.",
+  },
+};
+
+export const RFQ_EMAIL_COPY: Record<
+  Locale,
+  {
+    title: string;
+    requestType: string;
+    projectName: string;
+    projectLocation: string;
+    requiredBy: string;
+    name: string;
+    company: string;
+    email: string;
+    phone: string;
+    requirement: string;
+    specification: string;
+    selectedFiles: string;
+    noFiles: string;
+    attachReminder: string;
+    notSpecified: string;
+  }
+> = {
+  en: {
+    title: "KAZENCO quotation request",
+    requestType: "Request type",
+    projectName: "Project name",
+    projectLocation: "Project location",
+    requiredBy: "Required by",
+    name: "Name",
+    company: "Company",
+    email: "Email",
+    phone: "Phone",
+    requirement: "Requirement",
+    specification: "Specification / standard references",
+    selectedFiles: "Files selected in the RFQ form",
+    noFiles: "No files selected",
+    attachReminder: "Important: Please attach the files listed above to this email before sending.",
+    notSpecified: "Not specified",
+  },
+  ru: {
+    title: "Запрос коммерческого предложения KAZENCO",
+    requestType: "Тип запроса",
+    projectName: "Название проекта",
+    projectLocation: "Место проекта",
+    requiredBy: "Требуется к",
+    name: "Имя",
+    company: "Компания",
+    email: "Email",
+    phone: "Телефон",
+    requirement: "Требование",
+    specification: "Спецификации / ссылки на стандарты",
+    selectedFiles: "Файлы, выбранные в форме RFQ",
+    noFiles: "Файлы не выбраны",
+    attachReminder: "Важно: перед отправкой письма приложите перечисленные выше файлы.",
+    notSpecified: "Не указано",
+  },
+  tr: {
+    title: "KAZENCO teklif talebi",
+    requestType: "Talep türü",
+    projectName: "Proje adı",
+    projectLocation: "Proje konumu",
+    requiredBy: "Gerekli tarih",
+    name: "Ad soyad",
+    company: "Şirket",
+    email: "E-posta",
+    phone: "Telefon",
+    requirement: "Talep",
+    specification: "Şartname / standart referansları",
+    selectedFiles: "RFQ formunda seçilen dosyalar",
+    noFiles: "Dosya seçilmedi",
+    attachReminder: "Önemli: E-postayı göndermeden önce yukarıda listelenen dosyaları ekleyin.",
+    notSpecified: "Belirtilmedi",
+  },
+  kz: {
+    title: "KAZENCO баға ұсынысына сұрау",
+    requestType: "Сұрау түрі",
+    projectName: "Жоба атауы",
+    projectLocation: "Жоба орны",
+    requiredBy: "Қажетті мерзім",
+    name: "Аты-жөні",
+    company: "Компания",
+    email: "Электрондық пошта",
+    phone: "Телефон",
+    requirement: "Талап",
+    specification: "Сипаттама / стандарт сілтемелері",
+    selectedFiles: "RFQ нысанында таңдалған файлдар",
+    noFiles: "Файлдар таңдалмады",
+    attachReminder: "Маңызды: хатты жібермес бұрын жоғарыда көрсетілген файлдарды тіркеңіз.",
+    notSpecified: "Көрсетілмеген",
+  },
+};
+
 export const SERVICE_LABELS: Record<Locale, string[]> = {
   en: ["Construction & Site Works", "Fit-out & Furnishing", "Industrial Procurement & Supply", "Environmental & Geosynthetic Works", "General Project Enquiry"],
   ru: ["Строительные и площадочные работы", "Отделка и оснащение", "Промышленные закупки и поставки", "Экологические и геосинтетические работы", "Общий проектный запрос"],
