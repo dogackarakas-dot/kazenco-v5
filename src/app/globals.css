@@ -2820,6 +2820,14 @@ html.inc-has-cursor [role="button"] {
   line-height: 1.46;
 }
 
+/* Turkish product names are materially longer than the English source.
+   Preserve the card layout and only tune heading typography. */
+html[lang="tr"] .kazenco-v9-product-copy h3 {
+  font-size: clamp(1.8rem, 2.7vw, 3.15rem);
+  line-height: 1;
+  text-wrap: balance;
+}
+
 .kazenco-v9-product-copy ul {
   display: flex;
   flex-wrap: wrap;
@@ -2873,6 +2881,11 @@ html.inc-has-cursor [role="button"] {
 
   .kazenco-v9-product-copy h3 {
     font-size: 2.25rem;
+  }
+
+  html[lang="tr"] .kazenco-v9-product-copy h3 {
+    font-size: 2rem;
+    line-height: 1.02;
   }
 }
 

@@ -194,7 +194,7 @@ export function KazencoCertificates({ locale = "en" }: { locale?: Locale }) {
       <header className={styles.header}>
         <div>
           <p className="kazenco-section-kicker">{copy[0]}</p>
-          <h2>{copy[1]}</h2>
+          {copy[1] ? <h2>{copy[1]}</h2> : null}
         </div>
         <p>{copy[2]}</p>
       </header>
