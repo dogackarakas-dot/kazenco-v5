@@ -26,8 +26,8 @@ const copy: Record<Locale, ProductCopy[]> = {
   tr: [
     { title: "Boru ve Tüpler", eyebrow: "Boru sistemleri", description: "Rafineri, petrokimya, enerji ve endüstriyel projeler için karbon çelik, paslanmaz çelik ve alaşımlı çelik boru ve tüpler." },
     { title: "Bağlantı Parçaları ve Flanşlar", eyebrow: "Bağlantı sistemleri", description: "Uluslararası proje standartlarına uygun dövme ve alın kaynaklı bağlantı parçaları, flanşlar ve bağlantı bileşenleri." },
-    { title: "Vanalar ve Enstrümantasyon", eyebrow: "Akış kontrolü", description: "Kritik endüstriyel hizmetler için proses vanaları, enstrüman vanaları, borulama ve kontrol bileşenleri." },
-    { title: "Bağlantı Elemanları ve Ankrajlar", eyebrow: "Bağlantı donanımı", description: "Malzeme belgeleriyle desteklenen saplama, ankraj cıvatası, somun, pul ve özel bağlantı paketleri." },
+    { title: "Vanalar ve Enstrümantasyon", eyebrow: "Akış kontrolü", description: "Kritik endüstriyel uygulamalar için proses vanaları, enstrümantasyon vanaları, enstrümantasyon boruları (tubing) ve kontrol bileşenleri." },
+    { title: "Bağlantı Elemanları ve Ankraj Cıvataları", eyebrow: "Bağlantı donanımı", description: "Malzeme dokümantasyonuyla desteklenen saplama, ankraj cıvatası, somun, pul ve özel bağlantı elemanı paketleri." },
     { title: "Elektrik Ekipmanları", eyebrow: "Elektrik tedariki", description: "Projeye özel elektrik ekipmanı, aksesuar ve yardımcı endüstriyel malzeme tedariki." },
     { title: "İnşaat Malzemeleri", eyebrow: "Saha malzemeleri", description: "Kazakistan genelindeki projeler için inşaat, ince işler, mobilya ve saha malzemelerinin koordineli tedariki." },
   ],

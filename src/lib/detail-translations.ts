@@ -13,8 +13,8 @@ export const DETAIL_COPY: Record<Locale, {
     capability: ["Все возможности", "Возможность", "Определённый объём", "Требования преобразованы в скоординированную реализацию.", "Подход к реализации", "От анализа до передачи.", "Связанные проекты", "Избранные проектные референсы.", "Есть определённый объём работ или потребность в материалах?", "Обсудите проект с KAZENCO.", "Связаться с командой"],
   },
   tr: {
-    project: ["Portföye dön", "Doğrulanmış proje fotoğrafları bekleniyor", "Proje hikâyesi", "Koordineli uygulamayla teslim edildi.", "Müşteri", "Konum", "Kapsam", "Yıl", "Durum", "Tamamlandı", "Proje galerisi", "Teslimatın ayrıntıları.", "Önceki proje", "Sonraki proje", "Proje gezintisi", "Proje kapak görseli"],
-    capability: ["Tüm yetkinlikler", "Yetkinlik", "Tanımlı kapsam", "Gereksinimlerin koordineli uygulamaya dönüştürülmesi.", "Uygulama yaklaşımı", "İncelemeden teslimata.", "İlgili projeler", "Seçili proje referansları.", "Tanımlı bir kapsam veya malzeme ihtiyacınız mı var?", "Projeyi KAZENCO ile görüşün.", "Ekibimizle iletişime geçin"],
+    project: ["Portföye dön", "Doğrulanmış proje fotoğrafları bekleniyor", "Proje hikâyesi", "Koordineli proje uygulamasıyla tamamlandı.", "Müşteri", "Konum", "Kapsam", "Yıl", "Durum", "Tamamlandı", "Proje galerisi", "Uygulamanın ayrıntıları.", "Önceki proje", "Sonraki proje", "Proje gezintisi", "Proje kapak görseli"],
+    capability: ["Tüm yetkinlikler", "Yetkinlik", "Tanımlı kapsam", "Gereksinimlerden koordineli proje uygulamasına.", "Uygulama yaklaşımı", "Teknik incelemeden nihai teslime.", "İlgili projeler", "Seçili proje referansları.", "Tanımlı bir kapsam veya malzeme ihtiyacınız mı var?", "Projeyi KAZENCO ile görüşün.", "Ekibimizle iletişime geçin"],
   },
   kz: {
     project: ["Портфельге оралу", "Расталған жоба фотосуреттері күтілуде", "Жоба тарихы", "Үйлестірілген орындау арқылы жеткізілді.", "Клиент", "Орналасқан жері", "Көлемі", "Жыл", "Мәртебе", "Аяқталған", "Жоба галереясы", "Орындау егжей-тегжейі.", "Алдыңғы жоба", "Келесі жоба", "Жоба навигациясы", "Жобаның мұқаба суреті"],
