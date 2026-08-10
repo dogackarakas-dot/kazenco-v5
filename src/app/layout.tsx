@@ -64,7 +64,7 @@ export default function RootLayout({
     "@id": `${SITE.url}/#organization`,
     name: SITE.name,
     url: SITE.url,
-    logo: `${SITE.url}/images/misc/kazenco-logo.svg`,
+    logo: `${SITE.url}/images/misc/kazenco-logo-approved.png`,
     foundingDate: "2004",
     email: SITE.email,
     telephone: SITE.phone,

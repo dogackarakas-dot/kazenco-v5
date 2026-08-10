@@ -11,10 +11,10 @@ export function KazencoFooter({ locale = "en" }: { locale?: Locale }) {
       <div className="kazenco-v5-footer-main">
         <div className="kazenco-v5-footer-brand">
           <Image
-            src="/images/misc/kazenco-logo.svg"
+            src="/images/misc/kazenco-logo-approved.png"
             alt="KAZENCO"
-            width={1600}
-            height={360}
+            width={1754}
+            height={897}
             sizes="(max-width: 700px) 80vw, 300px"
           />
           <p>{copy[0]}</p>

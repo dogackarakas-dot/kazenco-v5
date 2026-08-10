@@ -233,7 +233,6 @@ html.inc-has-cursor [role="button"] {
   width: clamp(210px, 19vw, 330px);
   min-width: 210px;
   align-items: center;
-  background: url("/images/misc/kazenco-logo.svg") left center / contain no-repeat;
   text-decoration: none;
 }
 
