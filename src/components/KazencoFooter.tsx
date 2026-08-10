@@ -13,8 +13,8 @@ export function KazencoFooter({ locale = "en" }: { locale?: Locale }) {
           <Image
             src="/images/misc/kazenco-logo-approved.png"
             alt="KAZENCO"
-            width={1754}
-            height={897}
+            width={1604}
+            height={385}
             sizes="(max-width: 700px) 80vw, 300px"
           />
           <p>{copy[0]}</p>

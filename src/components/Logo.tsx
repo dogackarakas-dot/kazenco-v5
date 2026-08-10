@@ -6,8 +6,8 @@ export function KazencoMark({ className, title = "KAZENCO" }: LogoProps) {
     <Image
       src="/images/misc/kazenco-logo-approved.png"
       alt={title}
-      width={1754}
-      height={897}
+      width={1604}
+      height={385}
       sizes="(max-width: 680px) 180px, 220px"
       className={className}
       preload
