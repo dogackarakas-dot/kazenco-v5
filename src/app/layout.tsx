@@ -48,8 +48,8 @@ export const metadata: Metadata = {
     images: ["/images/hero/kazenco-refinery-hero.jpg"],
   },
   icons: {
-    icon: [{ url: "/seo/kazenco-icon.svg", type: "image/svg+xml" }],
-    shortcut: "/seo/kazenco-icon.svg",
+    icon: [{ url: "/seo/kazenco-icon-approved.png", type: "image/png" }],
+    shortcut: "/seo/kazenco-icon-approved.png",
   },
 };
 

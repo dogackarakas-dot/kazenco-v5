@@ -1,62 +1,69 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { sectionCopy } from "@/lib/section-translations";
 import { productCopy, productReferenceLabels } from "@/lib/product-translations";
 
 const PRODUCTS = [
   {
+    slug: "pipes-tubes",
     number: "01",
     title: "Pipes & Tubes",
     eyebrow: "Piping systems",
     description:
       "Carbon steel, stainless steel and alloy steel pipes and tubes for refinery, petrochemical, energy and industrial projects.",
     referenceSpecs: ["ASTM", "ASME", "API"],
-    image: "/images/products/pipes-tubes.png",
+    image: "/images/products/pipes-tubes-realistic-v1.webp",
   },
   {
+    slug: "fittings-flanges",
     number: "02",
     title: "Fittings & Flanges",
     eyebrow: "Connection systems",
     description:
       "Forged and butt-weld fittings, flanges and connection components supplied to international project standards.",
     referenceSpecs: ["ASME B16.5", "ASME B16.9", "ASME B16.11"],
-    image: "/images/products/fittings-flanges.png",
+    image: "/images/products/fittings-flanges-realistic-v1.webp",
   },
   {
+    slug: "valves-instrumentation",
     number: "03",
     title: "Valves & Instrumentation",
     eyebrow: "Flow control",
     description:
       "Process valves, instrumentation valves, tubing and control components for critical industrial service.",
     referenceSpecs: ["API", "ASME", "NACE"],
-    image: "/images/products/valves-instrumentation.png",
+    image: "/images/products/valves-instrumentation-realistic-v1.webp",
   },
   {
+    slug: "fasteners-anchor-bolts",
     number: "04",
     title: "Fasteners & Anchor Bolts",
     eyebrow: "Connection hardware",
     description:
       "Stud bolts, anchor bolts, nuts, washers and custom fastening packages supported by material documentation.",
     referenceSpecs: ["ASTM A193", "ASTM A320", "ASTM A194"],
-    image: "/images/products/fasteners-anchor-bolts.png",
+    image: "/images/products/fasteners-anchor-bolts-real-v1.webp",
   },
   {
+    slug: "electrical-equipment",
     number: "05",
     title: "Electrical Equipment",
     eyebrow: "Electrical supply",
     description:
       "Project-based sourcing of electrical equipment, accessories and supporting industrial materials.",
     referenceSpecs: ["IEC", "ATEX", "IP ratings"],
-    image: "/images/products/electrical-equipment.png",
+    image: "/images/products/electrical-equipment.webp",
   },
   {
+    slug: "construction-materials",
     number: "06",
     title: "Construction Materials",
     eyebrow: "Site materials",
     description:
       "Coordinated supply of construction, fit-out, furnishing and site materials for project delivery across Kazakhstan.",
     referenceSpecs: ["QA/QC", "MTC", "CoC"],
-    image: "/images/products/construction-materials.png",
+    image: "/images/products/construction-materials.webp",
   },
 ];
 
@@ -100,10 +107,10 @@ export function KazencoProducts({ locale = "en" }: { locale?: Locale }) {
       <div className="kazenco-v9-product-grid">
         {PRODUCTS.map((product, index) => {
           const translated = translatedProducts[index];
+          const productScopeHref = `/${locale}/products/${product.slug}`;
           return (
-          <a
+          <article
             className={`kazenco-v9-product-card${index === 0 ? " is-featured" : ""}`}
-            href="#contact"
             key={product.number}
           >
             <div className="kazenco-v9-product-top">
@@ -127,16 +134,33 @@ export function KazencoProducts({ locale = "en" }: { locale?: Locale }) {
               <h3>{translated.title}</h3>
               <p>{translated.description}</p>
 
+              <span className="kazenco-product-range-label">{copy[8]}</span>
+              <ul className="kazenco-product-range">
+                {translated.productRange.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+
               <span className="kazenco-product-spec-label">{copy[3]}</span>
-              <ul aria-label={`${translated.title} — ${copy[3]}`}>
+              <ul
+                aria-label={`${translated.title} — ${copy[3]}`}
+                className="kazenco-product-specs"
+              >
                 {product.referenceSpecs.map((specification) => (
                   <li key={specification}>{specification}</li>
                 ))}
               </ul>
 
-              <span className="kazenco-v9-product-link">{copy[4]}</span>
+              <div className="kazenco-v9-product-actions">
+                <Link className="kazenco-v9-product-link" href={productScopeHref}>
+                  {copy[4]}
+                </Link>
+                <a className="kazenco-v9-product-request" href="#contact">
+                  {copy[7]}
+                </a>
+              </div>
             </div>
-          </a>
+          </article>
           );
         })}
       </div>

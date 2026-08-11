@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DeferredContactModal } from "@/components/DeferredContactModal";
 import { HOME_COPY } from "@/lib/home-translations";
 import type { Locale } from "@/lib/i18n";
 
@@ -21,6 +22,10 @@ export function KazencoContact({ locale = "en" }: { locale?: Locale }) {
       <div className="kazenco-contact-heading">
         <p className="kazenco-section-kicker">{copy.kicker}</p>
         <p>{copy.intro}</p>
+        <DeferredContactModal
+          triggerClassName="kazenco-contact-action"
+          triggerLabel={copy.button}
+        />
       </div>
 
       <div className="kazenco-contact-details">

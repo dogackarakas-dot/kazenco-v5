@@ -1,0 +1,336 @@
+.page {
+  width: min(100% - 3rem, 1440px);
+  margin: 0 auto;
+  padding: clamp(9rem, 14vw, 13rem) 0 8rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(28rem, 1.1fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  min-height: min(48rem, 78vh);
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+}
+
+.heroCopy > a {
+  display: inline-block;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+  color: inherit;
+  font-size: 0.78rem;
+  text-decoration: none;
+}
+
+.heroCopy {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.heroCopy > p:first-of-type,
+.overview > div > p,
+.range header p,
+.technical header p,
+.process header p,
+.rfq > div > p:first-child {
+  margin: 0 0 1.1rem;
+  color: var(--kazenco-red);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.heroCopy h1 {
+  max-width: 9ch;
+  margin: 0;
+  font-family: var(--font-clone-display);
+  font-size: clamp(4rem, 8vw, 8.5rem);
+  font-weight: 430;
+  letter-spacing: -0.07em;
+  line-height: 0.84;
+}
+
+.page[data-product="valves-instrumentation"] .heroCopy h1 {
+  max-width: 11ch;
+  font-size: clamp(3.5rem, 5.2vw, 6.2rem);
+  overflow-wrap: break-word;
+}
+
+.heroCopy > p:last-child {
+  max-width: 42rem;
+  margin: 2rem 0 0;
+  color: var(--muted-foreground);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.heroMedia {
+  position: relative;
+  z-index: 0;
+  min-height: clamp(30rem, 52vw, 44rem);
+  margin: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: #e5e8e7;
+}
+
+.heroMedia img {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.02);
+}
+
+.page[data-product="electrical-equipment"] .heroMedia img,
+.page[data-product="construction-materials"] .heroMedia img {
+  object-position: 100% 55%;
+  transform-origin: right center;
+  transform: scale(1.3);
+}
+
+.overview,
+.technical,
+.rfq {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(24rem, 1.15fr);
+  gap: 3rem clamp(4rem, 10vw, 10rem);
+  padding: clamp(5rem, 9vw, 8rem) 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+}
+
+.overview h2,
+.range h2,
+.technical h2,
+.process h2,
+.rfq h2 {
+  max-width: 13ch;
+  margin: 0;
+  font-family: var(--font-clone-display);
+  font-size: clamp(2.8rem, 5vw, 5.6rem);
+  font-weight: 440;
+  letter-spacing: -0.06em;
+  line-height: 0.92;
+}
+
+.overview > p {
+  max-width: 48rem;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height: 1.7;
+}
+
+.range,
+.process {
+  padding: clamp(5rem, 9vw, 8rem) 0;
+}
+
+.range header,
+.process header,
+.technical header {
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.range > div,
+.process > div {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+}
+
+.range article,
+.process article {
+  min-height: 21rem;
+  padding: 1.5rem;
+  border-right: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+}
+
+.range article:last-child,
+.process article:last-child {
+  border-right: 0;
+}
+
+.range article > span,
+.process article > span,
+.rfq li span {
+  color: var(--kazenco-red);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.range h3,
+.process h3 {
+  margin: 4.5rem 0 1rem;
+  font-family: var(--font-clone-display);
+  font-size: clamp(1.7rem, 2.5vw, 2.8rem);
+  font-weight: 460;
+  letter-spacing: -0.05em;
+  line-height: 0.98;
+}
+
+.range article p,
+.process article p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  line-height: 1.58;
+}
+
+.technical dl {
+  margin: 0;
+}
+
+.technical dl > div {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.55fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.technical dt {
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.technical dd {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.rfq {
+  margin-top: clamp(4rem, 8vw, 7rem);
+  border: 0;
+  border-radius: 2rem;
+  padding: clamp(2rem, 6vw, 5rem);
+  background: var(--kazenco-navy);
+  color: #fff;
+}
+
+.rfq > div > p:nth-of-type(2) {
+  max-width: 42rem;
+  margin: 1.5rem 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.65;
+}
+
+.rfq ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rfq li {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.88rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin-top: 2rem;
+}
+
+.primaryAction,
+.actions a {
+  display: inline-flex;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.9rem 1.2rem;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primaryAction {
+  background: var(--kazenco-red);
+  color: #fff;
+}
+
+.actions a {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+
+@media (max-width: 980px) {
+  .hero,
+  .overview,
+  .technical,
+  .rfq {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: 0;
+  }
+
+  .heroMedia {
+    min-height: min(70vw, 38rem);
+  }
+
+  .range > div,
+  .process > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .range article:nth-child(2),
+  .process article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .range article,
+  .process article {
+    border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    width: min(100% - 1.5rem, 1440px);
+  }
+
+  .heroCopy h1 {
+    font-size: clamp(3.2rem, 16vw, 5rem);
+  }
+
+  .heroMedia {
+    min-height: 26rem;
+  }
+
+  .range > div,
+  .process > div,
+  .rfq ul {
+    grid-template-columns: 1fr;
+  }
+
+  .range article,
+  .process article {
+    min-height: 0;
+    border-right: 0;
+  }
+
+  .range h3,
+  .process h3 {
+    margin-top: 3rem;
+  }
+
+  .technical dl > div {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}

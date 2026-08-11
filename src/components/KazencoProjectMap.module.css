@@ -64,7 +64,7 @@
 .explorer {
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(340px, .65fr);
-  min-height: 690px;
+  min-height: 610px;
   overflow: hidden;
   border-radius: clamp(1.5rem, 3vw, 3rem);
   background: #071711;
@@ -73,7 +73,7 @@
 
 .map {
   position: relative;
-  min-height: 690px;
+  min-height: 610px;
   overflow: hidden;
   background:
     radial-gradient(circle at 38% 38%, rgba(47, 118, 92, .18), transparent 42%),
@@ -164,8 +164,8 @@
 }
 
 .markerAksai { left: 14%; top: 44%; }
-.markerAtyrau { left: 18%; top: 57%; }
-.markerKarabatan { left: 24%; top: 51%; }
+.markerAtyrau { left: 18%; top: 54%; }
+.markerKarabatan { left: 27%; top: 47%; }
 .markerTengiz { left: 28%; top: 64%; }
 .markerAktau { left: 20%; top: 61%; }
 .markerAlmaty { left: 70%; top: 59%; }
@@ -261,8 +261,8 @@
 
 @media (max-width: 1000px) {
   .explorer { grid-template-columns: 1fr; }
-  .map { min-height: 600px; }
-  .results { max-height: 600px; }
+  .map { min-height: 530px; }
+  .results { max-height: 560px; }
 }
 
 @media (max-width: 700px) {
@@ -270,13 +270,13 @@
   .header { grid-template-columns: 1fr; gap: 1.5rem; }
   .header h2 { font-size: clamp(3rem, 15vw, 5.2rem); }
   .explorer { min-height: 0; }
-  .map { min-height: 480px; }
+  .map { min-height: 430px; }
   .country { inset: 9% -10% 0; width: 120%; height: 86%; }
   .mapLabel { left: 45%; top: 27%; }
   .markerName { display: none; }
   .markerAksai { left: 8%; top: 44%; }
-  .markerAtyrau { left: 14%; top: 57%; }
-  .markerKarabatan { left: 22%; top: 50%; }
+  .markerAtyrau { left: 15%; top: 53%; }
+  .markerKarabatan { left: 27%; top: 46%; }
   .markerTengiz { left: 27%; top: 65%; }
   .markerAktau { left: 18%; top: 61%; }
   .markerAlmaty { left: 72%; top: 59%; }
