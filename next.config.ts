@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async redirects() {
     return [
+      { source: "/ing_ile.html", destination: "/en#contact", permanent: true },
+      { source: "/rus_ile.html", destination: "/ru#contact", permanent: true },
+      { source: "/ing_cozum_ortaklari.html", destination: "/en#clients", permanent: true },
+      { source: "/ing_kur_kim.html", destination: "/en#about", permanent: true },
+      { source: "/ing_mak_par.html", destination: "/en#capabilities", permanent: true },
+      { source: "/ing_ref.html", destination: "/en#projects", permanent: true },
+      { source: "/ing_pro-eski.html", destination: "/en#projects", permanent: true },
+      { source: "/rus-index.html", destination: "/ru", permanent: true },
       { source: "/projects/:slug", destination: "/en/projects/:slug", permanent: true },
       { source: "/capabilities/:slug", destination: "/en/capabilities/:slug", permanent: true },
     ];
