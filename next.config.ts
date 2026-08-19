@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
-const isPreviewSite = process.env.KAZENCO_PREVIEW === "1";
+const isPreviewSite =
+  process.env.KAZENCO_PREVIEW === "1" && process.env.VERCEL_ENV !== "production";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,

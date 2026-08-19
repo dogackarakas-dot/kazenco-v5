@@ -2,7 +2,10 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
-  if (process.env.KAZENCO_PREVIEW === "1") {
+  const isPreviewSite =
+    process.env.KAZENCO_PREVIEW === "1" && process.env.VERCEL_ENV !== "production";
+
+  if (isPreviewSite) {
     return {
       rules: {
         userAgent: "*",
