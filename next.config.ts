@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async redirects() {
     return [
+      { source: "/index.html", destination: "/en", permanent: true },
+      { source: "/ing_cevre_pro.html", destination: "/en/capabilities/environmental-geosynthetic-works", permanent: true },
       { source: "/ing_ile.html", destination: "/en#contact", permanent: true },
       { source: "/rus_ile.html", destination: "/ru#contact", permanent: true },
       { source: "/ing_cozum_ortaklari.html", destination: "/en#clients", permanent: true },
