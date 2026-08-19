@@ -9,10 +9,13 @@ const nextConfig: NextConfig = {
     return [
       { source: "/index.html", destination: "/en", permanent: true },
       { source: "/ing_cevre_pro.html", destination: "/en/capabilities/environmental-geosynthetic-works", permanent: true },
+      { source: "/sertifikab2.html", destination: "/en#certificates", permanent: true },
+      { source: "/sertifikab5.html", destination: "/en#certificates", permanent: true },
       { source: "/ing_ile.html", destination: "/en#contact", permanent: true },
       { source: "/rus_ile.html", destination: "/ru#contact", permanent: true },
       { source: "/ing_cozum_ortaklari.html", destination: "/en#clients", permanent: true },
       { source: "/ing_kur_kim.html", destination: "/en#about", permanent: true },
+      { source: "/ing_istiraklerimiz.html", destination: "/en#about", permanent: true },
       { source: "/ing_mak_par.html", destination: "/en#capabilities", permanent: true },
       { source: "/ing_ref.html", destination: "/en#projects", permanent: true },
       { source: "/ing_pro-eski.html", destination: "/en#projects", permanent: true },
