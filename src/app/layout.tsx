@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { JsonLd } from "@/components/JsonLd";
 import { DocumentLocale } from "@/components/DocumentLocale";
 import { SITE } from "@/lib/site";
@@ -93,6 +94,7 @@ export default function RootLayout({
         <JsonLd data={organizationJsonLd} />
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
