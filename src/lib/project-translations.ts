@@ -11,6 +11,33 @@ const categoryCopy: Record<Locale, Record<NonNullable<Project["category"]>, stri
   kz: { "Fit-out & Furnishing": "Әрлеу және жиһаз", Construction: "Құрылыс", "Material Supply": "Материал жеткізу", Assembly: "Монтаж" },
 };
 
+const metadataTitles: Record<string, Record<Locale, string>> = {
+  "worley-parsons-atyrau": {
+    en: "Worley Parsons Atyrau Project",
+    ru: "Проект Worley Parsons в Атырау",
+    tr: "Worley Parsons Atırau Projesi",
+    kz: "Атыраудағы Worley Parsons жобасы",
+  },
+  "worley-parsons-almaty": {
+    en: "Worley Parsons Almaty Project",
+    ru: "Проект Worley Parsons в Алматы",
+    tr: "Worley Parsons Almatı Projesi",
+    kz: "Алматыдағы Worley Parsons жобасы",
+  },
+  "bonatti-office-tengiz": {
+    en: "Bonatti Office Tengiz Project",
+    ru: "Проект офиса Bonatti в Тенгизе",
+    tr: "Bonatti Ofisi Tengiz Projesi",
+    kz: "Теңіздегі Bonatti кеңсесі жобасы",
+  },
+  "bonatti-office-aksai": {
+    en: "Bonatti Office Aksai Project",
+    ru: "Проект офиса Bonatti в Аксае",
+    tr: "Bonatti Ofisi Aksay Projesi",
+    kz: "Ақсайдағы Bonatti кеңсесі жобасы",
+  },
+};
+
 const translations: Record<Exclude<Locale, "en">, Record<string, ProjectText>> = {
   tr: {
     "worley-parsons-atyrau": { role: "Anahtar teslim ince işler ve mobilya", summary: "Worley Parsons’ın Atırau ofislerinde iç inşaat, mobilya ve nihai montajı kapsayan eksiksiz anahtar teslim ince işler ve mobilya uygulaması." },
@@ -93,4 +120,8 @@ export function getLocalizedProject(slug: string, locale: Locale): Project | und
     ...text,
     localizedCategory: project.category ? categoryCopy[locale][project.category] : undefined,
   };
+}
+
+export function getProjectMetadataTitle(slug: string, locale: Locale): string | undefined {
+  return metadataTitles[slug]?.[locale];
 }

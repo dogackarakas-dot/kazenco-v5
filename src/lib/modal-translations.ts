@@ -209,7 +209,7 @@ export const ABOUT_CONTENT: Record<Locale, {
     delivery: [["Construction & Site Works", "Civil, structural and installation scopes coordinated for active project environments."], ["Fit-out & Furnishing", "Interior completion, furniture supply, delivery and final installation as one package."], ["Industrial Supply", "Project materials sourced against technical requirements with supporting documentation."], ["Environmental Applications", "Ground-lining, insulation and geosynthetic applications for industrial infrastructure."]],
     supply: [["Office & Camp Furniture", ["Workstations", "Camp furniture", "Turnkey furnishing"]], ["Bolts & Connection Components", ["Bolts", "Fasteners", "Connection elements"]], ["Industrial Supply Solutions", ["Hand tools", "Power tools", "PPE & consumables"]], ["Stainless Steel Pipes & Fittings", ["Pipes", "Fittings", "Industrial components"]], ["Electrical Equipment & Devices", ["Panels", "Devices", "Electrical materials"]], ["Construction Materials", ["Building materials", "Site supplies", "Project procurement"]]],
     roles: ["Founder & Managing Director", "General Manager", "RFQ Contact"],
-    address: "Zheti Kazyna, 2-1, Atyrau, Kazakhstan",
+    address: "7 Kazyna 2-1, Atyrau, 060000, Kazakhstan",
   },
   ru: {
     paragraphs: ["Основанная в Атырау в 2004 году компания KAZENCO поддерживает гражданские, коммерческие и промышленные проекты, выполняя строительство, отделку под ключ, оснащение и поставку промышленных материалов.", "Компания объединяет работы на площадке и поставки в единой структуре — от технического анализа и закупок до монтажа и окончательной передачи. Портфолио охватывает Атырау, Алматы, Тенгиз, Карабатан, Актау и Аксай; коммуникация ведётся на казахском, русском, английском и турецком языках."],
@@ -219,7 +219,7 @@ export const ABOUT_CONTENT: Record<Locale, {
     delivery: [["Строительные и площадочные работы", "Координация гражданских, конструктивных и монтажных работ на действующих проектных площадках."], ["Отделка и оснащение", "Завершение интерьеров, поставка мебели, доставка и финальный монтаж единым пакетом."], ["Промышленные поставки", "Подбор проектных материалов по техническим требованиям с подтверждающей документацией."], ["Экологические решения", "Защитная облицовка грунта, изоляция и геосинтетика для промышленной инфраструктуры."]],
     supply: [["Офисная и вахтовая мебель", ["Рабочие места", "Вахтовая мебель", "Оснащение под ключ"]], ["Болты и соединительные элементы", ["Болты", "Крепёж", "Соединительные элементы"]], ["Промышленное снабжение", ["Ручной инструмент", "Электроинструмент", "СИЗ и расходники"]], ["Нержавеющие трубы и фитинги", ["Трубы", "Фитинги", "Промышленные компоненты"]], ["Электрооборудование", ["Щиты", "Устройства", "Электроматериалы"]], ["Строительные материалы", ["Стройматериалы", "Снабжение площадки", "Проектные закупки"]]],
     roles: ["Основатель и управляющий директор", "Генеральный директор", "Контакт по RFQ"],
-    address: "Жети Казына, 2-1, Атырау, Казахстан",
+    address: "7 Kazyna 2-1, Atyrau, 060000, Kazakhstan",
   },
   tr: {
     paragraphs: ["2004 yılında Atırau’da kurulan KAZENCO; inşaat, anahtar teslim ince işler, mobilya ve endüstriyel malzeme tedarikiyle sivil, ticari ve endüstriyel projeleri destekler.", "Şirket, teknik inceleme ve satın almadan montaj ve nihai teslime kadar saha uygulamasıyla tedarik ihtiyaçlarını tek yapıda koordine eder. Portföy Atırau, Almatı, Tengiz, Karabatan, Aktau ve Aksai’yi kapsar; Kazakça, Rusça, İngilizce ve Türkçe iletişim sunulur."],
@@ -229,7 +229,7 @@ export const ABOUT_CONTENT: Record<Locale, {
     delivery: [["İnşaat ve Saha İşleri", "Aktif proje ortamlarında sivil, yapısal ve montaj kapsamlarının koordinasyonu."], ["İnce İşler ve Mobilya", "İç mekân tamamlama, mobilya tedariki, teslimat ve nihai montajın tek paket sunulması."], ["Endüstriyel Tedarik", "Proje malzemelerinin teknik gereksinimlere göre belgeleriyle birlikte tedarik edilmesi."], ["Çevresel Uygulamalar", "Endüstriyel altyapı için zemin kaplama, yalıtım ve geosentetik uygulamalar."]],
     supply: [["Ofis ve Kamp Mobilyası", ["Çalışma istasyonları", "Kamp mobilyası", "Anahtar teslim mobilya"]], ["Cıvata ve Bağlantı Elemanları", ["Cıvatalar", "Bağlantı elemanları", "Birleştirme parçaları"]], ["Endüstriyel Tedarik Çözümleri", ["El aletleri", "Elektrikli aletler", "KKD ve sarf malzemeleri"]], ["Paslanmaz Boru ve Fittings", ["Borular", "Fittings", "Endüstriyel bileşenler"]], ["Elektrik Ekipmanları", ["Panolar", "Cihazlar", "Elektrik malzemeleri"]], ["Yapı Malzemeleri", ["Yapı malzemeleri", "Saha ihtiyaçları", "Proje satın alma"]]],
     roles: ["Kurucu ve Genel Müdür", "Genel Müdür", "RFQ Yetkilisi"],
-    address: "Zheti Kazyna, 2-1, Atırau, Kazakistan",
+    address: "7 Kazyna 2-1, Atyrau, 060000, Kazakhstan",
   },
   kz: {
     paragraphs: ["2004 жылы Атырауда құрылған KAZENCO құрылыс, толық әрлеу, жиһаздандыру және өнеркәсіптік материал жеткізу арқылы азаматтық, коммерциялық және өнеркәсіптік жобаларды қолдайды.", "Компания техникалық талдау мен сатып алудан монтаж және соңғы тапсыруға дейін алаңдағы жұмыстар мен жеткізу талаптарын бір құрылымда үйлестіреді. Портфель Атырау, Алматы, Теңіз, Қарабатан, Ақтау және Ақсай қалаларын қамтиды; байланыс қазақ, орыс, ағылшын және түрік тілдерінде жүргізіледі."],
@@ -239,6 +239,6 @@ export const ABOUT_CONTENT: Record<Locale, {
     delivery: [["Құрылыс және алаң жұмыстары", "Белсенді жоба орталарындағы азаматтық, құрылымдық және монтаждық жұмыстарды үйлестіру."], ["Әрлеу және жиһаздандыру", "Интерьерді аяқтау, жиһаз жеткізу және соңғы монтажды бір пакетпен орындау."], ["Өнеркәсіптік жеткізу", "Жоба материалдарын техникалық талаптар мен растайтын құжаттарға сәйкес жеткізу."], ["Экологиялық шешімдер", "Өнеркәсіптік инфрақұрылымға арналған жер төсемі, оқшаулау және геосинтетикалық жұмыстар."]],
     supply: [["Кеңсе және вахталық жиһаз", ["Жұмыс орындары", "Вахталық жиһаз", "Толық жиһаздандыру"]], ["Болттар және қосқыштар", ["Болттар", "Бекіткіштер", "Қосылу бөлшектері"]], ["Өнеркәсіптік жабдықтау", ["Қол құралдары", "Электр құралдары", "ЖҚҚ және шығын материалдары"]], ["Тот баспайтын құбырлар мен фитингтер", ["Құбырлар", "Фитингтер", "Өнеркәсіптік бөлшектер"]], ["Электр жабдықтары", ["Панельдер", "Құрылғылар", "Электр материалдары"]], ["Құрылыс материалдары", ["Құрылыс материалдары", "Алаң жабдықтары", "Жобалық сатып алу"]]],
     roles: ["Құрылтайшы және басқарушы директор", "Бас директор", "RFQ байланыс тұлғасы"],
-    address: "Жеті Қазына, 2-1, Атырау, Қазақстан",
+    address: "7 Kazyna 2-1, Atyrau, 060000, Kazakhstan",
   },
 };

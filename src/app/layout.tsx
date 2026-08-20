@@ -69,12 +69,13 @@ export default function RootLayout({
     logo: `${SITE.url}/images/misc/kazenco-logo-approved.png`,
     foundingDate: "2004",
     email: SITE.email,
-    telephone: SITE.phone,
+    telephone: SITE.phoneE164,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Zheti Kazyna, 2-1",
-      addressLocality: "Atyrau",
-      addressCountry: "KZ",
+      streetAddress: SITE.streetAddress,
+      addressLocality: SITE.cityName,
+      postalCode: SITE.postalCode,
+      addressCountry: SITE.countryCode,
     },
     areaServed: {
       "@type": "Country",

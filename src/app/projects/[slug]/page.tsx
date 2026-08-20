@@ -7,10 +7,10 @@ import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { ProjectGallery } from "@/components/ProjectGallery";
 import { PROJECTS } from "@/lib/projects";
-import { getLocalizedProject, getLocalizedProjects } from "@/lib/project-translations";
+import { getLocalizedProject, getLocalizedProjects, getProjectMetadataTitle } from "@/lib/project-translations";
 import { SITE } from "@/lib/site";
 import { DETAIL_COPY } from "@/lib/detail-translations";
-import { isLocale } from "@/lib/i18n";
+import { isLocale, NAVIGATION } from "@/lib/i18n";
 import { localizedAlternates, SEO_COPY } from "@/lib/seo";
 import styles from "./project.module.css";
 
@@ -37,7 +37,8 @@ export async function generateMetadata({
   const path = `/projects/${project.slug}`;
   const canonical = `/${locale}${path}`;
   const image = project.image ?? "/images/hero/kazenco-refinery-hero.jpg";
-  const seoTitle = `${project.title} ${SEO_COPY[locale].project}`;
+  const seoTitle = getProjectMetadataTitle(project.slug, locale)
+    ?? `${project.title} ${SEO_COPY[locale].project}`;
 
   return {
     title: seoTitle,
@@ -100,10 +101,30 @@ export default async function V12ProjectPage({
     },
     about: project.role,
   };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${projectUrl}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: NAVIGATION[locale].home,
+        item: `${SITE.url}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: project.title,
+        item: projectUrl,
+      },
+    ],
+  };
 
   return (
     <>
       <JsonLd data={projectJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <PremiumHeader />
       <main className={styles.page}>
         <header className={styles.header}>
