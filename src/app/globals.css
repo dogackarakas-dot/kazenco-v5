@@ -783,6 +783,48 @@ html.inc-has-cursor [role="button"] {
   align-self: center;
 }
 
+.kazenco-affiliate {
+  grid-column: 2 / -1;
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: center;
+  border-top: 1px solid rgba(43, 43, 43, 0.12);
+  padding-top: 1.5rem;
+}
+
+.kazenco-affiliate p {
+  margin: 0;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+.kazenco-affiliate .kazenco-affiliate-label {
+  color: var(--foreground);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.kazenco-affiliate a {
+  color: var(--foreground);
+  font-weight: 750;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.kazenco-affiliate a:hover,
+.kazenco-affiliate a:focus-visible {
+  color: #d3171f;
+}
+
+.kazenco-affiliate a:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid #d3171f;
+  outline-offset: 4px;
+}
+
 .inc-delivery {
   border-radius: 2.2rem;
   background: var(--card);
@@ -1005,6 +1047,12 @@ html.inc-has-cursor [role="button"] {
   .inc-pricing,
   .inc-faq {
     grid-template-columns: 1fr;
+  }
+
+  .kazenco-affiliate {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 
   .inc-delivery-top,

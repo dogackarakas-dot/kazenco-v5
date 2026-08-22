@@ -53,6 +53,14 @@ export function KazencoHome({ locale = "en" }: { locale?: Locale }) {
             triggerClassName="inc-button inc-button-view inc-showreel"
             triggerLabel={copy.about.button}
           />
+
+          <aside className="kazenco-affiliate" aria-label={copy.about.affiliate.label}>
+            <p className="kazenco-affiliate-label">{copy.about.affiliate.label}</p>
+            <p>{copy.about.affiliate.text}</p>
+            <a href="https://doka.com.tr/en" target="_blank" rel="noopener noreferrer">
+              {copy.about.affiliate.link} <span aria-hidden="true">↗</span>
+            </a>
+          </aside>
         </section>
 
 
