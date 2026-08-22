@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
       { source: "/ing_cozum_ortaklari.html", destination: "/en#clients", permanent: true },
       { source: "/ing_kur_kim.html", destination: "/en#about", permanent: true },
       { source: "/ing_istiraklerimiz.html", destination: "/en#about", permanent: true },
+      { source: "/ing_faa.html", destination: "/en#capabilities", permanent: true },
       { source: "/ing_mak_par.html", destination: "/en#capabilities", permanent: true },
       { source: "/ing_ref.html", destination: "/en#projects", permanent: true },
       { source: "/ing_pro-eski.html", destination: "/en#projects", permanent: true },
