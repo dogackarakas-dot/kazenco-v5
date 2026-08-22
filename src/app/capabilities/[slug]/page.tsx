@@ -6,8 +6,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { CAPABILITIES } from "@/lib/capabilities";
-import { getLocalizedCapability } from "@/lib/capability-translations";
-import { getLocalizedProject } from "@/lib/project-translations";
+import { CAPABILITY_OG_IMAGE_ALT, getLocalizedCapability } from "@/lib/capability-translations";
+import { getLocalizedProject, getProjectImageAlt } from "@/lib/project-translations";
 import { SITE } from "@/lib/site";
 import { DETAIL_COPY } from "@/lib/detail-translations";
 import { isLocale } from "@/lib/i18n";
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "KAZENCO",
       title: `${capability.title} | KAZENCO`,
       description: capability.description,
-      images: [{ url: "/images/hero/kazenco-refinery-hero.jpg", alt: `${capability.title} by KAZENCO` }],
+      images: [{ url: "/images/hero/kazenco-refinery-hero.jpg", alt: CAPABILITY_OG_IMAGE_ALT[locale] }],
     },
     twitter: {
       card: "summary_large_image",
@@ -125,7 +125,18 @@ export default async function CapabilityPage({ params }: { params: Promise<{ slu
             {relatedProjects.map((project) => (
               <Link href={`/${locale}/projects/${project.slug}`} key={project.slug}>
                 <figure>
-                  {project.image ? <Image src={project.image} alt="" fill sizes="(max-width: 700px) 100vw, 50vw" /> : null}
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={getProjectImageAlt(
+                        project.slug,
+                        locale,
+                        `${project.title}, ${project.location}`,
+                      )}
+                      fill
+                      sizes="(max-width: 700px) 100vw, 50vw"
+                    />
+                  ) : null}
                 </figure>
                 <span>{project.location}</span>
                 <h3>{project.title}</h3>
