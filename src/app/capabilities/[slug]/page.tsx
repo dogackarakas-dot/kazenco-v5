@@ -14,6 +14,13 @@ import { isLocale } from "@/lib/i18n";
 import { localizedAlternates } from "@/lib/seo";
 import styles from "./capability.module.css";
 
+const BREADCRUMB_HOME = {
+  en: "Home",
+  ru: "Главная",
+  tr: "Ana Sayfa",
+  kz: "Басты бет",
+} as const;
+
 export function generateStaticParams() {
   return CAPABILITIES.map((capability) => ({ slug: capability.slug }));
 }
@@ -75,10 +82,30 @@ export default async function CapabilityPage({ params }: { params: Promise<{ slu
       name: "Kazakhstan",
     },
   };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${capabilityUrl}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: BREADCRUMB_HOME[locale],
+        item: `${SITE.url}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: capability.title,
+        item: capabilityUrl,
+      },
+    ],
+  };
 
   return (
     <>
       <JsonLd data={serviceJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <PremiumHeader />
       <main className={styles.page} data-locale={locale}>
         <header className={styles.hero}>
