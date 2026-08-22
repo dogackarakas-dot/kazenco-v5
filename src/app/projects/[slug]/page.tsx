@@ -7,7 +7,13 @@ import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { ProjectGallery } from "@/components/ProjectGallery";
 import { PROJECTS } from "@/lib/projects";
-import { getLocalizedProject, getLocalizedProjects, getProjectMetadataTitle } from "@/lib/project-translations";
+import {
+  getLocalizedProject,
+  getLocalizedProjects,
+  getProjectHeading,
+  getProjectImageAlt,
+  getProjectMetadataTitle,
+} from "@/lib/project-translations";
 import { SITE } from "@/lib/site";
 import { DETAIL_COPY } from "@/lib/detail-translations";
 import { isLocale, NAVIGATION } from "@/lib/i18n";
@@ -37,6 +43,11 @@ export async function generateMetadata({
   const path = `/projects/${project.slug}`;
   const canonical = `/${locale}${path}`;
   const image = project.image ?? "/images/hero/kazenco-refinery-hero.jpg";
+  const imageAlt = getProjectImageAlt(
+    project.slug,
+    locale,
+    `${project.title}, ${project.location}`,
+  );
   const seoTitle = getProjectMetadataTitle(project.slug, locale)
     ?? `${project.title} ${SEO_COPY[locale].project}`;
 
@@ -50,7 +61,7 @@ export async function generateMetadata({
       siteName: "KAZENCO",
       title: `${seoTitle} | KAZENCO`,
       description: project.summary,
-      images: [{ url: image, alt: `${project.title}, ${project.location}` }],
+      images: [{ url: image, alt: imageAlt }],
     },
     twitter: {
       card: "summary_large_image",
@@ -75,6 +86,12 @@ export default async function V12ProjectPage({
   if (!project) notFound();
 
   const cover = project.image;
+  const heading = getProjectHeading(project.slug, locale, project.title);
+  const imageAlt = getProjectImageAlt(
+    project.slug,
+    locale,
+    `${project.title}, ${project.location}`,
+  );
   const localizedProjects = getLocalizedProjects(locale);
   const activeIndex = localizedProjects.findIndex((item) => item.slug === project.slug);
   const previousProject = localizedProjects[(activeIndex - 1 + localizedProjects.length) % localizedProjects.length];
@@ -130,7 +147,7 @@ export default async function V12ProjectPage({
         <header className={styles.header}>
           <Link href={`${home}#projects`}>← {copy[0]}</Link>
           <p>{project.localizedCategory ?? project.category}</p>
-          <h1>{project.title}</h1>
+          <h1>{heading}</h1>
           <p>{project.summary}</p>
         </header>
 
@@ -138,7 +155,7 @@ export default async function V12ProjectPage({
           {cover ? (
             <Image
               src={cover}
-              alt={`${project.title}, ${project.location}`}
+              alt={imageAlt}
               fill
               preload
               sizes="100vw"

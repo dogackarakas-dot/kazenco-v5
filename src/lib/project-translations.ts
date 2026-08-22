@@ -38,6 +38,50 @@ const metadataTitles: Record<string, Record<Locale, string>> = {
   },
 };
 
+interface ProjectVisualCopy {
+  heading: string;
+  imageAlt: string;
+}
+
+const projectVisualCopy: Record<string, Record<Locale, ProjectVisualCopy>> = {
+  "worley-parsons-atyrau": {
+    en: {
+      heading: "Worley Parsons — Atyrau",
+      imageAlt: "Snow-covered exterior of the Worley Parsons project building in Atyrau",
+    },
+    ru: {
+      heading: "Worley Parsons — Атырау",
+      imageAlt: "Зимний внешний вид здания проекта Worley Parsons в Атырау",
+    },
+    tr: {
+      heading: "Worley Parsons — Atırau",
+      imageAlt: "Atırau’daki Worley Parsons proje binasının karlı dış görünümü",
+    },
+    kz: {
+      heading: "Worley Parsons — Атырау",
+      imageAlt: "Атыраудағы Worley Parsons жобасы ғимаратының қысқы сыртқы көрінісі",
+    },
+  },
+  "worley-parsons-almaty": {
+    en: {
+      heading: "Worley Parsons — Almaty",
+      imageAlt: "Exterior of the Worley Parsons project building in Almaty",
+    },
+    ru: {
+      heading: "Worley Parsons — Алматы",
+      imageAlt: "Внешний вид здания проекта Worley Parsons в Алматы",
+    },
+    tr: {
+      heading: "Worley Parsons — Almatı",
+      imageAlt: "Almatı’daki Worley Parsons proje binasının dış görünümü",
+    },
+    kz: {
+      heading: "Worley Parsons — Алматы",
+      imageAlt: "Алматыдағы Worley Parsons жобасы ғимаратының сыртқы көрінісі",
+    },
+  },
+};
+
 const translations: Record<Exclude<Locale, "en">, Record<string, ProjectText>> = {
   tr: {
     "worley-parsons-atyrau": { role: "Anahtar teslim ince işler ve mobilya", summary: "Worley Parsons’ın Atırau ofislerinde iç inşaat, mobilya ve nihai montajı kapsayan eksiksiz anahtar teslim ince işler ve mobilya uygulaması." },
@@ -124,4 +168,12 @@ export function getLocalizedProject(slug: string, locale: Locale): Project | und
 
 export function getProjectMetadataTitle(slug: string, locale: Locale): string | undefined {
   return metadataTitles[slug]?.[locale];
+}
+
+export function getProjectHeading(slug: string, locale: Locale, fallback: string): string {
+  return projectVisualCopy[slug]?.[locale].heading ?? fallback;
+}
+
+export function getProjectImageAlt(slug: string, locale: Locale, fallback: string): string {
+  return projectVisualCopy[slug]?.[locale].imageAlt ?? fallback;
 }
