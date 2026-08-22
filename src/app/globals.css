@@ -808,19 +808,21 @@ html.inc-has-cursor [role="button"] {
 }
 
 .kazenco-affiliate a {
-  color: var(--foreground);
-  font-weight: 750;
-  text-decoration: none;
-  white-space: nowrap;
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0.35rem;
 }
 
-.kazenco-affiliate a:hover,
-.kazenco-affiliate a:focus-visible {
-  color: #d3171f;
+.kazenco-affiliate-logo {
+  display: block;
+  width: clamp(7.5rem, 10vw, 9.5rem);
+  height: auto;
 }
 
 .kazenco-affiliate a:focus-visible {
-  border-radius: 2px;
   outline: 2px solid #d3171f;
   outline-offset: 4px;
 }

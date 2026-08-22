@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { DeferredAboutModal } from "@/components/DeferredAboutModal";
 import { DeferredContactModal } from "@/components/DeferredContactModal";
 import { HeroStack } from "@/components/HeroStack";
@@ -57,8 +59,20 @@ export function KazencoHome({ locale = "en" }: { locale?: Locale }) {
           <aside className="kazenco-affiliate" aria-label={copy.about.affiliate.label}>
             <p className="kazenco-affiliate-label">{copy.about.affiliate.label}</p>
             <p>{copy.about.affiliate.text}</p>
-            <a href="https://doka.com.tr/en" target="_blank" rel="noopener noreferrer">
-              {copy.about.affiliate.link} <span aria-hidden="true">↗</span>
+            <a
+              href="https://doka.com.tr/en"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={copy.about.affiliate.ariaLabel}
+            >
+              <Image
+                className="kazenco-affiliate-logo"
+                src="/images/brand/doka-logo-main.png"
+                alt={copy.about.affiliate.link}
+                width={760}
+                height={348}
+                sizes="(max-width: 900px) 140px, 152px"
+              />
             </a>
           </aside>
         </section>
