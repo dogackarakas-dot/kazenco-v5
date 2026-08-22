@@ -10,6 +10,7 @@ import { PROJECTS } from "@/lib/projects";
 import {
   getLocalizedProject,
   getLocalizedProjects,
+  getProjectGalleryAlts,
   getProjectHeading,
   getProjectImageAlt,
   getProjectMetadataTitle,
@@ -92,6 +93,7 @@ export default async function V12ProjectPage({
     locale,
     `${project.title}, ${project.location}`,
   );
+  const galleryAlts = getProjectGalleryAlts(project.slug, locale);
   const localizedProjects = getLocalizedProjects(locale);
   const activeIndex = localizedProjects.findIndex((item) => item.slug === project.slug);
   const previousProject = localizedProjects[(activeIndex - 1 + localizedProjects.length) % localizedProjects.length];
@@ -194,6 +196,7 @@ export default async function V12ProjectPage({
               images={project.gallery}
               title={project.title}
               locale={locale}
+              alts={galleryAlts}
             />
           </section>
         ) : null}

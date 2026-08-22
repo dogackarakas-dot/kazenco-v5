@@ -10,9 +10,10 @@ type Props = {
   images: string[];
   title: string;
   locale: Locale;
+  alts?: string[];
 };
 
-export function ProjectGallery({ images, title, locale }: Props) {
+export function ProjectGallery({ images, title, locale, alts }: Props) {
   const copy = DETAIL_COPY[locale].project;
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -139,7 +140,7 @@ export function ProjectGallery({ images, title, locale }: Props) {
           >
             <Image
               src={image}
-              alt={`${title} ${copy[10]} ${index + 1}`}
+              alt={alts?.[index] ?? `${title} ${copy[10]} ${index + 1}`}
               fill
               sizes="(max-width: 640px) 50vw, 25vw"
             />
@@ -182,7 +183,7 @@ export function ProjectGallery({ images, title, locale }: Props) {
           <div className={styles.fullImage}>
             <Image
               src={images[activeIndex]}
-              alt={`${title} ${copy[10]} ${activeIndex + 1}`}
+              alt={alts?.[activeIndex] ?? `${title} ${copy[10]} ${activeIndex + 1}`}
               fill
               sizes="100vw"
               priority
