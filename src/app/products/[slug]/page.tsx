@@ -6,9 +6,10 @@ import { DeferredContactModal } from "@/components/DeferredContactModal";
 import { JsonLd } from "@/components/JsonLd";
 import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
-import { isLocale } from "@/lib/i18n";
+import { isLocale, NAVIGATION } from "@/lib/i18n";
 import {
   getProductDetail,
+  getProductImageAlt,
   isProductDetailSlug,
   PRODUCT_DETAIL_SLUGS,
   type ProductDetailSlug,
@@ -45,6 +46,7 @@ export async function generateMetadata({
   const productIndex = PRODUCT_DETAIL_SLUGS.indexOf(slug);
   const product = productCopy(locale)[productIndex];
   const productImage = PRODUCT_IMAGES[slug];
+  const productImageAlt = getProductImageAlt(slug, locale);
   const path = `/products/${slug}`;
   const canonical = `/${locale}${path}`;
   return {
@@ -57,7 +59,7 @@ export async function generateMetadata({
       siteName: "KAZENCO",
       title: `${product.title} | KAZENCO`,
       description: product.description,
-      images: [{ url: productImage, alt: product.title }],
+      images: [{ url: productImage, alt: productImageAlt }],
     },
     twitter: {
       card: "summary_large_image",
@@ -82,6 +84,7 @@ export default async function ProductPage({
   const product = productCopy(locale)[productIndex];
   const copy = getProductDetail(slug, locale);
   const productImage = PRODUCT_IMAGES[slug];
+  const productImageAlt = getProductImageAlt(slug, locale);
   const home = `/${locale}`;
   const productUrl = `${SITE.url}/${locale}/products/${slug}`;
   const pageJsonLd = {
@@ -102,10 +105,30 @@ export default async function ProductPage({
       })),
     },
   };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${productUrl}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: NAVIGATION[locale].home,
+        item: `${SITE.url}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: product.title,
+        item: productUrl,
+      },
+    ],
+  };
 
   return (
     <>
       <JsonLd data={pageJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <PremiumHeader />
       <main className={styles.page} data-locale={locale} data-product={slug}>
         <header className={styles.hero}>
@@ -116,7 +139,7 @@ export default async function ProductPage({
             <p>{product.description}</p>
           </div>
           <figure className={styles.heroMedia}>
-            <Image src={productImage} alt={product.title} fill preload sizes="(max-width: 900px) 100vw, 50vw" />
+            <Image src={productImage} alt={productImageAlt} fill preload sizes="(max-width: 900px) 100vw, 50vw" />
           </figure>
         </header>
 

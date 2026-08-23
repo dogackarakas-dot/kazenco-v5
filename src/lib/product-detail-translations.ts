@@ -140,6 +140,49 @@ export const PRODUCT_DETAIL_SLUGS = [
 
 export type ProductDetailSlug = (typeof PRODUCT_DETAIL_SLUGS)[number];
 
+const PRODUCT_IMAGE_ALTS: Record<ProductDetailSlug, Record<Locale, string>> = {
+  "pipes-tubes": {
+    en: "Bundles of industrial steel pipes in a warehouse",
+    tr: "Depoda demetler halinde endüstriyel çelik borular",
+    ru: "Связки промышленных стальных труб на складе",
+    kz: "Қоймадағы өнеркәсіптік болат құбырлар бумалары",
+  },
+  "fittings-flanges": {
+    en: "Industrial elbows, tees, reducers, caps and flanges arranged in a workshop",
+    tr: "Atölyede düzenlenmiş endüstriyel dirsekler, T bağlantı parçaları, redüksiyonlar, kepler ve flanşlar",
+    ru: "Промышленные отводы, тройники, переходы, заглушки и фланцы в цехе",
+    kz: "Цехта орналастырылған өнеркәсіптік иіндер, үштіктер, өтпелер, бітеуіштер және фланецтер",
+  },
+  "valves-instrumentation": {
+    en: "Industrial valves with instrumentation manifolds and tubing components",
+    tr: "Enstrümantasyon manifoldları ve borulama bileşenleriyle endüstriyel vanalar",
+    ru: "Промышленная арматура с приборными манифольдами и трубными компонентами",
+    kz: "Аспаптық манифольдтар мен түтік компоненттері бар өнеркәсіптік арматура",
+  },
+  "fasteners-anchor-bolts": {
+    en: "Anchor bolts with nuts and base plates stacked on a wooden pallet",
+    tr: "Ahşap palet üzerinde istiflenmiş somunlu ve taban plakalı ankraj bulonları",
+    ru: "Анкерные болты с гайками и опорными пластинами на деревянном поддоне",
+    kz: "Ағаш паллетке жиналған сомындары мен тірек тақталары бар анкерлік болттар",
+  },
+  "electrical-equipment": {
+    en: "Industrial switchgear, electrical enclosures, test equipment and cables",
+    tr: "Endüstriyel şalt ekipmanları, elektrik muhafazaları, test cihazları ve kablolar",
+    ru: "Промышленное распределительное оборудование, электротехнические корпуса, испытательные приборы и кабели",
+    kz: "Өнеркәсіптік тарату жабдықтары, электр корпустары, сынақ аспаптары және кабельдер",
+  },
+  "construction-materials": {
+    en: "Assorted insulation, coatings, roofing and construction site materials",
+    tr: "Çeşitli yalıtım, kaplama, çatı ve şantiye malzemeleri",
+    ru: "Различные изоляционные, лакокрасочные, кровельные и строительные материалы",
+    kz: "Әртүрлі оқшаулау, жабын, шатыр және құрылыс алаңы материалдары",
+  },
+};
+
+export function getProductImageAlt(slug: ProductDetailSlug, locale: Locale) {
+  return PRODUCT_IMAGE_ALTS[slug][locale];
+}
+
 interface CategorySpecificCopy {
   overviewTitle: string;
   overview: string;
