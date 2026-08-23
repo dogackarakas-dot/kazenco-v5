@@ -25,6 +25,12 @@ export function generateStaticParams() {
   return PROJECTS.map((project) => ({ slug: project.slug }));
 }
 
+const CATEGORY_CAPABILITY_SLUG: Record<string, string> = {
+  Construction: "construction-site-works",
+  "Fit-out & Furnishing": "fit-out-furnishing",
+  "Material Supply": "industrial-procurement-supply",
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -98,6 +104,8 @@ export default async function V12ProjectPage({
   const activeIndex = localizedProjects.findIndex((item) => item.slug === project.slug);
   const previousProject = localizedProjects[(activeIndex - 1 + localizedProjects.length) % localizedProjects.length];
   const nextProject = localizedProjects[(activeIndex + 1) % localizedProjects.length];
+  const categoryLabel = project.localizedCategory ?? project.category;
+  const categoryCapabilitySlug = project.category ? CATEGORY_CAPABILITY_SLUG[project.category] : undefined;
   const projectUrl = `${SITE.url}/${locale}/projects/${project.slug}`;
   const projectJsonLd = {
     "@context": "https://schema.org",
@@ -148,7 +156,13 @@ export default async function V12ProjectPage({
       <main className={styles.page}>
         <header className={styles.header}>
           <Link href={`${home}#projects`}>← {copy[0]}</Link>
-          <p>{project.localizedCategory ?? project.category}</p>
+          <p>
+            {categoryCapabilitySlug ? (
+              <Link href={`/${locale}/capabilities/${categoryCapabilitySlug}`}>{categoryLabel}</Link>
+            ) : (
+              categoryLabel
+            )}
+          </p>
           <h1>{heading}</h1>
           <p>{project.summary}</p>
         </header>
