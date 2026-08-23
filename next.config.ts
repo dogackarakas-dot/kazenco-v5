@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
       { source: "/ing_faa.html", destination: "/en#capabilities", permanent: true },
       { source: "/ing_mak_par.html", destination: "/en#capabilities", permanent: true },
       { source: "/ing_ref.html", destination: "/en#projects", permanent: true },
+      { source: "/rus_ref.html", destination: "/ru#projects", permanent: true },
       { source: "/ing_pro-eski.html", destination: "/en#projects", permanent: true },
       { source: "/rus-index.html", destination: "/ru", permanent: true },
       { source: "/projects/:slug", destination: "/en/projects/:slug", permanent: true },
