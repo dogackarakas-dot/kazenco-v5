@@ -4,11 +4,43 @@ import type { Locale } from "@/lib/i18n";
 
 type CapabilityTranslation = Pick<Capability, "title" | "description" | "overview" | "scope" | "delivery">;
 
-export const CAPABILITY_OG_IMAGE_ALT: Record<Locale, string> = {
-  en: "Illuminated industrial processing facility at dusk",
-  ru: "Освещённый промышленный технологический комплекс в сумерках",
-  tr: "Akşam saatlerinde aydınlatılmış endüstriyel proses tesisi",
-  kz: "Кешкі уақытта жарықтандырылған өнеркәсіптік технологиялық кешен",
+export const CAPABILITY_OG_IMAGE: Record<string, { url: string; alt: Record<Locale, string> }> = {
+  "construction-site-works": {
+    url: "/images/projects/isker-industrial-infrastructure-tengiz/cover.jpeg",
+    alt: {
+      en: "Pipework and green steel structures at the ISKER industrial site in Tengiz",
+      ru: "Трубопроводы и зелёные металлоконструкции на промышленной площадке ISKER в Тенгизе",
+      tr: "Tengiz’deki ISKER endüstriyel sahasında boru hatları ve yeşil çelik yapılar",
+      kz: "Теңіздегі ISKER өнеркәсіптік алаңындағы құбырлар мен жасыл болат құрылымдар",
+    },
+  },
+  "fit-out-furnishing": {
+    url: "/images/projects/sarens-tco-tengiz/gallery-08.jpg",
+    alt: {
+      en: "Furnished open-plan modular office with desks, chairs and air conditioning",
+      ru: "Оборудованный модульный офис открытой планировки со столами, стульями и кондиционерами",
+      tr: "Masa, sandalye ve klimalarla döşenmiş açık plan modüler ofis",
+      kz: "Үстелдермен, орындықтармен және кондиционерлермен жабдықталған ашық жоспарлы модульдік кеңсе",
+    },
+  },
+  "industrial-procurement-supply": {
+    url: "/images/products/pipes-tubes-realistic-v1.webp",
+    alt: {
+      en: "Bundles of industrial steel pipes in a warehouse",
+      ru: "Связки промышленных стальных труб на складе",
+      tr: "Depoda demetler halinde endüstriyel çelik borular",
+      kz: "Қоймадағы өнеркәсіптік болат құбырлар бумалары",
+    },
+  },
+  "environmental-geosynthetic-works": {
+    url: "/images/projects/isker-industrial-infrastructure-tengiz/gallery-02.jpeg",
+    alt: {
+      en: "Excavated trench lined with black protective material beside steel structures",
+      ru: "Траншея с чёрным защитным материалом рядом с металлоконструкциями",
+      tr: "Çelik yapıların yanında siyah koruyucu malzemeyle kaplanmış kazı hendeği",
+      kz: "Болат құрылымдар жанындағы қара қорғаныш материал төселген ор",
+    },
+  },
 };
 
 const TRANSLATIONS: Record<Exclude<Locale, "en">, Record<string, CapabilityTranslation>> = {

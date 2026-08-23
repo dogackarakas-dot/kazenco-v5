@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
 import { CAPABILITIES } from "@/lib/capabilities";
-import { CAPABILITY_OG_IMAGE_ALT, getLocalizedCapability } from "@/lib/capability-translations";
+import { CAPABILITY_OG_IMAGE, getLocalizedCapability } from "@/lib/capability-translations";
 import { getLocalizedProject, getProjectImageAlt } from "@/lib/project-translations";
 import { SITE } from "@/lib/site";
 import { DETAIL_COPY } from "@/lib/detail-translations";
@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const path = `/capabilities/${capability.slug}`;
   const canonical = `/${locale}${path}`;
+  const ogImage = CAPABILITY_OG_IMAGE[capability.slug];
   return {
     title: capability.title,
     description: capability.description,
@@ -44,13 +45,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "KAZENCO",
       title: `${capability.title} | KAZENCO`,
       description: capability.description,
-      images: [{ url: "/images/hero/kazenco-refinery-hero.jpg", alt: CAPABILITY_OG_IMAGE_ALT[locale] }],
+      images: [{ url: ogImage.url, alt: ogImage.alt[locale] }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${capability.title} | KAZENCO`,
       description: capability.description,
-      images: ["/images/hero/kazenco-refinery-hero.jpg"],
+      images: [ogImage.url],
     },
   };
 }

@@ -1324,6 +1324,12 @@ html.inc-has-cursor [role="button"] {
   color: #fff;
 }
 
+@media (max-width: 900px) {
+  .kazenco-menu-toggle {
+    display: flex;
+  }
+}
+
 .kazenco-menu-toggle span {
   display: block;
   width: 15px;
@@ -2272,6 +2278,10 @@ html.inc-has-cursor [role="button"] {
 .kazenco-v5-footer-brand img {
   width: min(300px, 100%);
   height: auto;
+  margin-bottom: 16px;
+  padding: 18px 22px;
+  border-radius: 16px;
+  background: var(--kazenco-navy);
 }
 
 .kazenco-v5-footer-brand p {
