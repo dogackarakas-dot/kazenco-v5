@@ -83,6 +83,15 @@ export default function RootLayout({
     },
   };
 
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE.url}/#website`,
+    name: SITE.name,
+    url: SITE.url,
+    publisher: { "@id": `${SITE.url}/#organization` },
+  };
+
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`h-full antialiased ${manrope.variable}`}>
       <body className="min-h-full bg-background text-foreground">
@@ -93,6 +102,7 @@ export default function RootLayout({
         />
         <DocumentLocale />
         <JsonLd data={organizationJsonLd} />
+        <JsonLd data={websiteJsonLd} />
         {children}
         <Analytics />
         <SpeedInsights />

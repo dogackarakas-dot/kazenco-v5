@@ -1696,6 +1696,7 @@ html.inc-has-cursor [role="button"] {
 
 .kazenco-capabilities-head h2 {
   margin: 0;
+  overflow-wrap: anywhere;
   font-family: var(--font-clone-display);
   font-size: clamp(3rem, 6vw, 6.5rem);
   font-weight: 440;

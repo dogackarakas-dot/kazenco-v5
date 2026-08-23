@@ -44,6 +44,7 @@
 .heroCopy h1 {
   max-width: 9ch;
   margin: 0;
+  overflow-wrap: anywhere;
   font-family: var(--font-clone-display);
   font-size: clamp(4rem, 8vw, 8.5rem);
   font-weight: 430;
@@ -54,7 +55,6 @@
 .page[data-product="valves-instrumentation"] .heroCopy h1 {
   max-width: 11ch;
   font-size: clamp(3.5rem, 5.2vw, 6.2rem);
-  overflow-wrap: break-word;
 }
 
 .heroCopy > p:last-child {
@@ -105,6 +105,7 @@
 .rfq h2 {
   max-width: 13ch;
   margin: 0;
+  overflow-wrap: anywhere;
   font-family: var(--font-clone-display);
   font-size: clamp(2.8rem, 5vw, 5.6rem);
   font-weight: 440;

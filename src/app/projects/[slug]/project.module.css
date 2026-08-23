@@ -11,7 +11,7 @@
 .fallback span { color: rgba(255, 255, 255, .58); font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 .location { position: absolute; right: 2rem; bottom: 2rem; z-index: 2; color: white; font-size: .7rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .story { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 10vw; padding: clamp(6rem, 11vw, 11rem) 0; }
-.story h2, .gallery h2 { margin: 0; font-family: var(--font-clone-display); font-size: clamp(3rem, 5.5vw, 6.2rem); font-weight: 440; letter-spacing: -.06em; line-height: .9; }
+.story h2, .gallery h2 { margin: 0; overflow-wrap: anywhere; font-family: var(--font-clone-display); font-size: clamp(3rem, 5.5vw, 6.2rem); font-weight: 440; letter-spacing: -.06em; line-height: .9; }
 .story > div:last-child > p { margin: 0 0 3rem; color: var(--muted-foreground); font-size: 1.08rem; line-height: 1.7; }
 .story dl { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent); }
 .story dl div { padding: 1rem 0; border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent); }
