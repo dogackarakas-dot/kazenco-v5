@@ -1890,6 +1890,44 @@ html.inc-has-cursor [role="button"] {
   line-height: 1.5;
 }
 
+.kazenco-catalog-cta {
+  display: flex;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.kazenco-catalog-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  padding: 0.95rem 1.6rem;
+  background: var(--kazenco-red);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 180ms ease;
+}
+
+.kazenco-catalog-button span {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.kazenco-catalog-button:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .kazenco-catalog-button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
 .kazenco-v5-numbers {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

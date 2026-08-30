@@ -104,6 +104,19 @@ export function KazencoProducts({ locale = "en" }: { locale?: Locale }) {
         <p>{copy[2]}</p>
       </div>
 
+      <div className="kazenco-catalog-cta">
+        <a
+          href="/catalog/kazenco-katalog-web.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="kazenco-catalog-button"
+          aria-label={`${copy[9]}`}
+        >
+          <span aria-hidden="true">↓</span>
+          {copy[9]}
+        </a>
+      </div>
+
       <div className="kazenco-v9-product-grid">
         {PRODUCTS.map((product, index) => {
           const translated = translatedProducts[index];
