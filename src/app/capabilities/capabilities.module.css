@@ -1,0 +1,13 @@
+.page {
+  padding-top: clamp(9rem, 15vw, 14rem);
+  padding-bottom: clamp(4rem, 8vw, 6rem);
+}
+
+.back {
+  display: inline-block;
+  width: min(100% - 2.4rem, 1180px);
+  margin: 0 auto clamp(2rem, 5vw, 4rem);
+  color: inherit;
+  font-size: 0.78rem;
+  text-decoration: none;
+}

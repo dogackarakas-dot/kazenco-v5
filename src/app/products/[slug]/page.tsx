@@ -85,7 +85,6 @@ export default async function ProductPage({
   const copy = getProductDetail(slug, locale);
   const productImage = PRODUCT_IMAGES[slug];
   const productImageAlt = getProductImageAlt(slug, locale);
-  const home = `/${locale}`;
   const productUrl = `${SITE.url}/${locale}/products/${slug}`;
   const pageJsonLd = {
     "@context": "https://schema.org",
@@ -133,7 +132,7 @@ export default async function ProductPage({
       <main className={styles.page} data-locale={locale} data-product={slug}>
         <header className={styles.hero}>
           <div className={styles.heroCopy}>
-            <Link href={`${home}#products`}>← {copy.back}</Link>
+            <Link href={`/${locale}/products`}>← {copy.back}</Link>
             <p>{copy.category}</p>
             <h1>{product.title}</h1>
             <p>{product.description}</p>

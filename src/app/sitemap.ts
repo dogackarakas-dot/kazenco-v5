@@ -10,8 +10,11 @@ import { PRODUCT_DETAIL_SLUGS } from "@/lib/product-detail-translations";
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
+    "/products",
     ...PRODUCT_DETAIL_SLUGS.map((slug) => `/products/${slug}`),
+    "/capabilities",
     ...CAPABILITIES.map((capability) => `/capabilities/${capability.slug}`),
+    "/projects",
     ...PROJECTS.map((p) => `/projects/${p.slug}`),
     "/certificates",
     "/industries",

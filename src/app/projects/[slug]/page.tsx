@@ -88,7 +88,6 @@ export default async function V12ProjectPage({
   if (!localeParam) permanentRedirect(`/en/projects/${slug}`);
   const locale = isLocale(localeParam) ? localeParam : "en";
   const copy = DETAIL_COPY[locale].project;
-  const home = `/${locale}`;
   const project = getLocalizedProject(slug, locale);
   if (!project) notFound();
 
@@ -155,7 +154,7 @@ export default async function V12ProjectPage({
       <PremiumHeader />
       <main className={styles.page}>
         <header className={styles.header}>
-          <Link href={`${home}#projects`}>← {copy[0]}</Link>
+          <Link href={`/${locale}/projects`}>← {copy[0]}</Link>
           <p>
             {categoryCapabilitySlug ? (
               <Link href={`/${locale}/capabilities/${categoryCapabilitySlug}`}>{categoryLabel}</Link>

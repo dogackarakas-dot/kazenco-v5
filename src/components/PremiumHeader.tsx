@@ -9,10 +9,10 @@ import { NAVIGATION, localeFromPathname } from "@/lib/i18n";
 
 const LINKS = [
   { key: "about", path: "/about" },
-  { key: "capabilities", path: "#capabilities" },
-  { key: "products", path: "#products" },
+  { key: "capabilities", path: "/capabilities" },
+  { key: "products", path: "/products" },
   { key: "industries", path: "/industries" },
-  { key: "projects", path: "#projects" },
+  { key: "projects", path: "/projects" },
   { key: "clients", path: "/clients" },
   { key: "certificates", path: "/certificates" },
   { key: "contact", path: "/contact" },

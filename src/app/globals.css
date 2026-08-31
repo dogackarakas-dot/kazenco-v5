@@ -1760,6 +1760,7 @@ html.inc-has-cursor [role="button"] {
   letter-spacing: .14em;
 }
 
+.kazenco-capability-card h2,
 .kazenco-capability-card h3 {
   max-width: 14ch;
   margin: 0;
@@ -2942,6 +2943,7 @@ html.inc-has-cursor [role="button"] {
   z-index: 2;
 }
 
+.kazenco-v9-product-copy h2,
 .kazenco-v9-product-copy h3 {
   max-width: 440px;
   margin: 0;
@@ -2961,6 +2963,7 @@ html.inc-has-cursor [role="button"] {
 
 /* Turkish product names are materially longer than the English source.
    Preserve the card layout and only tune heading typography. */
+html[lang="tr"] .kazenco-v9-product-copy h2,
 html[lang="tr"] .kazenco-v9-product-copy h3 {
   font-size: clamp(1.8rem, 2.7vw, 3.15rem);
   line-height: 1;
@@ -3547,6 +3550,7 @@ html[lang="tr"] .kazenco-v9-product-copy h3 {
   text-transform: uppercase;
 }
 
+.kazenco-v11-case-copy h2,
 .kazenco-v11-case-copy h3 {
   margin: 0;
   overflow-wrap: anywhere;

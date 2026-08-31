@@ -110,7 +110,7 @@ export default async function CapabilityPage({ params }: { params: Promise<{ slu
       <PremiumHeader />
       <main className={styles.page} data-locale={locale}>
         <header className={styles.hero}>
-          <Link href={`${home}#capabilities`}>← {copy[0]}</Link>
+          <Link href={`/${locale}/capabilities`}>← {copy[0]}</Link>
           <p>{copy[1]} {capability.number}</p>
           <h1>{capability.title}</h1>
           <p>{capability.overview}</p>
