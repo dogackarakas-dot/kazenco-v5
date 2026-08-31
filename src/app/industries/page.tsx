@@ -109,7 +109,7 @@ export default async function IndustriesIndexPage({
                 key={industry.slug}
               >
                 <span>{industry.number}</span>
-                <h3>{industry.title}</h3>
+                <h2>{industry.title}</h2>
                 <p>{industry.description}</p>
               </Link>
             ))}

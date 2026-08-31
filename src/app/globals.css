@@ -2069,6 +2069,7 @@ html.inc-has-cursor [role="button"] {
   letter-spacing: 0.14em;
 }
 
+.kazenco-v5-industry-card h2,
 .kazenco-v5-industry-card h3 {
   margin: 46px 0 0;
   font-family: var(--font-clone-display);

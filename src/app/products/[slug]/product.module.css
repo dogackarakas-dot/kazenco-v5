@@ -35,7 +35,7 @@
 .rfq > div > p:first-child {
   margin: 0 0 1.1rem;
   color: var(--kazenco-red);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   font-weight: 800;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -155,7 +155,7 @@
 .process article > span,
 .rfq li span {
   color: var(--kazenco-red);
-  font-size: 0.67rem;
+  font-size: 0.6875rem;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
