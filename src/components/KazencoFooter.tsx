@@ -22,9 +22,9 @@ export function KazencoFooter({ locale = "en" }: { locale?: Locale }) {
 
         <div className="kazenco-v5-footer-column">
           <h3>{copy[1]}</h3>
-          <Link href={`${home}#about`}>{copy[2]}</Link>
+          <Link href={`${home}/about`}>{copy[2]}</Link>
           <Link href={`${home}#projects`}>{copy[3]}</Link>
-          <Link href={`${home}#clients`}>{copy[4]}</Link>
+          <Link href={`${home}/clients`}>{copy[4]}</Link>
         </div>
 
         <div className="kazenco-v5-footer-column">

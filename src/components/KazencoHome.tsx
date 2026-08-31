@@ -1,10 +1,8 @@
-import Image from "next/image";
-
-import { DeferredAboutModal } from "@/components/DeferredAboutModal";
 import { DeferredContactModal } from "@/components/DeferredContactModal";
 import { HeroStack } from "@/components/HeroStack";
 import { IncrediblesCursor } from "@/components/IncrediblesCursor";
-import { KazencoClients } from "@/components/KazencoClients";
+import { KazencoAbout } from "@/components/KazencoAbout";
+import { KazencoClientsSummary } from "@/components/KazencoClientsSummary";
 import { KazencoContact } from "@/components/KazencoContact";
 import { KazencoCertificatesSummary } from "@/components/KazencoCertificatesSummary";
 import { KazencoCapabilities } from "@/components/KazencoCapabilities";
@@ -33,49 +31,11 @@ export function KazencoHome({ locale = "en" }: { locale?: Locale }) {
         <HeroStack heroChildren={<KazencoHeroContent locale={locale} />} />
 
 
-        <KazencoClients locale={locale} />
+        <KazencoClientsSummary locale={locale} />
 
         <KazencoCertificatesSummary locale={locale} />
 
-        <section id="about" className="inc-section inc-proof">
-          <div>
-            <p className="kazenco-section-kicker">{copy.about.kicker}</p>
-            <h2>{copy.about.title}</h2>
-          </div>
-
-          <blockquote>
-            <span>“</span>
-            <p>
-              {copy.about.text}
-            </p>
-            <cite>{copy.about.cite}</cite>
-          </blockquote>
-
-          <DeferredAboutModal
-            triggerClassName="inc-button inc-button-view inc-showreel"
-            triggerLabel={copy.about.button}
-          />
-
-          <aside className="kazenco-affiliate" aria-label={copy.about.affiliate.label}>
-            <p className="kazenco-affiliate-label">{copy.about.affiliate.label}</p>
-            <p>{copy.about.affiliate.text}</p>
-            <a
-              href="https://doka.com.tr/en"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={copy.about.affiliate.ariaLabel}
-            >
-              <Image
-                className="kazenco-affiliate-logo"
-                src="/images/brand/doka-logo-main.png"
-                alt={copy.about.affiliate.link}
-                width={760}
-                height={348}
-                sizes="(max-width: 900px) 140px, 152px"
-              />
-            </a>
-          </aside>
-        </section>
+        <KazencoAbout locale={locale} />
 
 
         <KazencoWhy locale={locale} />

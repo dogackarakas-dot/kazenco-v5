@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { sectionCopy } from "@/lib/section-translations";
 import { CLIENTS } from "@/lib/clients";
 
-export function KazencoClients({ locale = "en" }: { locale?: Locale }) {
+export function KazencoClientsSummary({ locale = "en" }: { locale?: Locale }) {
   const copy = sectionCopy(locale).clients;
   return (
     <section id="clients" className="kazenco-v5-section kazenco-v5-clients">
@@ -18,7 +19,7 @@ export function KazencoClients({ locale = "en" }: { locale?: Locale }) {
       </div>
 
       <div className="kazenco-v5-client-grid">
-        {CLIENTS.map((client) => (
+        {CLIENTS.slice(0, 8).map((client) => (
           <div className="kazenco-v5-client-card" key={client.name}>
             <Image
               src={client.image}
@@ -30,6 +31,12 @@ export function KazencoClients({ locale = "en" }: { locale?: Locale }) {
             />
           </div>
         ))}
+      </div>
+
+      <div className="kazenco-catalog-cta">
+        <Link href={`/${locale}/clients`} className="kazenco-catalog-button">
+          {copy[3]}
+        </Link>
       </div>
     </section>
   );
