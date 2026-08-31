@@ -15,17 +15,17 @@
 .hero img { object-fit: cover; transition: transform 900ms cubic-bezier(.16, 1, .3, 1); }
 .hero:hover img { transform: scale(1.035); }
 .fallback { position: absolute; inset: 0; display: grid; place-items: center; background: radial-gradient(circle at 70% 20%, #315d4e, transparent 38%), #10271f; }
-.fallback span { color: rgba(255, 255, 255, .58); font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.fallback span { color: rgba(255, 255, 255, .58); font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 .index, .explore { position: absolute; z-index: 2; font-size: .7rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .index { top: 2rem; left: 2rem; }
 .explore { right: 2rem; bottom: 2rem; border: 1px solid rgba(255, 255, 255, .35); border-radius: 999px; padding: .8rem 1.1rem; background: rgba(4, 16, 12, .3); backdrop-filter: blur(12px); }
 .story { display: grid; grid-template-columns: minmax(0, .8fr) minmax(240px, .52fr) minmax(350px, .78fr); gap: 2rem clamp(2rem, 5vw, 6rem); align-items: start; }
-.title p { margin: 0 0 1.25rem; color: var(--kazenco-red); font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.title p { margin: 0 0 1.25rem; color: var(--kazenco-red); font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 .title h3 { margin: 0; overflow-wrap: anywhere; font-family: var(--font-clone-display); font-size: clamp(2.8rem, 5vw, 5.8rem); font-weight: 450; letter-spacing: -.06em; line-height: .88; }
 .summary { margin: 0; color: var(--muted-foreground); line-height: 1.65; }
 .facts { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent); }
 .facts div { padding: .85rem 0; border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent); }
-.facts dt { color: var(--muted-foreground); font-size: .61rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.facts dt { color: var(--muted-foreground); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .facts dd { margin: .35rem 0 0; font-size: .8rem; line-height: 1.4; }
 .textLink { grid-column: 3; justify-self: start; display: inline-flex; gap: .7rem; align-items: center; border-bottom: 1px solid currentColor; padding-bottom: .4rem; color: inherit; font-size: .8rem; font-weight: 750; text-decoration: none; }
 .original { margin-top: clamp(10rem, 18vw, 18rem); padding-top: clamp(4rem, 7vw, 7rem); border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent); }

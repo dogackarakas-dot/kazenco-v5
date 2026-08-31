@@ -150,7 +150,7 @@
   border-radius: 999px;
   padding: .35rem .55rem;
   background: rgba(4, 16, 12, .74);
-  font-size: .62rem;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -191,7 +191,7 @@
 .resultsHeader span,
 .project > div > span {
   color: #686868;
-  font-size: .6rem;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -248,7 +248,7 @@
 .project > span { padding-right: .35rem; font-size: .8rem; }
 
 .fallbackNote {
-  max-width: 760px;
+  max-width: 65ch;
   margin: 1rem 0 0;
   color: var(--muted-foreground);
   font-size: .75rem;
