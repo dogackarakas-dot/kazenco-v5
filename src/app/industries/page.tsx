@@ -19,22 +19,23 @@ export async function generateMetadata({
   const { locale: localeParam } = await params;
   const locale = localeParam && isLocale(localeParam) ? localeParam : "en";
   const copy = HOME_COPY[locale].industries;
+  const pageTitle = copy.kicker;
   const path = "/industries";
   const canonical = `/${locale}${path}`;
   return {
-    title: copy.title,
+    title: pageTitle,
     description: copy.intro,
     alternates: { canonical, languages: localizedAlternates(path) },
     openGraph: {
       type: "website",
       url: canonical,
       siteName: "KAZENCO",
-      title: `${copy.title} | KAZENCO`,
+      title: `${pageTitle} | KAZENCO`,
       description: copy.intro,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${copy.title} | KAZENCO`,
+      title: `${pageTitle} | KAZENCO`,
       description: copy.intro,
     },
   };
@@ -60,7 +61,7 @@ export default async function IndustriesIndexPage({
     "@type": "CollectionPage",
     "@id": `${pageUrl}#industries`,
     url: pageUrl,
-    name: copy.title,
+    name: copy.kicker,
     description: copy.intro,
     mainEntity: {
       "@type": "ItemList",
@@ -78,7 +79,7 @@ export default async function IndustriesIndexPage({
     "@id": `${pageUrl}#breadcrumb`,
     itemListElement: [
       { "@type": "ListItem", position: 1, name: NAVIGATION[locale].home, item: `${SITE.url}/${locale}` },
-      { "@type": "ListItem", position: 2, name: copy.title, item: pageUrl },
+      { "@type": "ListItem", position: 2, name: NAVIGATION[locale].industries, item: pageUrl },
     ],
   };
 
