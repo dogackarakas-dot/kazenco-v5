@@ -44,9 +44,8 @@ export function KazencoProducts({ locale = "en" }: { locale?: Locale }) {
 
       <div className="kazenco-catalog-cta">
         <a
-          href="/catalog/kazenco-katalog-web.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/downloads/kazenco-katalog.pdf"
+          download
           className="kazenco-catalog-button"
           aria-label={`${copy[9]}`}
         >

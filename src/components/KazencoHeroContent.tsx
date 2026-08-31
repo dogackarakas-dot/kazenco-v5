@@ -143,9 +143,8 @@ export function KazencoHeroContent({ locale = "en" }: { locale?: Locale }) {
           {copy.projects}
         </a>
         <a
-          href="/catalog/kazenco-katalog-web.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/downloads/kazenco-katalog.pdf"
+          download
           className="kazenco-hero-secondary"
           aria-label={`${copy.catalog} (PDF)`}
         >
