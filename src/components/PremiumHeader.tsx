@@ -8,14 +8,14 @@ import { KazencoMark } from "@/components/Logo";
 import { NAVIGATION, localeFromPathname } from "@/lib/i18n";
 
 const LINKS = [
-  { key: "about", hash: "about" },
-  { key: "capabilities", hash: "capabilities" },
-  { key: "products", hash: "products" },
-  { key: "industries", hash: "industries" },
-  { key: "projects", hash: "projects" },
-  { key: "clients", hash: "clients" },
-  { key: "certificates", hash: "certificates" },
-  { key: "contact", hash: "contact" },
+  { key: "about", path: "#about" },
+  { key: "capabilities", path: "#capabilities" },
+  { key: "products", path: "#products" },
+  { key: "industries", path: "/industries" },
+  { key: "projects", path: "#projects" },
+  { key: "clients", path: "#clients" },
+  { key: "certificates", path: "/certificates" },
+  { key: "contact", path: "#contact" },
 ] as const;
 
 export function PremiumHeader() {
@@ -50,10 +50,10 @@ export function PremiumHeader() {
         >
           <ul>
             {LINKS.map((link) => (
-              <li key={link.hash}>
+              <li key={link.path}>
                 <a
                   className="kazenco-nav-link"
-                  href={`${homePath}#${link.hash}`}
+                  href={`${homePath}${link.path}`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {copy[link.key]}

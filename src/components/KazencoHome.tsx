@@ -6,7 +6,7 @@ import { HeroStack } from "@/components/HeroStack";
 import { IncrediblesCursor } from "@/components/IncrediblesCursor";
 import { KazencoClients } from "@/components/KazencoClients";
 import { KazencoContact } from "@/components/KazencoContact";
-import { KazencoCertificates } from "@/components/KazencoCertificates";
+import { KazencoCertificatesSummary } from "@/components/KazencoCertificatesSummary";
 import { KazencoCapabilities } from "@/components/KazencoCapabilities";
 import { KazencoFooter } from "@/components/KazencoFooter";
 import { KazencoHeroContent } from "@/components/KazencoHeroContent";
@@ -35,7 +35,7 @@ export function KazencoHome({ locale = "en" }: { locale?: Locale }) {
 
         <KazencoClients locale={locale} />
 
-        <KazencoCertificates locale={locale} />
+        <KazencoCertificatesSummary locale={locale} />
 
         <section id="about" className="inc-section inc-proof">
           <div>

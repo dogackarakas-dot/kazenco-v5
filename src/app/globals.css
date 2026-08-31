@@ -1872,6 +1872,7 @@ html.inc-has-cursor [role="button"] {
   margin-bottom: clamp(2rem, 5vw, 4rem);
 }
 
+.kazenco-v5-section-head h1,
 .kazenco-v5-section-head h2,
 .kazenco-v5-clients h2,
 .kazenco-v5-why h2 {
@@ -2040,13 +2041,20 @@ html.inc-has-cursor [role="button"] {
 }
 
 .kazenco-v5-industry-card {
+  display: block;
   min-height: 210px;
   border-radius: 24px;
   padding: 22px;
   color: #ffffff;
+  text-decoration: none;
   background:
     linear-gradient(135deg, rgba(7, 19, 29, 0.96), rgba(7, 19, 29, 0.70)),
     radial-gradient(circle at 90% 10%, rgba(236, 28, 36, 0.30), transparent 34%);
+  transition: transform 180ms ease;
+}
+
+.kazenco-v5-industry-card:hover {
+  transform: translateY(-2px);
 }
 
 .kazenco-v5-industry-card span {
