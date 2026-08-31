@@ -4,12 +4,16 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
+import Image from "next/image";
 import { CAPABILITIES } from "@/lib/capabilities";
 import { getLocalizedCapability } from "@/lib/capability-translations";
 import { DETAIL_COPY } from "@/lib/detail-translations";
 import { isLocale, NAVIGATION } from "@/lib/i18n";
 import { getLocalizedIndustry } from "@/lib/industry-translations";
 import { INDUSTRIES } from "@/lib/industries";
+import { INDUSTRY_PRODUCT_SLUGS } from "@/lib/industry-products";
+import { productCopy } from "@/lib/product-translations";
+import { PRODUCTS } from "@/lib/products";
 import { localizedAlternates } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 import styles from "./industry.module.css";
@@ -68,6 +72,15 @@ export default async function IndustryPage({
     (capability) => capability !== undefined,
   );
 
+  const translatedProducts = productCopy(locale);
+  const relatedProducts = (INDUSTRY_PRODUCT_SLUGS[slug] ?? [])
+    .map((productSlug) => {
+      const index = PRODUCTS.findIndex((product) => product.slug === productSlug);
+      if (index === -1) return undefined;
+      return { ...PRODUCTS[index], ...translatedProducts[index] };
+    })
+    .filter((product) => product !== undefined);
+
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -118,6 +131,33 @@ export default async function IndustryPage({
             ))}
           </div>
         </section>
+
+        {relatedProducts.length > 0 && (
+          <section className={styles.products}>
+            <header>
+              <p>{copy[7]}</p>
+              <h2>{copy[8]}</h2>
+            </header>
+            <div>
+              {relatedProducts.map((product) => (
+                <article key={product.slug}>
+                  <div className={styles.productMedia}>
+                    <Image src={product.image} alt={product.title} fill sizes="(max-width: 640px) 100vw, 33vw" />
+                  </div>
+                  <h3>
+                    <Link href={`/${locale}/products/${product.slug}`}>{product.title}</Link>
+                  </h3>
+                  <p>{product.description}</p>
+                  <ul className="kazenco-product-specs" aria-label={`${product.title} — reference specifications`}>
+                    {product.referenceSpecs.map((specification) => (
+                      <li key={specification}>{specification}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className={styles.cta}>
           <p>{copy[4]}</p>
