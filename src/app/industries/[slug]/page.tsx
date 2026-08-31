@@ -15,6 +15,7 @@ import { INDUSTRY_HERO_FALLBACK_GRADIENT, INDUSTRY_HERO_IMAGES } from "@/lib/ind
 import { INDUSTRY_PRODUCT_SLUGS } from "@/lib/industry-products";
 import { productCopy } from "@/lib/product-translations";
 import { PRODUCTS } from "@/lib/products";
+import { getLocalizedProject, getProjectImageAlt } from "@/lib/project-translations";
 import { localizedAlternates } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 import styles from "./industry.module.css";
@@ -81,6 +82,11 @@ export default async function IndustryPage({
       return { ...PRODUCTS[index], ...translatedProducts[index] };
     })
     .filter((product) => product !== undefined);
+
+  const relatedProjects = industry.relatedProjectSlugs
+    .slice(0, 3)
+    .map((projectSlug) => getLocalizedProject(projectSlug, locale))
+    .filter((project) => project !== undefined);
 
   const heroImage = INDUSTRY_HERO_IMAGES[slug];
 
@@ -175,6 +181,42 @@ export default async function IndustryPage({
                     ))}
                   </ul>
                 </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {relatedProjects.length > 0 && (
+          <section className={styles.projects}>
+            <header>
+              <p>{copy[9]}</p>
+              <h2>{copy[10]}</h2>
+            </header>
+            <div>
+              {relatedProjects.map((project) => (
+                <Link href={`/${locale}/projects/${project.slug}`} key={project.slug}>
+                  <figure>
+                    {project.image ? (
+                      <Image
+                        src={project.image}
+                        alt={getProjectImageAlt(
+                          project.slug,
+                          locale,
+                          `${project.title}, ${project.location}`,
+                        )}
+                        fill
+                        sizes="(max-width: 700px) 100vw, 50vw"
+                      />
+                    ) : (
+                      <div className={styles.projectFallback} style={{ background: project.gradient }}>
+                        <span>{project.title}</span>
+                      </div>
+                    )}
+                  </figure>
+                  <span>{project.location}</span>
+                  <h3>{project.title}</h3>
+                  <p>{project.role}</p>
+                </Link>
               ))}
             </div>
           </section>
