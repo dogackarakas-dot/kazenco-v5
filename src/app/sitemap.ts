@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/certificates",
     "/industries",
     ...INDUSTRIES.map((industry) => `/industries/${industry.slug}`),
+    "/contact",
   ];
 
   return LOCALES.flatMap((locale) => routes.map((route) => ({

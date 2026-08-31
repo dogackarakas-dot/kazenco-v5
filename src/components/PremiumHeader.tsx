@@ -15,7 +15,7 @@ const LINKS = [
   { key: "projects", path: "#projects" },
   { key: "clients", path: "#clients" },
   { key: "certificates", path: "/certificates" },
-  { key: "contact", path: "#contact" },
+  { key: "contact", path: "/contact" },
 ] as const;
 
 export function PremiumHeader() {

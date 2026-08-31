@@ -33,7 +33,7 @@ export function KazencoFooter({ locale = "en" }: { locale?: Locale }) {
           <Link href={`${home}#products`}>{copy[7]}</Link>
           <Link href={`${home}/industries`}>{copy[8]}</Link>
           <Link href={`${home}#project-map`}>{copy[9]}</Link>
-          <Link href={`${home}#contact`}>{copy[10]}</Link>
+          <Link href={`${home}/contact`}>{copy[10]}</Link>
         </div>
 
         <div className="kazenco-v5-footer-column">
