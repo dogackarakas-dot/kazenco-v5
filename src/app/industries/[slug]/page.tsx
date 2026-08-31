@@ -11,6 +11,7 @@ import { DETAIL_COPY } from "@/lib/detail-translations";
 import { isLocale, NAVIGATION } from "@/lib/i18n";
 import { getLocalizedIndustry } from "@/lib/industry-translations";
 import { INDUSTRIES } from "@/lib/industries";
+import { INDUSTRY_HERO_FALLBACK_GRADIENT, INDUSTRY_HERO_IMAGES } from "@/lib/industry-hero-images";
 import { INDUSTRY_PRODUCT_SLUGS } from "@/lib/industry-products";
 import { productCopy } from "@/lib/product-translations";
 import { PRODUCTS } from "@/lib/products";
@@ -81,6 +82,8 @@ export default async function IndustryPage({
     })
     .filter((product) => product !== undefined);
 
+  const heroImage = INDUSTRY_HERO_IMAGES[slug];
+
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -106,12 +109,30 @@ export default async function IndustryPage({
       <JsonLd data={serviceJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
       <PremiumHeader />
-      <main className={styles.page}>
+      <main className={styles.page} data-locale={locale}>
         <header className={styles.hero}>
-          <Link href={`/${locale}/industries`}>← {copy[0]}</Link>
-          <p>{copy[1]} {industry.number}</p>
-          <h1>{industry.title}</h1>
-          <p>{industry.description}</p>
+          <Link className={styles.back} href={`/${locale}/industries`}>← {copy[0]}</Link>
+          <div
+            className={styles.heroPanel}
+            style={heroImage ? undefined : { background: INDUSTRY_HERO_FALLBACK_GRADIENT }}
+          >
+            {heroImage && (
+              <Image
+                className={styles.heroImage}
+                src={heroImage}
+                alt=""
+                fill
+                sizes="(max-width: 900px) 100vw, 1180px"
+                priority
+              />
+            )}
+            <div className={styles.heroOverlay} />
+            <div className={styles.heroText}>
+              <p>{copy[1]} {industry.number}</p>
+              <h1>{industry.title}</h1>
+              <p>{industry.description}</p>
+            </div>
+          </div>
         </header>
 
         <section className={styles.delivery}>
