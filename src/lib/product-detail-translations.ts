@@ -178,6 +178,12 @@ const PRODUCT_IMAGE_ALTS: Record<ProductDetailSlug, Record<Locale, string>> = {
     ru: "Различные изоляционные, лакокрасочные, кровельные и строительные материалы",
     kz: "Әртүрлі оқшаулау, жабын, шатыр және құрылыс алаңы материалдары",
   },
+  "tools-measurement-safety": {
+    en: "Assorted industrial hand and power tools, including wrenches, a socket set, angle grinder, cut-off saw and drill, arranged on a dark surface",
+    tr: "Koyu bir yüzeyde düzenlenmiş çeşitli endüstriyel el ve akülü aletler — anahtarlar, lokma takımı, avuç taşlama, kesme makinesi ve matkap",
+    ru: "Промышленные ручные и электроинструменты — гаечные ключи, набор головок, угловая шлифмашина, отрезная пила и дрель — на тёмном фоне",
+    kz: "Қараңғы бетте орналасқан әртүрлі өнеркәсіптік қол және электр құралдары — кілттер, бас жинағы, бұрыштық тегістегіш, кесу аралы және бұрғы",
+  },
 };
 
 export function getProductImageAlt(slug: ProductDetailSlug, locale: Locale) {

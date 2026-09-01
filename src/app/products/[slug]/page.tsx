@@ -26,7 +26,7 @@ const PRODUCT_IMAGES: Record<ProductDetailSlug, string> = {
   "fasteners-anchor-bolts": "/images/products/fasteners-anchor-bolts-real-v1.webp",
   "electrical-equipment": "/images/products/electrical-equipment.webp",
   "construction-materials": "/images/products/construction-materials.webp",
-  "tools-measurement-safety": "/images/products/tools-measurement-safety-PLACEHOLDER.webp",
+  "tools-measurement-safety": "/images/products/tools-measurement-safety-v1.webp",
 };
 
 export function generateStaticParams() {

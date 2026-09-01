@@ -46,6 +46,6 @@ export const PRODUCTS: ProductStatic[] = [
     slug: "tools-measurement-safety",
     number: "07",
     referenceSpecs: ["ISO/IEC 17025", "EN ISO 20345", "EN 3"],
-    image: "/images/products/tools-measurement-safety-PLACEHOLDER.webp",
+    image: "/images/products/tools-measurement-safety-v1.webp",
   },
 ];
