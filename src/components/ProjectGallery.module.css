@@ -8,8 +8,19 @@
 .grid button:hover img { transform: scale(1.04); }
 .grid button:focus-visible img { transform: scale(1.04); }
 .grid button span { position: absolute; right: .8rem; bottom: .7rem; z-index: 1; color: white; font-size: .65rem; font-weight: 800; text-shadow: 0 1px 8px #000; }
-.lightbox { position: fixed; inset: 0; z-index: 1000; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem; padding: clamp(1rem, 3vw, 3rem); background: rgba(4, 10, 8, .96); color: white; }
-.fullImage { position: relative; width: 100%; height: calc(100svh - 7rem); }
+.lightbox {
+  position: fixed; inset: 0; z-index: 1000; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem; padding: clamp(1rem, 3vw, 3rem); background: rgba(4, 10, 8, .96); color: white;
+  opacity: 0;
+  transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lightbox[data-phase="open"] { opacity: 1; }
+.fullImage {
+  position: relative; width: 100%; height: calc(100svh - 7rem);
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1), transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lightbox[data-phase="open"] .fullImage { opacity: 1; transform: scale(1); }
 .fullImage img { object-fit: contain; }
 .lightbox button { z-index: 2; display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid rgba(255, 255, 255, .28); border-radius: 50%; background: rgba(255, 255, 255, .08); color: white; font-size: 1.25rem; cursor: pointer; }
 .close { position: absolute; top: 1.5rem; right: 1.5rem; }
@@ -24,4 +35,11 @@
   .grid button:nth-child(4) { grid-column: span 1; }
   .lightbox { grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem; gap: .25rem; padding: .5rem; }
   .lightbox button { width: 2.5rem; height: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox,
+  .fullImage {
+    transition: none;
+  }
 }
