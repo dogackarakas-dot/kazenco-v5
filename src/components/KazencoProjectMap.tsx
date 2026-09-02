@@ -186,7 +186,7 @@ export function KazencoProjectMap({ locale = "en" }: { locale?: Locale }) {
             <strong>{cityProjects.length.toString().padStart(2, "0")}</strong>
           </div>
 
-          <div className={styles.projectList}>
+          <div className={styles.projectList} key={`${filter}-${activeCity}`}>
             {cityProjects.map((project) => (
               <Link href={`/${locale}/projects/${project.slug}`} className={styles.project} key={project.slug}>
                 <figure>
