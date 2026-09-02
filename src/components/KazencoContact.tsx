@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import { DeferredContactModal } from "@/components/DeferredContactModal";
 import { HOME_COPY } from "@/lib/home-translations";
 import type { Locale } from "@/lib/i18n";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export function KazencoContact({ locale = "en" }: { locale?: Locale }) {
   const copy = HOME_COPY[locale].contact;
@@ -10,6 +13,8 @@ export function KazencoContact({ locale = "en" }: { locale?: Locale }) {
     { label: copy.labels[1], value: "info@kazenco.com", href: "mailto:info@kazenco.com" },
     { label: copy.labels[2], value: "+7 702 431 66 98", href: "tel:+77024316698" },
   ];
+  const headRef = useScrollReveal<HTMLDivElement>();
+  const detailsRef = useScrollReveal<HTMLDivElement>();
   return (
     <section id="contact" className="kazenco-v5-rfq kazenco-contact">
       <Image
@@ -19,7 +24,7 @@ export function KazencoContact({ locale = "en" }: { locale?: Locale }) {
         fill
         sizes="(max-width: 1220px) 100vw, 1180px"
       />
-      <div className="kazenco-contact-heading">
+      <div ref={headRef} className="kazenco-contact-heading kazenco-v7-reveal-onscroll">
         <p className="kazenco-section-kicker">{copy.kicker}</p>
         <p>{copy.intro}</p>
         <DeferredContactModal
@@ -28,9 +33,12 @@ export function KazencoContact({ locale = "en" }: { locale?: Locale }) {
         />
       </div>
 
-      <div className="kazenco-contact-details">
-        {details.map((detail) => (
-          <article key={detail.label}>
+      <div ref={detailsRef} className="kazenco-contact-details">
+        {details.map((detail, index) => (
+          <article
+            key={detail.label}
+            className={`kazenco-v7-reveal-onscroll kazenco-v7-delay-${index + 1}`}
+          >
             <span>{detail.label}</span>
             {detail.href ? (
               <a href={detail.href}>{detail.value}</a>

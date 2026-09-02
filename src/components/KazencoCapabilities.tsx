@@ -1,15 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import { CAPABILITIES } from "@/lib/capabilities";
 import { getLocalizedCapability } from "@/lib/capability-translations";
 import type { Locale } from "@/lib/i18n";
 import { sectionCopy } from "@/lib/section-translations";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export function KazencoCapabilities({ locale = "en" }: { locale?: Locale }) {
   const copy = sectionCopy(locale).capabilities;
   const capabilities = CAPABILITIES.map((capability) => getLocalizedCapability(capability.slug, locale) ?? capability);
+  const headRef = useScrollReveal<HTMLElement>();
+  const gridRef = useScrollReveal<HTMLDivElement>();
   return (
     <section id="capabilities" className="kazenco-v5-section kazenco-capabilities">
-      <header className="kazenco-capabilities-head">
+      <header ref={headRef} className="kazenco-capabilities-head kazenco-v7-reveal-onscroll">
         <div>
           <p className="kazenco-section-kicker">{copy[0]}</p>
           <h2>{copy[1]}</h2>
@@ -20,9 +25,12 @@ export function KazencoCapabilities({ locale = "en" }: { locale?: Locale }) {
         </div>
       </header>
 
-      <div className="kazenco-capabilities-grid">
-        {capabilities.map((capability) => (
-          <article key={capability.title} className="kazenco-capability-card">
+      <div ref={gridRef} className="kazenco-capabilities-grid">
+        {capabilities.map((capability, index) => (
+          <article
+            key={capability.title}
+            className={`kazenco-capability-card kazenco-v7-reveal-onscroll kazenco-v7-delay-${index + 1}`}
+          >
             <span>{capability.number}</span>
             <h3>{capability.title}</h3>
             <div>

@@ -5,12 +5,15 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { sectionCopy } from "@/lib/section-translations";
 import { CLIENTS } from "@/lib/clients";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export function KazencoClientsSummary({ locale = "en" }: { locale?: Locale }) {
   const copy = sectionCopy(locale).clients;
+  const headRef = useScrollReveal<HTMLDivElement>();
+  const gridRef = useScrollReveal<HTMLDivElement>();
   return (
     <section id="clients" className="kazenco-v5-section kazenco-v5-clients">
-      <div className="kazenco-v5-section-head">
+      <div ref={headRef} className="kazenco-v5-section-head kazenco-v7-reveal-onscroll">
         <div>
           <p className="kazenco-section-kicker">{copy[0]}</p>
           <h2>{copy[1]}</h2>
@@ -18,9 +21,12 @@ export function KazencoClientsSummary({ locale = "en" }: { locale?: Locale }) {
         <p>{copy[2]}</p>
       </div>
 
-      <div className="kazenco-v5-client-grid">
-        {CLIENTS.slice(0, 8).map((client) => (
-          <div className="kazenco-v5-client-card" key={client.name}>
+      <div ref={gridRef} className="kazenco-v5-client-grid">
+        {CLIENTS.slice(0, 8).map((client, index) => (
+          <div
+            className={`kazenco-v5-client-card kazenco-v7-reveal-onscroll kazenco-v7-delay-${index + 1}`}
+            key={client.name}
+          >
             <Image
               src={client.image}
               alt={`${client.name} logo`}

@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { sectionCopy } from "@/lib/section-translations";
 import { productCopy, productReferenceLabels } from "@/lib/product-translations";
 import { PRODUCTS } from "@/lib/products";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const PRODUCT_REFERENCE_IMAGES = [
   {
@@ -32,9 +35,11 @@ export function KazencoProducts({ locale = "en" }: { locale?: Locale }) {
   const copy = sectionCopy(locale).products;
   const translatedProducts = productCopy(locale);
   const referenceLabels = productReferenceLabels[locale];
+  const headRef = useScrollReveal<HTMLDivElement>();
+  const gridRef = useScrollReveal<HTMLDivElement>();
   return (
     <section id="products" className="kazenco-v5-section kazenco-v9-products">
-      <div className="kazenco-v5-section-head">
+      <div ref={headRef} className="kazenco-v5-section-head kazenco-v7-reveal-onscroll">
         <div>
           <p className="kazenco-section-kicker">{copy[0]}</p>
           <h2>{copy[1]}</h2>
@@ -54,13 +59,13 @@ export function KazencoProducts({ locale = "en" }: { locale?: Locale }) {
         </a>
       </div>
 
-      <div className="kazenco-v9-product-grid">
+      <div ref={gridRef} className="kazenco-v9-product-grid">
         {PRODUCTS.map((product, index) => {
           const translated = translatedProducts[index];
           const productScopeHref = `/${locale}/products/${product.slug}`;
           return (
           <article
-            className={`kazenco-v9-product-card${index === 0 ? " is-featured" : ""}`}
+            className={`kazenco-v9-product-card kazenco-v7-reveal-onscroll kazenco-v7-delay-${index + 1}${index === 0 ? " is-featured" : ""}`}
             key={product.number}
           >
             <div className="kazenco-v9-product-top">

@@ -1,12 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { sectionCopy } from "@/lib/section-translations";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export function KazencoCertificatesSummary({ locale = "en" }: { locale?: Locale }) {
   const copy = sectionCopy(locale).certificates;
+  const headRef = useScrollReveal<HTMLDivElement>();
   return (
     <section id="certificates" className="kazenco-v5-section">
-      <div className="kazenco-v5-section-head">
+      <div ref={headRef} className="kazenco-v5-section-head kazenco-v7-reveal-onscroll">
         <div>
           <p className="kazenco-section-kicker">{copy[0]}</p>
           {copy[1] ? <h2>{copy[1]}</h2> : null}

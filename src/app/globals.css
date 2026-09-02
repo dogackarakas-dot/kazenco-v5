@@ -328,6 +328,11 @@ html.inc-has-cursor [role="button"] {
   cursor: pointer;
 }
 
+.inc-button:active {
+  transform: scale(0.98);
+  transition: transform 140ms ease-out;
+}
+
 .inc-button-conversation {
   --button-width: 11.9rem;
 }
@@ -482,6 +487,12 @@ html.inc-has-cursor [role="button"] {
 .kazenco-hero-primary:hover,
 .kazenco-hero-secondary:hover { transform: translateY(-2px); }
 .kazenco-hero-secondary:hover { border-color: #fff; background: rgba(255,255,255,.15); }
+
+.kazenco-hero-primary:active,
+.kazenco-hero-secondary:active {
+  transform: scale(0.98);
+  transition: transform 140ms ease-out;
+}
 .kazenco-hero-meta {
   display: flex;
   flex-wrap: wrap;
@@ -1927,6 +1938,11 @@ html.inc-has-cursor [role="button"] {
   transform: translateY(-2px);
 }
 
+.kazenco-catalog-button:active {
+  transform: scale(0.98);
+  transition: transform 140ms ease-out;
+}
+
 @media (max-width: 640px) {
   .kazenco-catalog-button {
     width: 100%;
@@ -2061,6 +2077,11 @@ html.inc-has-cursor [role="button"] {
 
 .kazenco-v5-industry-card:hover {
   transform: translateY(-2px);
+}
+
+.kazenco-v5-industry-card:active {
+  transform: scale(0.98);
+  transition: transform 140ms ease-out;
 }
 
 .kazenco-v5-industry-card span {
@@ -2535,6 +2556,16 @@ html.inc-has-cursor [role="button"] {
 .kazenco-v7-delay-7 { animation-delay: 680ms; }
 .kazenco-v7-delay-8 { animation-delay: 780ms; }
 
+.kazenco-v7-reveal-onscroll {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.kazenco-v7-reveal-onscroll.kazenco-v7-in-view,
+.kazenco-v7-in-view > .kazenco-v7-reveal-onscroll {
+  animation: kazenco-v7-reveal 850ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 @keyframes kazenco-v7-reveal {
   to {
     opacity: 1;
@@ -2623,11 +2654,13 @@ html.inc-has-cursor [role="button"] {
 
 @media (prefers-reduced-motion: reduce) {
   .kazenco-v7-reveal,
+  .kazenco-v7-reveal-onscroll,
   .kazenco-v7-scroll-cue span::after {
     animation: none;
   }
 
-  .kazenco-v7-reveal {
+  .kazenco-v7-reveal,
+  .kazenco-v7-reveal-onscroll {
     opacity: 1;
     transform: none;
   }
@@ -2823,6 +2856,11 @@ html.inc-has-cursor [role="button"] {
   transform: translateY(-7px);
   border-color: rgba(24, 128, 25, 0.24);
   box-shadow: 0 30px 80px rgba(16, 35, 48, 0.13);
+}
+
+.kazenco-v9-product-card:active {
+  transform: scale(0.98);
+  transition: transform 140ms ease-out;
 }
 
 .kazenco-v9-product-top {
