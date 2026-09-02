@@ -217,6 +217,10 @@
   color: #fff;
 }
 
+.rfq > div > p:first-child {
+  color: #ff4d52;
+}
+
 .rfq > div > p:nth-of-type(2) {
   max-width: 42rem;
   margin: 1.5rem 0 0;
