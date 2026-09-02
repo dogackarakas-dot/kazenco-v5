@@ -150,6 +150,14 @@ export function KazencoHeroContent({ locale = "en" }: { locale?: Locale }) {
         >
           {copy.catalog}
         </a>
+        <a
+          href="/downloads/kazenco-industrial-procurement-catalogue.pdf"
+          download
+          className="kazenco-hero-secondary"
+          aria-label={`${copy.procurementCatalog} (PDF)`}
+        >
+          {copy.procurementCatalog}
+        </a>
       </div>
 
       <div className="kazenco-v7-stats kazenco-v7-reveal kazenco-v7-delay-7">

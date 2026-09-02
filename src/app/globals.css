@@ -1910,6 +1910,8 @@ html.inc-has-cursor [role="button"] {
 
 .kazenco-catalog-cta {
   display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 

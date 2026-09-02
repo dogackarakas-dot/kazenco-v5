@@ -57,6 +57,15 @@ export function KazencoProducts({ locale = "en" }: { locale?: Locale }) {
           <span aria-hidden="true">↓</span>
           {copy[9]}
         </a>
+        <a
+          href="/downloads/kazenco-industrial-procurement-catalogue.pdf"
+          download
+          className="kazenco-catalog-button"
+          aria-label={`${copy[10]}`}
+        >
+          <span aria-hidden="true">↓</span>
+          {copy[10]}
+        </a>
       </div>
 
       <div ref={gridRef} className="kazenco-v9-product-grid">
