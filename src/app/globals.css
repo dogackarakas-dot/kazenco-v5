@@ -537,7 +537,8 @@ html.inc-has-cursor [role="button"] {
     top: calc(100% + 9px);
     right: 0;
     left: 0;
-    display: none;
+    display: block;
+    visibility: hidden;
     padding: 9px;
     border: 1px solid rgba(255,255,255,.16);
     border-radius: 18px;
@@ -545,10 +546,24 @@ html.inc-has-cursor [role="button"] {
     box-shadow: 0 18px 54px rgba(0,0,0,.24);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 220ms allow-discrete;
+  }
+
+  @starting-style {
+    .inc-nav.is-open {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
   }
 
   .inc-nav.is-open {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .inc-nav ul {
@@ -2665,6 +2680,10 @@ html.inc-has-cursor [role="button"] {
   .kazenco-v7-reveal-onscroll {
     opacity: 1;
     transform: none;
+  }
+
+  .inc-nav {
+    transition: none;
   }
 }
 
