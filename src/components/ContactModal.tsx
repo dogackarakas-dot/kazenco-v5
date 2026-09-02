@@ -440,7 +440,7 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
                 <div className="mt-6 flex flex-wrap items-center justify-end gap-4">
                   {status === "uploading" && <p role="status" className="m-0 text-sm text-muted-foreground">{copy[25]} · {uploadProgress}%</p>}
                   {status === "submitting" && <p role="status" className="m-0 text-sm text-muted-foreground">{copy[26]}</p>}
-                  {status === "success" && reference && <p role="status" className="m-0 text-sm text-muted-foreground">{copy[27]} · <strong className="text-foreground">{reference}</strong></p>}
+                  {status === "success" && reference && <p role="status" className="m-0 text-sm text-muted-foreground transition-[opacity,translate,scale] duration-[320ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-[opacity] motion-reduce:duration-[120ms] starting:translate-y-1 starting:scale-[0.97] starting:opacity-0">{copy[27]} · <strong className="text-foreground">{reference}</strong></p>}
                   {status === "fallback" && <p role="status" className="m-0 text-sm text-muted-foreground">{copy[28]}</p>}
                   {status === "error" && <p role="alert" className="m-0 text-sm text-destructive">{copy[29]}</p>}
                   <button type="submit" disabled={!canSubmit || status === "uploading" || status === "submitting" || status === "success"} className="flex h-12 items-center justify-center rounded-full bg-foreground px-7 text-[12px] font-semibold uppercase tracking-[0.06em] text-background transition-opacity disabled:cursor-not-allowed disabled:bg-[#d8d8d8] disabled:text-[#9c9c9c]">
