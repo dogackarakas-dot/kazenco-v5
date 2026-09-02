@@ -57,6 +57,11 @@
   font-size: clamp(3.5rem, 5.2vw, 6.2rem);
 }
 
+.page[data-product="tools-measurement-safety"] .heroCopy h1 {
+  max-width: 13ch;
+  font-size: clamp(2.8rem, 5vw, 5.6rem);
+}
+
 .heroCopy > p:last-child {
   max-width: 42rem;
   margin: 2rem 0 0;
