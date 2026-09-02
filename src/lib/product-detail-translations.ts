@@ -179,10 +179,10 @@ const PRODUCT_IMAGE_ALTS: Record<ProductDetailSlug, Record<Locale, string>> = {
     kz: "Әртүрлі оқшаулау, жабын, шатыр және құрылыс алаңы материалдары",
   },
   "tools-measurement-safety": {
-    en: "Assorted industrial hand and power tools, including wrenches, a socket set, angle grinder, cut-off saw and drill, arranged on a dark surface",
-    tr: "Koyu bir yüzeyde düzenlenmiş çeşitli endüstriyel el ve akülü aletler — anahtarlar, lokma takımı, avuç taşlama, kesme makinesi ve matkap",
-    ru: "Промышленные ручные и электроинструменты — гаечные ключи, набор головок, угловая шлифмашина, отрезная пила и дрель — на тёмном фоне",
-    kz: "Қараңғы бетте орналасқан әртүрлі өнеркәсіптік қол және электр құралдары — кілттер, бас жинағы, бұрыштық тегістегіш, кесу аралы және бұрғы",
+    en: "Industrial tools, measurement instruments and safety equipment — a cordless drill, adjustable wrench, torque wrench, digital caliper, safety helmet, protective gloves, fire extinguisher and first aid kit — arranged on a dark surface",
+    tr: "Koyu bir yüzeyde düzenlenmiş endüstriyel aletler, ölçüm cihazları ve güvenlik ekipmanı: akülü matkap, ayarlanabilir anahtar, tork anahtarı, dijital kumpas, baret, koruyucu eldiven, yangın söndürücü ve ilk yardım çantası",
+    ru: "Промышленные инструменты, измерительные приборы и средства защиты — аккумуляторная дрель, разводной ключ, динамометрический ключ, цифровой штангенциркуль, каска, защитные перчатки, огнетушитель и аптечка — на тёмном фоне",
+    kz: "Қараңғы бетте орналасқан өнеркәсіптік құралдар, өлшеу аспаптары және қауіпсіздік жабдығы: аккумуляторлық бұрғы, реттелетін кілт, момент кілті, цифрлық кумпас, каска, қорғаныш қолғаптары, өрт сөндіргіш және дәрі-дәрмек жәшігі",
   },
 };
 
