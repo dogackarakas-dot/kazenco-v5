@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Locale } from "@/lib/i18n";
+import { NAVIGATION, type Locale } from "@/lib/i18n";
 import { sectionCopy } from "@/lib/section-translations";
 
 export function KazencoFooter({ locale = "en" }: { locale?: Locale }) {
@@ -33,6 +33,7 @@ export function KazencoFooter({ locale = "en" }: { locale?: Locale }) {
           <Link href={`${home}#products`}>{copy[7]}</Link>
           <Link href={`${home}/industries`}>{copy[8]}</Link>
           <Link href={`${home}#project-map`}>{copy[9]}</Link>
+          <Link href={`${home}/certificates`}>{NAVIGATION[locale].certificates}</Link>
           <Link href={`${home}/contact`}>{copy[10]}</Link>
         </div>
 
