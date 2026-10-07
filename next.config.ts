@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/index.html", destination: "/en", permanent: true },
       { source: "/ing_cevre_pro.html", destination: "/en/capabilities/environmental-geosynthetic-works", permanent: true },
+      { source: "/ing_sertifikalar.html", destination: "/en#certificates", permanent: true },
       { source: "/sertifikab2.html", destination: "/en#certificates", permanent: true },
       { source: "/sertifikab5.html", destination: "/en#certificates", permanent: true },
       { source: "/ing_ile.html", destination: "/en#contact", permanent: true },
