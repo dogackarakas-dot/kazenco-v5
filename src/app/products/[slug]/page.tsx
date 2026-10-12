@@ -7,6 +7,7 @@ import { DeferredContactModal } from "@/components/DeferredContactModal";
 import { JsonLd } from "@/components/JsonLd";
 import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
+import { CALCULATOR_COPY } from "@/lib/anchor-calculator-translations";
 import { isLocale, NAVIGATION } from "@/lib/i18n";
 import {
   getProductDetail,
@@ -51,22 +52,28 @@ export async function generateMetadata({
   const productImageAlt = getProductImageAlt(slug, locale);
   const path = `/products/${slug}`;
   const canonical = `/${locale}${path}`;
+  // Only the fasteners-anchor-bolts meta description gets the calculator mention;
+  // the on-page hero description (product.description itself) is untouched.
+  const metaDescription =
+    slug === "fasteners-anchor-bolts"
+      ? `${product.description} ${CALCULATOR_COPY[locale].metaDescriptionSuffix}`
+      : product.description;
   return {
     title: product.title,
-    description: product.description,
+    description: metaDescription,
     alternates: { canonical, languages: localizedAlternates(path) },
     openGraph: {
       type: "website",
       url: canonical,
       siteName: "KAZENCO",
       title: `${product.title} | KAZENCO`,
-      description: product.description,
+      description: metaDescription,
       images: [{ url: productImage, alt: productImageAlt }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${product.title} | KAZENCO`,
-      description: product.description,
+      description: metaDescription,
       images: [productImage],
     },
   };
@@ -85,6 +92,7 @@ export default async function ProductPage({
   const productIndex = PRODUCT_DETAIL_SLUGS.indexOf(slug);
   const product = productCopy(locale)[productIndex];
   const copy = getProductDetail(slug, locale);
+  const calculatorCopy = CALCULATOR_COPY[locale];
   const productImage = PRODUCT_IMAGES[slug];
   const productImageAlt = getProductImageAlt(slug, locale);
   const productUrl = `${SITE.url}/${locale}/products/${slug}`;
@@ -137,7 +145,12 @@ export default async function ProductPage({
             <Link href={`/${locale}/products`}>← {copy.back}</Link>
             <p>{copy.category}</p>
             <h1>{product.title}</h1>
-            <p>{product.description}</p>
+            <p className={styles.heroDescription}>{product.description}</p>
+            {slug === "fasteners-anchor-bolts" && (
+              <Link className={styles.heroCalcLink} href="#weight-calculator">
+                {calculatorCopy.gridCtaLabel} ↓
+              </Link>
+            )}
           </div>
           <figure className={styles.heroMedia}>
             <Image src={productImage} alt={productImageAlt} fill preload sizes="(max-width: 900px) 100vw, 50vw" />

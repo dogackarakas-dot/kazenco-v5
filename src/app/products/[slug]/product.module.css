@@ -62,12 +62,30 @@
   font-size: clamp(2.8rem, 5vw, 5.6rem);
 }
 
-.heroCopy > p:last-child {
+.heroDescription {
   max-width: 42rem;
   margin: 2rem 0 0;
   color: var(--muted-foreground);
   font-size: clamp(1rem, 1.5vw, 1.2rem);
   line-height: 1.65;
+}
+
+/* In-page jump link to the #weight-calculator section below (fasteners-anchor-bolts
+   only), so a visitor landing straight on this detail page — not via the /products
+   grid CTA — notices the tool without scrolling past four sections first. */
+.heroCalcLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 1.1rem 0 0;
+  color: var(--kazenco-green);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.heroCalcLink:hover {
+  color: var(--kazenco-red);
 }
 
 .heroMedia {
