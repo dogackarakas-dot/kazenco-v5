@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/i18n";
 import type { MaterialKey } from "@/lib/anchor-calculator";
 
 /**
- * Copy for the anchor weight calculator tool card.
+ * Copy for the anchor weight calculator tool.
  *
  * Deliberately NOT using the site's existing positional string-array
  * pattern (see section-translations.ts / product-translations.ts) —
@@ -13,9 +13,9 @@ import type { MaterialKey } from "@/lib/anchor-calculator";
  */
 export interface CalculatorCopy {
   kicker: string;
-  toolBadge: string;
   title: string;
   description: string;
+  placeholder: string;
   sizeLabel: string;
   lengthLabel: string;
   lengthUnit: string;
@@ -36,14 +36,16 @@ export interface CalculatorCopy {
   rfqMessagePrefix: string;
   lengthInvalid: string;
   quantityInvalid: string;
+  /** Label for the "jump to calculator" CTA on the fasteners-anchor-bolts product card. */
+  gridCtaLabel: string;
 }
 
 export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
   tr: {
     kicker: "Hesaplama Aracı",
-    toolBadge: "ARAÇ",
     title: "Ankraj / Somun / Pul Ağırlık Hesaplama",
     description: "Set başına ve toplam sipariş ağırlığını hesapla.",
+    placeholder: "Ölçü, malzeme ve adet girip Hesapla'ya basın — set ve toplam ağırlık burada görünecek.",
     sizeLabel: "Ölçü",
     lengthLabel: "Boy (mm)",
     lengthUnit: "mm",
@@ -69,12 +71,13 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
     rfqMessagePrefix: "Ağırlık hesaplayıcısından gelen talep",
     lengthInvalid: "Lütfen geçerli bir boy girin.",
     quantityInvalid: "Lütfen geçerli bir adet girin.",
+    gridCtaLabel: "Ağırlık hesapla",
   },
   en: {
     kicker: "Calculation Tool",
-    toolBadge: "TOOL",
     title: "Anchor Bolt / Nut / Washer Weight Calculator",
     description: "Calculate the weight per set and for the full order.",
+    placeholder: "Enter size, material and quantity, then press Calculate — the per-set and total weight will appear here.",
     sizeLabel: "Size",
     lengthLabel: "Length (mm)",
     lengthUnit: "mm",
@@ -100,12 +103,13 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
     rfqMessagePrefix: "Request from the weight calculator",
     lengthInvalid: "Please enter a valid length.",
     quantityInvalid: "Please enter a valid quantity.",
+    gridCtaLabel: "Calculate weight",
   },
   ru: {
     kicker: "Инструмент расчёта",
-    toolBadge: "ИНСТРУМЕНТ",
     title: "Расчёт веса анкерного болта / гайки / шайбы",
     description: "Рассчитайте вес на комплект и на весь заказ.",
+    placeholder: "Укажите размер, материал и количество и нажмите «Рассчитать» — вес на комплект и итоговый вес появятся здесь.",
     sizeLabel: "Размер",
     lengthLabel: "Длина (мм)",
     lengthUnit: "мм",
@@ -131,12 +135,13 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
     rfqMessagePrefix: "Запрос из калькулятора веса",
     lengthInvalid: "Пожалуйста, введите корректную длину.",
     quantityInvalid: "Пожалуйста, введите корректное количество.",
+    gridCtaLabel: "Рассчитать вес",
   },
   kz: {
     kicker: "Есептеу құралы",
-    toolBadge: "ҚҰРАЛ",
     title: "Анкер болт / гайка / шайба салмағын есептеу",
     description: "Жиынтыққа және жалпы тапсырысқа салмақты есептеңіз.",
+    placeholder: "Өлшемді, материалды және санды енгізіп, «Есептеу» түймесін басыңыз — жиынтық және жалпы салмақ осында көрінеді.",
     sizeLabel: "Өлшем",
     lengthLabel: "Ұзындық (мм)",
     lengthUnit: "мм",
@@ -162,5 +167,6 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
     rfqMessagePrefix: "Салмақ калькуляторынан келген сұрау",
     lengthInvalid: "Жарамды ұзындық енгізіңіз.",
     quantityInvalid: "Жарамды сан енгізіңіз.",
+    gridCtaLabel: "Салмақты есептеу",
   },
 };

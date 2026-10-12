@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
+import { AnchorWeightCalculator } from "@/components/AnchorWeightCalculator";
 import { DeferredContactModal } from "@/components/DeferredContactModal";
 import { JsonLd } from "@/components/JsonLd";
 import { KazencoFooter } from "@/components/KazencoFooter";
@@ -197,6 +198,8 @@ export default async function ProductPage({
             ))}
           </div>
         </section>
+
+        {slug === "fasteners-anchor-bolts" && <AnchorWeightCalculator locale={locale} />}
 
         <section className={styles.rfq}>
           <div>

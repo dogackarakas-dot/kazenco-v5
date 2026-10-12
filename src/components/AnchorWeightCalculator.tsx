@@ -11,6 +11,7 @@ import {
   type MaterialKey,
 } from "@/lib/anchor-calculator";
 import { CALCULATOR_COPY } from "@/lib/anchor-calculator-translations";
+import styles from "./AnchorWeightCalculator.module.css";
 
 export interface AnchorWeightCalculatorProps {
   locale: Locale;
@@ -150,172 +151,187 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
     : "";
 
   return (
-    <article className="kazenco-calc-card" aria-labelledby={titleId}>
-      <div className="kazenco-calc-head">
-        <div>
-          <span className="kazenco-calc-badge">{copy.toolBadge}</span>
-          <p className="kazenco-calc-kicker">{copy.kicker}</p>
-        </div>
+    <section id="weight-calculator" className={styles.section} aria-labelledby={titleId}>
+      <div className={styles.header}>
+        <p className={styles.kicker}>{copy.kicker}</p>
+        <h2 id={titleId} className={styles.title}>
+          {copy.title}
+        </h2>
+        <p className={styles.description}>{copy.description}</p>
       </div>
 
-      <h2 id={titleId} className="kazenco-calc-title">
-        {copy.title}
-      </h2>
-      <p className="kazenco-calc-desc">{copy.description}</p>
+      <div className={styles.grid}>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.fieldRow}>
+            <label className={styles.field}>
+              <span>{copy.sizeLabel}</span>
+              <select value={size} onChange={(event) => setSize(event.target.value as AnchorSize)}>
+                {ANCHOR_SIZES.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-      <form onSubmit={handleSubmit}>
-        <div className="kazenco-calc-grid">
-          <label className="kazenco-calc-field">
-            <span>{copy.sizeLabel}</span>
-            <select value={size} onChange={(event) => setSize(event.target.value as AnchorSize)}>
-              {ANCHOR_SIZES.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="kazenco-calc-field">
-            <span>{copy.lengthLabel}</span>
-            <input
-              type="number"
-              min={1}
-              inputMode="numeric"
-              value={lengthMm}
-              onChange={(event) => setLengthMm(event.target.value)}
-            />
-          </label>
-        </div>
-
-        <div className="kazenco-calc-chips" role="group" aria-label={copy.lengthLabel}>
-          {LENGTH_PRESETS_MM.map((preset) => (
-            <button
-              key={preset}
-              type="button"
-              className={`kazenco-calc-chip${activePreset === preset ? " is-active" : ""}`}
-              aria-pressed={activePreset === preset}
-              onClick={() => setLengthMm(String(preset))}
-            >
-              {preset}
-            </button>
-          ))}
-        </div>
-
-        <div className="kazenco-calc-grid">
-          <label className="kazenco-calc-field">
-            <span>{copy.materialLabel}</span>
-            <select value={material} onChange={(event) => setMaterial(event.target.value as MaterialKey)}>
-              {MATERIAL_KEYS.map((key) => (
-                <option key={key} value={key}>
-                  {copy.materials[key]}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="kazenco-calc-field">
-            <span>{copy.quantityLabel}</span>
-            <input
-              type="number"
-              min={1}
-              inputMode="numeric"
-              value={setQuantity}
-              onChange={(event) => setSetQuantity(event.target.value)}
-            />
-          </label>
-        </div>
-
-        <div className="kazenco-calc-toggles">
-          <label className="kazenco-calc-toggle">
-            <input
-              type="checkbox"
-              checked={includeNut}
-              onChange={(event) => setIncludeNut(event.target.checked)}
-            />
-            {copy.includeNutLabel}
-          </label>
-          {includeNut && (
-            <input
-              type="number"
-              min={1}
-              inputMode="numeric"
-              aria-label={`${copy.includeNutLabel} — ${copy.perSetSuffix}`}
-              className="kazenco-calc-mini-qty"
-              value={nutQuantityPerSet}
-              onChange={(event) => setNutQuantityPerSet(event.target.value)}
-            />
-          )}
-
-          <label className="kazenco-calc-toggle">
-            <input
-              type="checkbox"
-              checked={includeWasher}
-              onChange={(event) => setIncludeWasher(event.target.checked)}
-            />
-            {copy.includeWasherLabel}
-          </label>
-          {includeWasher && (
-            <input
-              type="number"
-              min={1}
-              inputMode="numeric"
-              aria-label={`${copy.includeWasherLabel} — ${copy.perSetSuffix}`}
-              className="kazenco-calc-mini-qty"
-              value={washerQuantityPerSet}
-              onChange={(event) => setWasherQuantityPerSet(event.target.value)}
-            />
-          )}
-        </div>
-
-        {error && (
-          <p className="kazenco-calc-error" role="alert">
-            {error}
-          </p>
-        )}
-
-        <button type="submit" className="kazenco-calc-submit">
-          {copy.calculateButton}
-        </button>
-      </form>
-
-      {displayResult && (
-        <div className="kazenco-calc-results" role="status" aria-live="polite">
-          <span className="kazenco-calc-pill">
-            {copy.resultRodLabel} {formatKg(displayResult.rodWeightKgPerPiece, locale)} kg
-          </span>
-          {includeNut && (
-            <span className="kazenco-calc-pill">
-              {copy.resultNutLabel}
-              {Number(nutQuantityPerSet) > 1 ? ` (× ${nutQuantityPerSet})` : ""}{" "}
-              {formatKg(displayResult.nutWeightKgPerPiece, locale)} kg/{copy.perSetSuffix}
-            </span>
-          )}
-          {includeWasher && (
-            <span className="kazenco-calc-pill">
-              {copy.resultWasherLabel}
-              {Number(washerQuantityPerSet) > 1 ? ` (× ${washerQuantityPerSet})` : ""}{" "}
-              {formatKg(displayResult.washerWeightKgPerPiece, locale)} kg/{copy.perSetSuffix}
-            </span>
-          )}
-          <span className="kazenco-calc-pill">
-            {copy.resultSetLabel} {formatKg(displayResult.setWeightKg, locale)} kg
-          </span>
-          <span className="kazenco-calc-pill kazenco-calc-pill--total">
-            {copy.resultTotalLabel} {formatKg(displayResult.totalWeightKg, locale)} kg
-          </span>
-
-          {displayResult.usesInterpolatedData && <p className="kazenco-calc-note">{copy.interpolatedNote}</p>}
-
-          <div className="kazenco-calc-rfq">
-            <DeferredContactModal
-              triggerClassName="kazenco-calc-rfq-button"
-              triggerLabel={copy.rfqButtonLabel}
-              initialMessage={rfqMessage}
-            />
+            <label className={styles.field}>
+              <span>{copy.lengthLabel}</span>
+              <input
+                type="number"
+                min={1}
+                inputMode="numeric"
+                value={lengthMm}
+                onChange={(event) => setLengthMm(event.target.value)}
+              />
+            </label>
           </div>
+
+          <div className={styles.chips} role="group" aria-label={copy.lengthLabel}>
+            {LENGTH_PRESETS_MM.map((preset) => (
+              <button
+                key={preset}
+                type="button"
+                className={`${styles.chip}${activePreset === preset ? ` ${styles.isActive}` : ""}`}
+                aria-pressed={activePreset === preset}
+                onClick={() => setLengthMm(String(preset))}
+              >
+                {preset}
+              </button>
+            ))}
+          </div>
+
+          <div className={styles.fieldRow}>
+            <label className={styles.field}>
+              <span>{copy.materialLabel}</span>
+              <select value={material} onChange={(event) => setMaterial(event.target.value as MaterialKey)}>
+                {MATERIAL_KEYS.map((key) => (
+                  <option key={key} value={key}>
+                    {copy.materials[key]}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className={styles.field}>
+              <span>{copy.quantityLabel}</span>
+              <input
+                type="number"
+                min={1}
+                inputMode="numeric"
+                value={setQuantity}
+                onChange={(event) => setSetQuantity(event.target.value)}
+              />
+            </label>
+          </div>
+
+          <div className={styles.toggles}>
+            <label className={styles.toggle}>
+              <input
+                type="checkbox"
+                checked={includeNut}
+                onChange={(event) => setIncludeNut(event.target.checked)}
+              />
+              {copy.includeNutLabel}
+            </label>
+            {includeNut && (
+              <input
+                type="number"
+                min={1}
+                inputMode="numeric"
+                aria-label={`${copy.includeNutLabel} — ${copy.perSetSuffix}`}
+                className={styles.miniQty}
+                value={nutQuantityPerSet}
+                onChange={(event) => setNutQuantityPerSet(event.target.value)}
+              />
+            )}
+
+            <label className={styles.toggle}>
+              <input
+                type="checkbox"
+                checked={includeWasher}
+                onChange={(event) => setIncludeWasher(event.target.checked)}
+              />
+              {copy.includeWasherLabel}
+            </label>
+            {includeWasher && (
+              <input
+                type="number"
+                min={1}
+                inputMode="numeric"
+                aria-label={`${copy.includeWasherLabel} — ${copy.perSetSuffix}`}
+                className={styles.miniQty}
+                value={washerQuantityPerSet}
+                onChange={(event) => setWasherQuantityPerSet(event.target.value)}
+              />
+            )}
+          </div>
+
+          {error && (
+            <p className={styles.error} role="alert">
+              {error}
+            </p>
+          )}
+
+          <button type="submit" className={styles.submit}>
+            {copy.calculateButton}
+          </button>
+        </form>
+
+        <div className={styles.resultPanel} role="status" aria-live="polite">
+          {displayResult ? (
+            <>
+              <dl className={styles.resultList}>
+                <div className={styles.resultRow}>
+                  <dt>{copy.resultRodLabel}</dt>
+                  <dd>{formatKg(displayResult.rodWeightKgPerPiece, locale)} kg</dd>
+                </div>
+                {includeNut && (
+                  <div className={styles.resultRow}>
+                    <dt>
+                      {copy.resultNutLabel}
+                      {Number(nutQuantityPerSet) > 1 ? ` (× ${nutQuantityPerSet})` : ""}
+                    </dt>
+                    <dd>
+                      {formatKg(displayResult.nutWeightKgPerPiece, locale)} kg/{copy.perSetSuffix}
+                    </dd>
+                  </div>
+                )}
+                {includeWasher && (
+                  <div className={styles.resultRow}>
+                    <dt>
+                      {copy.resultWasherLabel}
+                      {Number(washerQuantityPerSet) > 1 ? ` (× ${washerQuantityPerSet})` : ""}
+                    </dt>
+                    <dd>
+                      {formatKg(displayResult.washerWeightKgPerPiece, locale)} kg/{copy.perSetSuffix}
+                    </dd>
+                  </div>
+                )}
+                <div className={styles.resultRow}>
+                  <dt>{copy.resultSetLabel}</dt>
+                  <dd>{formatKg(displayResult.setWeightKg, locale)} kg</dd>
+                </div>
+                <div className={`${styles.resultRow} ${styles.resultRowTotal}`}>
+                  <dt>{copy.resultTotalLabel}</dt>
+                  <dd>{formatKg(displayResult.totalWeightKg, locale)} kg</dd>
+                </div>
+              </dl>
+
+              {displayResult.usesInterpolatedData && <p className={styles.note}>{copy.interpolatedNote}</p>}
+
+              <div className={styles.rfq}>
+                <DeferredContactModal
+                  triggerClassName={styles.rfqButton}
+                  triggerLabel={copy.rfqButtonLabel}
+                  initialMessage={rfqMessage}
+                />
+              </div>
+            </>
+          ) : (
+            <p className={styles.placeholder}>{copy.placeholder}</p>
+          )}
         </div>
-      )}
-    </article>
+      </div>
+    </section>
   );
 }

@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment } from "react";
 import { notFound, permanentRedirect } from "next/navigation";
-import { AnchorWeightCalculator } from "@/components/AnchorWeightCalculator";
 import { JsonLd } from "@/components/JsonLd";
 import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
+import { CALCULATOR_COPY } from "@/lib/anchor-calculator-translations";
 import { isLocale, NAVIGATION } from "@/lib/i18n";
 import { productCopy } from "@/lib/product-translations";
 import { PRODUCTS } from "@/lib/products";
@@ -58,6 +57,7 @@ export default async function ProductsIndexPage({
 
   const copy = sectionCopy(locale).products;
   const translatedProducts = productCopy(locale);
+  const calculatorCopy = CALCULATOR_COPY[locale];
   const home = `/${locale}`;
   const pageUrl = `${SITE.url}/${locale}/products`;
 
@@ -111,8 +111,8 @@ export default async function ProductsIndexPage({
               const translated = translatedProducts[index];
               const productScopeHref = `/${locale}/products/${product.slug}`;
               return (
-                <Fragment key={product.number}>
                 <article
+                  key={product.number}
                   className={`kazenco-v9-product-card${index === 0 ? " is-featured" : ""}`}
                   data-product-number={product.number}
                 >
@@ -158,16 +158,20 @@ export default async function ProductsIndexPage({
                       <Link className="kazenco-v9-product-link" href={productScopeHref}>
                         {copy[4]}
                       </Link>
+                      {product.slug === "fasteners-anchor-bolts" && (
+                        <Link
+                          className="kazenco-v9-product-link"
+                          href={`/${locale}/products/fasteners-anchor-bolts#weight-calculator`}
+                        >
+                          {calculatorCopy.gridCtaLabel}
+                        </Link>
+                      )}
                       <Link className="kazenco-v9-product-request" href={`/${locale}/contact`}>
                         {copy[7]}
                       </Link>
                     </div>
                   </div>
                 </article>
-                {product.slug === "fasteners-anchor-bolts" && (
-                  <AnchorWeightCalculator locale={locale} />
-                )}
-                </Fragment>
               );
             })}
           </div>
