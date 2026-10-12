@@ -163,6 +163,18 @@
   accent-color: var(--kazenco-green);
 }
 
+/* Applied to the nut/washer toggle labels when the selected size has no
+   catalogue hardware data (M80/M90/M100) and the checkbox is disabled —
+   dims the label so it visually matches the disabled checkbox instead of
+   looking clickable. */
+.toggleDisabled {
+  opacity: 0.5;
+}
+
+.toggle input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+}
+
 .error {
   margin: 0;
   color: var(--kazenco-red);

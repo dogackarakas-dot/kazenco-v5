@@ -6,6 +6,7 @@ import type { Locale } from "@/lib/i18n";
 import {
   ANCHOR_SIZES,
   calculateSet,
+  isHardwareAvailable,
   type AnchorSize,
   type CalculatorResult,
   type MaterialKey,
@@ -51,6 +52,19 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
   const [resultSignature, setResultSignature] = useState<string | null>(null);
   const [error, setError] = useState("");
 
+  // M80/M90/M100 have no catalogue (or geometry-estimated) nut/washer data
+  // at all — see isHardwareAvailable's doc comment. The raw includeNut/
+  // includeWasher checkbox state is preserved as the user left it (so
+  // switching back to a supported size restores their choice), but every
+  // *effective* use of "is nut/washer actually included" below goes
+  // through these two derived flags instead of the raw state, so an
+  // unsupported size can never silently end up with hardware included —
+  // in the signature, in what's sent to calculateSet, in the mini
+  // quantity inputs, or in the RFQ message.
+  const hardwareAvailable = isHardwareAvailable(size);
+  const effectiveIncludeNut = includeNut && hardwareAvailable;
+  const effectiveIncludeWasher = includeWasher && hardwareAvailable;
+
   const activePreset = useMemo(() => {
     const parsed = Number(lengthMm);
     return LENGTH_PRESETS_MM.includes(parsed) ? parsed : null;
@@ -67,9 +81,9 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
     lengthMm,
     material,
     setQuantity,
-    includeNut,
+    effectiveIncludeNut,
     nutQuantityPerSet,
-    includeWasher,
+    effectiveIncludeWasher,
     washerQuantityPerSet,
   ].join("|");
   const displayResult = result && resultSignature === currentSignature ? result : null;
@@ -98,13 +112,13 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
       setResultSignature(null);
       return;
     }
-    if (includeNut && (!Number.isInteger(parsedNutQty) || parsedNutQty <= 0)) {
+    if (effectiveIncludeNut && (!Number.isInteger(parsedNutQty) || parsedNutQty <= 0)) {
       setError(copy.quantityInvalid);
       setResult(null);
       setResultSignature(null);
       return;
     }
-    if (includeWasher && (!Number.isInteger(parsedWasherQty) || parsedWasherQty <= 0)) {
+    if (effectiveIncludeWasher && (!Number.isInteger(parsedWasherQty) || parsedWasherQty <= 0)) {
       setError(copy.quantityInvalid);
       setResult(null);
       setResultSignature(null);
@@ -112,9 +126,12 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
     }
 
     setError("");
-    // calculateSet also validates defensively; wrapped in try/catch so a
-    // call path we haven't anticipated here shows the generic error instead
-    // of throwing an unhandled exception in the UI.
+    // calculateSet also validates defensively — including rejecting
+    // includeNut/includeWasher for a size with no hardware data, which is
+    // exactly why effectiveIncludeNut/effectiveIncludeWasher (never the
+    // raw checkbox state) are what gets sent here. Wrapped in try/catch so
+    // a call path we haven't anticipated here shows the generic error
+    // instead of throwing an unhandled exception in the UI.
     try {
       setResult(
         calculateSet({
@@ -122,9 +139,9 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
           lengthMm: parsedLength,
           material,
           setQuantity: parsedQuantity,
-          includeNut,
+          includeNut: effectiveIncludeNut,
           nutQuantityPerSet: parsedNutQty,
-          includeWasher,
+          includeWasher: effectiveIncludeWasher,
           washerQuantityPerSet: parsedWasherQty,
         }),
       );
@@ -136,19 +153,38 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
     }
   }
 
-  const rfqMessage = displayResult
+  const rfqLines = displayResult
     ? [
         copy.rfqMessagePrefix,
         `${copy.sizeLabel}: ${size}`,
         `${copy.lengthLabel}: ${lengthMm} ${copy.lengthUnit}`,
         `${copy.materialLabel}: ${copy.materials[material]}`,
         `${copy.quantityLabel}: ${setQuantity}`,
-        `${copy.includeNutLabel}: ${includeNut ? `${copy.perSetSuffix} × ${nutQuantityPerSet}` : "—"}`,
-        `${copy.includeWasherLabel}: ${includeWasher ? `${copy.perSetSuffix} × ${washerQuantityPerSet}` : "—"}`,
-        `${copy.resultSetLabel}: ${formatKg(displayResult.setWeightKg, locale)} kg`,
-        `${copy.resultTotalLabel}: ${formatKg(displayResult.totalWeightKg, locale)} kg`,
-      ].join("\n")
-    : "";
+      ]
+    : [];
+  if (displayResult) {
+    if (displayResult.hardwareAvailable) {
+      rfqLines.push(
+        `${copy.includeNutLabel}: ${effectiveIncludeNut ? `${copy.perSetSuffix} × ${nutQuantityPerSet}` : "—"}`,
+        `${copy.includeWasherLabel}: ${effectiveIncludeWasher ? `${copy.perSetSuffix} × ${washerQuantityPerSet}` : "—"}`,
+      );
+    } else {
+      // No nut/washer line to toggle at all for this size — state it
+      // explicitly instead of omitting it silently (see hardwareExcludedRfqLine).
+      rfqLines.push(copy.hardwareExcludedRfqLine);
+    }
+    if (displayResult.rodCalculationBasis === "geometry-estimate-full-thread") {
+      // The full-thread assumption is shown on-screen (see rodGeometryEstimateNote
+      // below), but the RFQ message is what actually reaches the supplier/sales
+      // team — it must carry the same disclosure, not just the on-page result.
+      rfqLines.push(copy.rodGeometryEstimateNote);
+    }
+    rfqLines.push(
+      `${copy.resultSetLabel}: ${formatKg(displayResult.setWeightKg, locale)} kg`,
+      `${copy.resultTotalLabel}: ${formatKg(displayResult.totalWeightKg, locale)} kg`,
+    );
+  }
+  const rfqMessage = rfqLines.join("\n");
 
   return (
     <section id="weight-calculator" className={styles.section} aria-labelledby={titleId}>
@@ -226,15 +262,16 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
           </div>
 
           <div className={styles.toggles}>
-            <label className={styles.toggle}>
+            <label className={`${styles.toggle}${!hardwareAvailable ? ` ${styles.toggleDisabled}` : ""}`}>
               <input
                 type="checkbox"
-                checked={includeNut}
+                checked={effectiveIncludeNut}
+                disabled={!hardwareAvailable}
                 onChange={(event) => setIncludeNut(event.target.checked)}
               />
               {copy.includeNutLabel}
             </label>
-            {includeNut && (
+            {effectiveIncludeNut && (
               <input
                 type="number"
                 min={1}
@@ -246,15 +283,16 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
               />
             )}
 
-            <label className={styles.toggle}>
+            <label className={`${styles.toggle}${!hardwareAvailable ? ` ${styles.toggleDisabled}` : ""}`}>
               <input
                 type="checkbox"
-                checked={includeWasher}
+                checked={effectiveIncludeWasher}
+                disabled={!hardwareAvailable}
                 onChange={(event) => setIncludeWasher(event.target.checked)}
               />
               {copy.includeWasherLabel}
             </label>
-            {includeWasher && (
+            {effectiveIncludeWasher && (
               <input
                 type="number"
                 min={1}
@@ -266,6 +304,8 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
               />
             )}
           </div>
+
+          {!hardwareAvailable && <p className={styles.note}>{copy.hardwareUnavailableNote}</p>}
 
           {error && (
             <p className={styles.error} role="alert">
@@ -283,10 +323,18 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
             <>
               <dl className={styles.resultList}>
                 <div className={styles.resultRow}>
+                  <dt>{copy.calculationBasisLabel}</dt>
+                  <dd>
+                    {displayResult.rodCalculationBasis === "calibrated-k"
+                      ? copy.basisCalibratedLabel
+                      : copy.basisGeometryEstimateLabel}
+                  </dd>
+                </div>
+                <div className={styles.resultRow}>
                   <dt>{copy.resultRodLabel}</dt>
                   <dd>{formatKg(displayResult.rodWeightKgPerPiece, locale)} kg</dd>
                 </div>
-                {includeNut && (
+                {effectiveIncludeNut && displayResult.nutWeightKgPerPiece !== null && (
                   <div className={styles.resultRow}>
                     <dt>
                       {copy.resultNutLabel}
@@ -297,7 +345,7 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
                     </dd>
                   </div>
                 )}
-                {includeWasher && (
+                {effectiveIncludeWasher && displayResult.washerWeightKgPerPiece !== null && (
                   <div className={styles.resultRow}>
                     <dt>
                       {copy.resultWasherLabel}
@@ -319,6 +367,10 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
               </dl>
 
               {displayResult.usesInterpolatedData && <p className={styles.note}>{copy.interpolatedNote}</p>}
+              {displayResult.rodCalculationBasis === "geometry-estimate-full-thread" && (
+                <p className={styles.note}>{copy.rodGeometryEstimateNote}</p>
+              )}
+              {!displayResult.hardwareAvailable && <p className={styles.note}>{copy.hardwareUnavailableNote}</p>}
 
               <div className={styles.rfq}>
                 <DeferredContactModal
