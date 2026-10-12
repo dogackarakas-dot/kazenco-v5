@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 import { notFound, permanentRedirect } from "next/navigation";
+import { AnchorWeightCalculator } from "@/components/AnchorWeightCalculator";
 import { JsonLd } from "@/components/JsonLd";
 import { KazencoFooter } from "@/components/KazencoFooter";
 import { PremiumHeader } from "@/components/PremiumHeader";
@@ -109,9 +111,10 @@ export default async function ProductsIndexPage({
               const translated = translatedProducts[index];
               const productScopeHref = `/${locale}/products/${product.slug}`;
               return (
+                <Fragment key={product.number}>
                 <article
                   className={`kazenco-v9-product-card${index === 0 ? " is-featured" : ""}`}
-                  key={product.number}
+                  data-product-number={product.number}
                 >
                   <div className="kazenco-v9-product-top">
                     <div>
@@ -161,6 +164,10 @@ export default async function ProductsIndexPage({
                     </div>
                   </div>
                 </article>
+                {product.slug === "fasteners-anchor-bolts" && (
+                  <AnchorWeightCalculator locale={locale} />
+                )}
+                </Fragment>
               );
             })}
           </div>

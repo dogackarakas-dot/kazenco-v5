@@ -7,13 +7,24 @@ const ContactModal = lazy(() =>
   import("@/components/ContactModal").then((module) => ({ default: module.ContactModal })),
 );
 
-export function DeferredContactModal({ triggerLabel, triggerClassName }: ContactModalProps) {
+export function DeferredContactModal({
+  triggerLabel,
+  triggerClassName,
+  initialMessage,
+  initialSpecification,
+}: ContactModalProps) {
   const [activated, setActivated] = useState(false);
 
   if (activated) {
     return (
       <Suspense fallback={null}>
-        <ContactModal triggerLabel={triggerLabel} initialOpen hideTrigger />
+        <ContactModal
+          triggerLabel={triggerLabel}
+          initialOpen
+          hideTrigger
+          initialMessage={initialMessage}
+          initialSpecification={initialSpecification}
+        />
       </Suspense>
     );
   }

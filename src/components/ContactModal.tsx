@@ -21,6 +21,10 @@ export interface ContactModalProps {
   triggerClassName?: string;
   initialOpen?: boolean;
   hideTrigger?: boolean;
+  /** Pre-fills the required "message" field (e.g. from the anchor weight calculator). */
+  initialMessage?: string;
+  /** Pre-fills the optional "specification" field. */
+  initialSpecification?: string;
 }
 
 type Status = "idle" | "uploading" | "submitting" | "success" | "fallback" | "error";
@@ -70,7 +74,14 @@ function formatBytes(bytes: number) {
     : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-export function ContactModal({ triggerLabel, triggerClassName, initialOpen = false, hideTrigger = false }: ContactModalProps) {
+export function ContactModal({
+  triggerLabel,
+  triggerClassName,
+  initialOpen = false,
+  hideTrigger = false,
+  initialMessage,
+  initialSpecification,
+}: ContactModalProps) {
   const pathname = usePathname();
   const locale = localeFromPathname(pathname);
   const copy = RFQ_COPY[locale];
@@ -87,7 +98,7 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
   const [projectName, setProjectName] = useState("");
   const [requestType, setRequestType] = useState("");
   const [location, setLocation] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(initialMessage ?? "");
   const [consent, setConsent] = useState(false);
   const [attachments, setAttachments] = useState<RfqAttachment[]>([]);
   const [attachmentError, setAttachmentError] = useState("");
@@ -370,7 +381,7 @@ export function ContactModal({ triggerLabel, triggerClassName, initialOpen = fal
                     </div>
                     <div>
                       <label className={LABEL_CLASS} htmlFor={`${titleId}-specification`}>{copy[17]}</label>
-                      <textarea id={`${titleId}-specification`} name="specification" rows={3} className="w-full resize-y rounded-lg border border-transparent bg-secondary px-3.5 py-3 text-base text-foreground outline-none transition-colors focus:border-foreground focus:bg-card" />
+                      <textarea id={`${titleId}-specification`} name="specification" rows={3} defaultValue={initialSpecification} className="w-full resize-y rounded-lg border border-transparent bg-secondary px-3.5 py-3 text-base text-foreground outline-none transition-colors focus:border-foreground focus:bg-card" />
                     </div>
                   </div>
                 </div>
