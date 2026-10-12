@@ -158,6 +158,7 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
           {copy.title}
         </h2>
         <p className={styles.description}>{copy.description}</p>
+        <p className={styles.catalogNote}>{copy.catalogNote}</p>
       </div>
 
       <div className={styles.grid}>

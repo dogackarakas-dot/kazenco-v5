@@ -47,6 +47,17 @@
   line-height: 1.6;
 }
 
+/* Standing disclaimer about the catalogue data basis — always visible in
+   the header, not conditional on a result or an interpolated size (see
+   .note below, which stays scoped to the result panel for that case). */
+.catalogNote {
+  margin: 0.6rem 0 0;
+  color: var(--muted-foreground);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.85fr);

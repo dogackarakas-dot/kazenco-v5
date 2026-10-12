@@ -17,6 +17,8 @@ export interface CalculatorCopy {
   description: string;
   /** Appended to the fasteners-anchor-bolts page's SEO meta description only (not shown on the page itself). */
   metaDescriptionSuffix: string;
+  /** Standing disclaimer shown under the header, always — not just for interpolated sizes. */
+  catalogNote: string;
   placeholder: string;
   sizeLabel: string;
   lengthLabel: string;
@@ -49,6 +51,8 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
     description:
       "M8–M64 ankraj çubuğu, somun ve pul ağırlıklarını hesaplayın; set başına ve toplam sipariş ağırlığını görün.",
     metaDescriptionSuffix: "Sitede M8–M64 ankraj seti ağırlık hesaplayıcısı da bulunur.",
+    catalogNote:
+      "Katalog ağırlıkları yaklaşık değerlerdir; kesin sipariş ve sevkiyat ağırlığı tedarikçi teyidine tabidir.",
     placeholder: "Ölçü, malzeme ve adet girip Hesapla'ya basın — set ve toplam ağırlık burada görünecek.",
     sizeLabel: "Ölçü",
     lengthLabel: "Boy (mm)",
@@ -83,6 +87,8 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
     description:
       "Calculate M8–M64 anchor rod, nut and washer weights — per set and for the full order.",
     metaDescriptionSuffix: "The page also includes an M8–M64 anchor set weight calculator.",
+    catalogNote:
+      "Catalogue weights are approximate; final order and shipping weight is subject to supplier confirmation.",
     placeholder: "Enter size, material and quantity, then press Calculate — the per-set and total weight will appear here.",
     sizeLabel: "Size",
     lengthLabel: "Length (mm)",
@@ -117,6 +123,8 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
     description:
       "Рассчитайте вес анкерного стержня, гайки и шайбы M8–M64 — на комплект и на весь заказ.",
     metaDescriptionSuffix: "На странице также доступен калькулятор веса анкерного комплекта M8–M64.",
+    catalogNote:
+      "Каталожные веса являются приблизительными; точный вес заказа и отгрузки подлежит подтверждению поставщиком.",
     placeholder: "Укажите размер, материал и количество и нажмите «Рассчитать» — вес на комплект и итоговый вес появятся здесь.",
     sizeLabel: "Размер",
     lengthLabel: "Длина (мм)",
@@ -151,6 +159,8 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
     description:
       "M8–M64 анкер өзегі, гайка және шайба салмағын есептеңіз — жиынтыққа және жалпы тапсырысқа.",
     metaDescriptionSuffix: "Бетте M8–M64 анкер жиынтығының салмақ калькуляторы да қолжетімді.",
+    catalogNote:
+      "Каталог салмақтары жуық мәндер; тапсырыс пен жеткізудің нақты салмағы жеткізушінің растауына жатады.",
     placeholder: "Өлшемді, материалды және санды енгізіп, «Есептеу» түймесін басыңыз — жиынтық және жалпы салмақ осында көрінеді.",
     sizeLabel: "Өлшем",
     lengthLabel: "Ұзындық (мм)",

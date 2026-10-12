@@ -1,25 +1,30 @@
 /**
  * Anchor rod + nut + washer weight calculation engine.
  *
- * All tables below are the validated numbers from the design draft
- * ("Ankraj Seti Ağırlık Hesaplayıcı: Tasarım ve İçerik Taslağı"):
  * - Rod: (π/4) × d² × L × ρ × k, with a per-size thread-root correction
  *   factor k reverse-engineered from the DIN 975 reference table.
- * - Nut (DIN 934) and washer (DIN 125A) weights are pre-computed
- *   per-piece figures (hex-prism-minus-bore / annulus-minus-bore geometry),
- *   corrected against real Fabory/Kramp catalog weights with empirical
- *   factors (nut ×0.95, washer ×0.88) to account for the manufactured
- *   corner chamfer that pure geometry ignores.
- * - M27/M33 nut+washer and M42–M64 washer entries are not from a
- *   cross-checked catalog page; they are interpolated/extrapolated from
- *   the validated neighbors (the same approach Portland Bolt discloses
- *   using for sizes their own supplier sheets don't cover) and are
- *   flagged `interpolated: true` so the UI can show a disclaimer.
- * - k for M56/M64 is similarly interpolated (flagged `kInterpolated`).
+ * - Nut (DIN 934) and washer (DIN 125) per-piece weights come from the
+ *   KAZENCO reference workbook's "Standard Data" sheet, sourced there as
+ *   "Published technical reference" — i.e. approximate catalogue masses,
+ *   not a verified-exact DIN mass specification. DIN/ISO standards define
+ *   product geometry and tolerances, not a mandated piece weight; actual
+ *   weight varies by material, tolerance, chamfer and manufacturer
+ *   geometry. (For reference, current ISO 4032:2023 covers M5–M39; the
+ *   superseded ISO 4032:2012 extended to M64, which is why some of these
+ *   larger sizes won't appear in a from-scratch ISO 4032:2023 lookup.)
+ *   Every size from M8 to M64 now has a direct row in that source table,
+ *   so none of the nut/washer figures below are interpolated/extrapolated
+ *   — `nutInterpolated`/`washerInterpolated` have been removed accordingly.
+ *   Treat these as the single approximate-catalogue reference for this
+ *   tool; final order/shipping weight still needs supplier confirmation
+ *   (surfaced in the UI as a standing note, not just for edge sizes).
+ * - k for M56/M64 is interpolated from neighboring validated sizes
+ *   (flagged `kInterpolated`) — unrelated to the nut/washer source above,
+ *   and left as-is.
  *
  * Base density for the nut/washer tables is carbon steel (7850 kg/m³);
  * other materials scale the per-piece gram figure by their own density
- * relative to 7850, per the design draft's §4 note.
+ * relative to 7850.
  */
 
 export const ANCHOR_SIZES = [
@@ -57,74 +62,46 @@ export interface SizeRow {
   /** Thread-root cross-section correction factor for the rod formula. */
   k: number;
   kInterpolated?: true;
-  /** Per-piece nut weight (g) at the base density (carbon steel, 7850 kg/m³). */
+  /**
+   * Per-piece nut weight (g) at the base density (carbon steel, 7850 kg/m³).
+   * Approximate catalogue mass (DIN 934 profile) — see the file header.
+   */
   nutWeightG: number;
-  nutInterpolated?: true;
-  /** Per-piece washer weight (g) at the base density (carbon steel, 7850 kg/m³). */
+  /**
+   * Per-piece washer weight (g) at the base density (carbon steel, 7850 kg/m³).
+   * Approximate catalogue mass (DIN 125 profile) — see the file header.
+   */
   washerWeightG: number;
-  washerInterpolated?: true;
 }
 
 export const SIZE_TABLE: readonly SizeRow[] = [
-  { size: "M8", diameterMm: 8, k: 0.808, nutWeightG: 4.6, washerWeightG: 1.9 },
-  { size: "M10", diameterMm: 10, k: 0.811, nutWeightG: 8.6, washerWeightG: 3.6 },
-  { size: "M12", diameterMm: 12, k: 0.816, nutWeightG: 12.9, washerWeightG: 5.5 },
-  { size: "M16", diameterMm: 16, k: 0.842, nutWeightG: 31.4, washerWeightG: 9.9 },
-  { size: "M20", diameterMm: 20, k: 0.843, nutWeightG: 57.8, washerWeightG: 15.1 },
-  { size: "M24", diameterMm: 24, k: 0.845, nutWeightG: 99.4, washerWeightG: 28.4 },
-  {
-    size: "M27",
-    diameterMm: 27,
-    k: 0.856,
-    nutWeightG: 144.6,
-    nutInterpolated: true,
-    washerWeightG: 37.1,
-    washerInterpolated: true,
-  },
-  { size: "M30", diameterMm: 30, k: 0.856, nutWeightG: 202.1, washerWeightG: 47.2 },
-  {
-    size: "M33",
-    diameterMm: 33,
-    k: 0.879,
-    nutWeightG: 268.5,
-    nutInterpolated: true,
-    washerWeightG: 62.6,
-    washerInterpolated: true,
-  },
-  { size: "M36", diameterMm: 36, k: 0.863, nutWeightG: 348.0, washerWeightG: 81.1 },
-  {
-    size: "M42",
-    diameterMm: 42,
-    k: 0.864,
-    nutWeightG: 536.6,
-    washerWeightG: 132.8,
-    washerInterpolated: true,
-  },
-  {
-    size: "M48",
-    diameterMm: 48,
-    k: 0.873,
-    nutWeightG: 815.3,
-    washerWeightG: 173.9,
-    washerInterpolated: true,
-  },
+  { size: "M8", diameterMm: 8, k: 0.808, nutWeightG: 5.2, washerWeightG: 1.83 },
+  { size: "M10", diameterMm: 10, k: 0.811, nutWeightG: 11.6, washerWeightG: 3.57 },
+  { size: "M12", diameterMm: 12, k: 0.816, nutWeightG: 17.3, washerWeightG: 6.27 },
+  { size: "M16", diameterMm: 16, k: 0.842, nutWeightG: 33.3, washerWeightG: 11.3 },
+  { size: "M20", diameterMm: 20, k: 0.843, nutWeightG: 64.4, washerWeightG: 17.2 },
+  { size: "M24", diameterMm: 24, k: 0.845, nutWeightG: 110.0, washerWeightG: 32.3 },
+  { size: "M27", diameterMm: 27, k: 0.856, nutWeightG: 165.0, washerWeightG: 42.3 },
+  { size: "M30", diameterMm: 30, k: 0.856, nutWeightG: 223.0, washerWeightG: 53.6 },
+  { size: "M33", diameterMm: 33, k: 0.879, nutWeightG: 288.0, washerWeightG: 75.3 },
+  { size: "M36", diameterMm: 36, k: 0.863, nutWeightG: 393.0, washerWeightG: 92.1 },
+  { size: "M42", diameterMm: 42, k: 0.864, nutWeightG: 652.0, washerWeightG: 183.0 },
+  { size: "M48", diameterMm: 48, k: 0.873, nutWeightG: 977.0, washerWeightG: 294.0 },
   {
     size: "M56",
     diameterMm: 56,
     k: 0.878,
     kInterpolated: true,
-    nutWeightG: 1197.9,
-    washerWeightG: 279.5,
-    washerInterpolated: true,
+    nutWeightG: 1420.0,
+    washerWeightG: 425.0,
   },
   {
     size: "M64",
     diameterMm: 64,
     k: 0.882,
     kInterpolated: true,
-    nutWeightG: 1646.1,
-    washerWeightG: 410.8,
-    washerInterpolated: true,
+    nutWeightG: 1980.0,
+    washerWeightG: 492.0,
   },
 ];
 
@@ -215,10 +192,10 @@ export function calculateSet(input: CalculatorInput): CalculatorResult {
   const setWeightKg = rodWeightKgPerPiece + nutTotal + washerTotal;
   const totalWeightKg = setWeightKg * input.setQuantity;
 
-  const usesInterpolatedData =
-    Boolean(row.kInterpolated) ||
-    (input.includeNut && Boolean(row.nutInterpolated)) ||
-    (input.includeWasher && Boolean(row.washerInterpolated));
+  // Only the rod's k factor is still interpolated for any size (M56/M64);
+  // nut/washer weights now have a direct row in the reference table for
+  // every supported size, so they no longer contribute to this flag.
+  const usesInterpolatedData = Boolean(row.kInterpolated);
 
   return {
     size: input.size,
