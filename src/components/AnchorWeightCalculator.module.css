@@ -271,6 +271,9 @@
 
 .rfq {
   margin-top: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
 }
 
 .rfqButton {
@@ -295,6 +298,62 @@
   opacity: 0.88;
 }
 
+/* "Yazdır / PDF Kaydet" — calls window.print(); the printable content is
+   .printSheet plus the existing .resultList/.note rows (see the @media
+   print rules below for what's hidden instead of adding a parallel
+   fully-styled print theme). */
+.printButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  background: transparent;
+  color: var(--foreground);
+  padding: 0 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.printButton:hover {
+  background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+/* Hidden on screen — .printBrand/.printSelections only exist to restate the
+   selected inputs as plain text for the printed page, since the live
+   <select>/<input> controls (inside .form) are hidden when printing. */
+.printSheet {
+  display: none;
+}
+
+.printBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.printLogo {
+  height: 36px;
+  width: auto;
+}
+
+.printTitle {
+  margin: 0;
+  font-family: var(--font-clone-display);
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.printSelections {
+  margin: 0 0 1rem;
+}
+
 /* Matches this page's own stacking breakpoint (see .hero/.overview/
    .technical/.rfq in product.module.css, which also collapse at 980px)
    rather than the products-grid's 660px breakpoint this component no
@@ -313,5 +372,42 @@
   .resultRow {
     grid-template-columns: 1fr;
     gap: 0.2rem;
+  }
+}
+
+/* Printed/"Save as PDF" output: the interactive form (inputs, length
+   chips, nut/washer toggles, the Hesapla button) and the RFQ/print action
+   row are replaced by .printSheet's plain-text restatement of the
+   selections; .resultList and the .note warnings (interpolated/geometry-
+   estimate/hardware-unavailable) stay as-is, since they're already plain
+   result rows rather than form controls. */
+@media print {
+  .form,
+  .rfq {
+    display: none;
+  }
+
+  /* Reclaim the section's screen-only vertical rhythm so the printed
+     sheet doesn't push itself onto a second page for no visual reason. */
+  .section {
+    padding: 0;
+  }
+
+  .header {
+    margin-bottom: 1rem;
+  }
+
+  /* .grid still has display: grid here (only .form's grid-template-columns
+     override changed above previously) — Chrome's print engine won't
+     fragment a grid container across a page boundary, so once .form is
+     hidden it was dropping the lone remaining child (.resultPanel) onto
+     page 2 as a whole, even though it fits under .header on page 1. A
+     plain block container fragments normally. */
+  .grid {
+    display: block;
+  }
+
+  .printSheet {
+    display: block;
   }
 }

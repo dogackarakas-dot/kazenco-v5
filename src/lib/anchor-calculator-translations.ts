@@ -49,6 +49,8 @@ export interface CalculatorCopy {
   /** Appended to the RFQ message, replacing the nut/washer lines, when the selected size has no catalogue hardware data (M80–M100). */
   hardwareExcludedRfqLine: string;
   rfqButtonLabel: string;
+  /** Label for the "print / save as PDF" action, shown next to the RFQ button once a result exists. */
+  printButtonLabel: string;
   rfqMessagePrefix: string;
   lengthInvalid: string;
   quantityInvalid: string;
@@ -96,6 +98,7 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
       "Bu ölçüde somun/pul için katalog verisi yoktur; somun ve pul seçenekleri devre dışıdır.",
     hardwareExcludedRfqLine: "Somun/Pul: dahil değil — bu ölçüde katalog verisi yok",
     rfqButtonLabel: "Teklif İste",
+    printButtonLabel: "Yazdır / PDF Kaydet",
     rfqMessagePrefix: "Ağırlık hesaplayıcısından gelen talep",
     lengthInvalid: "Lütfen geçerli bir boy girin.",
     quantityInvalid: "Lütfen geçerli bir adet girin.",
@@ -140,6 +143,7 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
       "No catalogue nut/washer data exists for this size; the nut and washer options are disabled.",
     hardwareExcludedRfqLine: "Nut/Washer: not included — no catalogue data exists for this size",
     rfqButtonLabel: "Request a Quote",
+    printButtonLabel: "Print / Save as PDF",
     rfqMessagePrefix: "Request from the weight calculator",
     lengthInvalid: "Please enter a valid length.",
     quantityInvalid: "Please enter a valid quantity.",
@@ -184,6 +188,7 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
       "Для этого размера отсутствуют каталожные данные по гайке/шайбе; опции гайки и шайбы отключены.",
     hardwareExcludedRfqLine: "Гайка/Шайба: не включены — для этого размера отсутствуют каталожные данные",
     rfqButtonLabel: "Запросить предложение",
+    printButtonLabel: "Печать / Сохранить как PDF",
     rfqMessagePrefix: "Запрос из калькулятора веса",
     lengthInvalid: "Пожалуйста, введите корректную длину.",
     quantityInvalid: "Пожалуйста, введите корректное количество.",
@@ -228,6 +233,7 @@ export const CALCULATOR_COPY: Record<Locale, CalculatorCopy> = {
       "Бұл өлшем үшін гайка/шайба бойынша каталог деректері жоқ; гайка және шайба опциялары өшірілген.",
     hardwareExcludedRfqLine: "Гайка/Шайба: кірмейді — бұл өлшем үшін каталог деректері жоқ",
     rfqButtonLabel: "Баға сұрау",
+    printButtonLabel: "Басып шығару / PDF сақтау",
     rfqMessagePrefix: "Салмақ калькуляторынан келген сұрау",
     lengthInvalid: "Жарамды ұзындық енгізіңіз.",
     quantityInvalid: "Жарамды сан енгізіңіз.",

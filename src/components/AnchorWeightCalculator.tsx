@@ -2,6 +2,7 @@
 
 import { useId, useMemo, useState, type FormEvent } from "react";
 import { DeferredContactModal } from "@/components/DeferredContactModal";
+import { KazencoMark } from "@/components/Logo";
 import type { Locale } from "@/lib/i18n";
 import {
   ANCHOR_SIZES,
@@ -321,6 +322,58 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
         <div className={styles.resultPanel} role="status" aria-live="polite">
           {displayResult ? (
             <>
+              {/* Print-only sheet: window.print()'s source. Invisible on
+                  screen (see .printSheet's @media print toggle) — the live
+                  form/RFQ controls are hidden instead when printing, so the
+                  selected inputs need restating here as plain text, since
+                  <select>/<input> values aren't meaningful on a printed
+                  page. */}
+              <div className={styles.printSheet}>
+                <div className={styles.printBrand}>
+                  <KazencoMark className={styles.printLogo} />
+                  <p className={styles.printTitle}>{copy.title}</p>
+                </div>
+                <dl className={styles.printSelections}>
+                  <div className={styles.resultRow}>
+                    <dt>{copy.sizeLabel}</dt>
+                    <dd>{size}</dd>
+                  </div>
+                  <div className={styles.resultRow}>
+                    <dt>{copy.lengthLabel}</dt>
+                    <dd>
+                      {lengthMm} {copy.lengthUnit}
+                    </dd>
+                  </div>
+                  <div className={styles.resultRow}>
+                    <dt>{copy.materialLabel}</dt>
+                    <dd>{copy.materials[material]}</dd>
+                  </div>
+                  <div className={styles.resultRow}>
+                    <dt>{copy.quantityLabel}</dt>
+                    <dd>{setQuantity}</dd>
+                  </div>
+                  {displayResult.hardwareAvailable ? (
+                    <>
+                      <div className={styles.resultRow}>
+                        <dt>{copy.includeNutLabel}</dt>
+                        <dd>{effectiveIncludeNut ? `${nutQuantityPerSet} ${copy.perSetSuffix}` : "—"}</dd>
+                      </div>
+                      <div className={styles.resultRow}>
+                        <dt>{copy.includeWasherLabel}</dt>
+                        <dd>{effectiveIncludeWasher ? `${washerQuantityPerSet} ${copy.perSetSuffix}` : "—"}</dd>
+                      </div>
+                    </>
+                  ) : (
+                    <div className={styles.resultRow}>
+                      <dt>
+                        {copy.includeNutLabel} / {copy.includeWasherLabel}
+                      </dt>
+                      <dd>{copy.hardwareExcludedRfqLine}</dd>
+                    </div>
+                  )}
+                </dl>
+              </div>
+
               <dl className={styles.resultList}>
                 <div className={styles.resultRow}>
                   <dt>{copy.calculationBasisLabel}</dt>
@@ -378,6 +431,9 @@ export function AnchorWeightCalculator({ locale }: AnchorWeightCalculatorProps) 
                   triggerLabel={copy.rfqButtonLabel}
                   initialMessage={rfqMessage}
                 />
+                <button type="button" className={styles.printButton} onClick={() => window.print()}>
+                  {copy.printButtonLabel}
+                </button>
               </div>
             </>
           ) : (

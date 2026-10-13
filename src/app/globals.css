@@ -3805,3 +3805,17 @@ html[lang="tr"] .kazenco-v9-product-copy h3 {
     display: none;
   }
 }
+
+
+/* Anchor weight calculator print sheet (src/components/AnchorWeightCalculator.tsx):
+   the fixed header and footer chrome should never appear alongside a
+   printed/PDF calculator result. Scoped with :has() to pages that actually
+   contain #weight-calculator (today, only /products/fasteners-anchor-bolts)
+   so every other page's print output is completely untouched — this must
+   never become a blanket "hide header/footer when printing" rule. */
+@media print {
+  body:has(#weight-calculator) .inc-header,
+  body:has(#weight-calculator) .kazenco-v5-footer {
+    display: none !important;
+  }
+}

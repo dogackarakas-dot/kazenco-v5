@@ -362,3 +362,33 @@
     gap: 0.5rem;
   }
 }
+
+/* Printed/"Save as PDF" output for this page: scoped with :has() to only
+   apply when #weight-calculator is actually rendered here (today, only
+   the fasteners-anchor-bolts slug — see page.tsx). Every other product
+   detail page (pipes-tubes, fittings-flanges, etc.) shares this same CSS
+   Module but has no #weight-calculator, so :has() never matches there and
+   their print output is completely unaffected. Hides every other section
+   of THIS page (hero, overview, range, technical, process, the page's own
+   rfq section) so printing from the calculator's own button prints only
+   the calculator's content, not the whole product page. */
+@media print {
+  /* :global() is required here: this file is a CSS Module, which by
+     default local-scopes bare ID selectors the same way it scopes class
+     selectors (rewriting #weight-calculator to something like
+     #product-module__hash__weight-calculator in the compiled output).
+     The actual DOM id (set as a literal string in AnchorWeightCalculator.tsx,
+     not through a CSS Module import) stays plain "weight-calculator", so an
+     unwrapped selector here silently never matches anything — confirmed by
+     inspecting the real compiled chunk, not assumed. */
+  .page:has(:global(#weight-calculator)) {
+    /* Was sized to clear the fixed header, which is hidden in print too
+       (see globals.css) — without this the printed page would start with
+       a large blank gap. */
+    padding-top: 0;
+  }
+
+  .page:has(:global(#weight-calculator)) > *:not(:global(#weight-calculator)) {
+    display: none !important;
+  }
+}
