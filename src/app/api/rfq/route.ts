@@ -1,7 +1,9 @@
 import { Resend } from "resend";
-import { issueSignedToken, presignUrl } from "@vercel/blob";
-import { createRfqReference, RFQ_MAX_FILES, RFQ_MAX_TOTAL_SIZE } from "@/lib/rfq";
-import { isLocale, type Locale } from "@/lib/i18n";
+import { head, issueSignedToken, presignUrl } from "@vercel/blob";
+import { createRfqReference } from "@/lib/rfq";
+import { isValidRfqPayload } from "@/lib/rfq-validation";
+import { type Locale } from "@/lib/i18n";
+import { admitRfqSubmission, readRfqJson, RfqSecurityError, rfqSecurityConfigured, rfqSecurityResponse } from "@/lib/rfq-security";
 
 export const runtime = "nodejs";
 
@@ -18,38 +20,10 @@ export function GET() {
     available: Boolean(
       process.env.BLOB_READ_WRITE_TOKEN &&
       process.env.RESEND_API_KEY &&
+      rfqSecurityConfigured() &&
       rfqSender()
     ),
   });
-}
-
-interface SubmittedFile {
-  name: string;
-  url: string;
-  pathname: string;
-  size: number;
-  kind: string;
-}
-
-interface RfqPayload {
-  name: string;
-  email: string;
-  company: string;
-  phone?: string;
-  projectName: string;
-  requestType: string;
-  location: string;
-  requiredBy?: string;
-  message: string;
-  specification?: string;
-  consent: boolean;
-  website?: string;
-  locale: Locale;
-  files: SubmittedFile[];
-}
-
-function isText(value: unknown, max: number) {
-  return typeof value === "string" && value.trim().length > 0 && value.trim().length <= max;
 }
 
 function escapeHtml(value: string) {
@@ -60,35 +34,6 @@ function escapeHtml(value: string) {
     "'": "&#39;",
     '"': "&quot;",
   })[character] ?? character);
-}
-
-function isValidPayload(value: unknown): value is RfqPayload {
-  if (!value || typeof value !== "object") return false;
-  const data = value as Partial<RfqPayload>;
-  return Boolean(
-    isText(data.name, 120) &&
-    isText(data.email, 254) &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email ?? "") &&
-    isText(data.company, 160) &&
-    isText(data.projectName, 200) &&
-    isText(data.requestType, 120) &&
-    isText(data.location, 160) &&
-    isText(data.message, 5000) &&
-    data.consent === true &&
-    typeof data.locale === "string" &&
-    isLocale(data.locale) &&
-    Array.isArray(data.files) &&
-    data.files.length <= RFQ_MAX_FILES &&
-    data.files.every((file) =>
-      isText(file.name, 180) &&
-      isText(file.kind, 40) &&
-      typeof file.size === "number" &&
-      file.size > 0 &&
-      /^https:\/\/[^\s]+\.blob\.vercel-storage\.com\//.test(file.url) &&
-      isText(file.pathname, 300)
-    ) &&
-    data.files.reduce((sum, file) => sum + file.size, 0) <= RFQ_MAX_TOTAL_SIZE
-  );
 }
 
 const CUSTOMER_ACK_COPY: Record<Locale, {
@@ -131,17 +76,30 @@ export async function POST(request: Request) {
 
   let payload: unknown;
   try {
-    payload = await request.json();
-  } catch {
+    payload = await readRfqJson(request);
+  } catch (error) {
+    if (error instanceof RfqSecurityError) return rfqSecurityResponse(error);
     return Response.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  if (!isValidPayload(payload)) {
+  if (!isValidRfqPayload(payload)) {
     return Response.json({ error: "Please review the RFQ details and files." }, { status: 400 });
   }
   if (payload.website) return Response.json({ reference: createRfqReference() });
 
-  const reference = createRfqReference();
+  let reference: string;
+  try {
+    reference = await admitRfqSubmission(request, payload.sessionToken, payload.email, payload.files);
+    // Read trusted Blob metadata before signing caller-supplied attachment paths.
+    for (const file of payload.files) {
+      const stored = await head(file.pathname);
+      if (stored.pathname !== file.pathname || stored.size !== file.size || stored.url !== file.url) {
+        return Response.json({ error: "Please review the RFQ files." }, { status: 400 });
+      }
+    }
+  } catch (error) {
+    return rfqSecurityResponse(error);
+  }
   const linkExpiry = Date.now() + 7 * 24 * 60 * 60 * 1000;
   const linkedFiles = await Promise.all(payload.files.map(async (file) => {
     const signedToken = await issueSignedToken({
@@ -180,7 +138,7 @@ export async function POST(request: Request) {
     replyTo: payload.email,
     subject: `${reference} · ${payload.company} · ${payload.projectName}`,
     html: internalHtml,
-  });
+  }, { idempotencyKey: `rfq-internal/${reference}` });
   if (internalError) return Response.json({ error: "RFQ notification could not be delivered." }, { status: 502 });
 
   const customerCopy = CUSTOMER_ACK_COPY[payload.locale];
@@ -190,7 +148,7 @@ export async function POST(request: Request) {
     replyTo: "info@kazenco.com",
     subject: customerCopy.subject(reference),
     html: `<h2>${customerCopy.heading}</h2><p>${customerCopy.received(payload.projectName)}</p><p>${customerCopy.reference(reference)}</p><p>KAZENCO · info@kazenco.com</p>`,
-  });
+  }, { idempotencyKey: `rfq-ack/${reference}` });
 
   return Response.json({ reference });
 }

@@ -42,6 +42,13 @@ export const RFQ_VALIDATION_COPY: Record<
   },
 };
 
+export const RFQ_RATE_LIMIT_COPY: Record<Locale, string> = {
+  en: "Too many requests. Please wait a few minutes before trying again.",
+  ru: "Слишком много запросов. Подождите несколько минут и попробуйте снова.",
+  tr: "Çok fazla talep gönderildi. Lütfen birkaç dakika bekleyip tekrar deneyin.",
+  kz: "Сұраулар тым көп. Бірнеше минут күтіп, қайта көріңіз.",
+};
+
 export const RFQ_EMAIL_COPY: Record<
   Locale,
   {

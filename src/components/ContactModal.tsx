@@ -1,15 +1,15 @@
 "use client";
 
 import { useCallback, useId, useRef, useState, type ChangeEvent, type FormEvent } from "react";
-import { upload } from "@vercel/blob/client";
+import { put } from "@vercel/blob/client";
 import { usePathname } from "next/navigation";
 import { FullScreenModal, type ModalPhase } from "@/components/FullScreenModal";
-import { safeFilename } from "@/lib/rfq";
 import { localeFromPathname } from "@/lib/i18n";
 import {
   ACCESSIBILITY_COPY,
   RFQ_COPY,
   RFQ_EMAIL_COPY,
+  RFQ_RATE_LIMIT_COPY,
   RFQ_VALIDATION_COPY,
   SERVICE_LABELS,
 } from "@/lib/modal-translations";
@@ -27,7 +27,7 @@ export interface ContactModalProps {
   initialSpecification?: string;
 }
 
-type Status = "idle" | "uploading" | "submitting" | "success" | "fallback" | "error";
+type Status = "idle" | "uploading" | "submitting" | "success" | "fallback" | "error" | "rate-limited";
 
 type AttachmentKind = "drawings" | "boq" | "documents";
 
@@ -220,17 +220,46 @@ export function ContactModal({
 
     try {
       const statusResponse = await fetch("/api/rfq", { cache: "no-store" });
+      if (statusResponse.status === 429) {
+        setStatus("rate-limited");
+        return;
+      }
       const serviceStatus = (await statusResponse.json()) as { available?: boolean };
       if (!serviceStatus.available) throw new Error("Secure RFQ delivery is not configured.");
+
+      const sessionResponse = await fetch("/api/rfq/session", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ files: attachments.map(({ file }) => ({ name: file.name, size: file.size })) }),
+      });
+      if (sessionResponse.status === 429) {
+        setStatus("rate-limited");
+        return;
+      }
+      if (!sessionResponse.ok) throw new Error("RFQ session could not be created.");
+      const session = await sessionResponse.json() as {
+        sessionToken: string; uploads: { pathname: string }[];
+      };
 
       const uploadedFiles = [];
       for (let index = 0; index < attachments.length; index += 1) {
         const attachment = attachments[index];
-        const blob = await upload(`rfq/${safeFilename(attachment.file.name)}`, attachment.file, {
+        const pathname = session.uploads[index].pathname;
+        const tokenResponse = await fetch("/api/rfq/upload", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ type: "blob.generate-client-token", payload: {
+            pathname, multipart: false, clientPayload: JSON.stringify({ sessionToken: session.sessionToken }),
+          } }),
+        });
+        if (tokenResponse.status === 429) {
+          setStatus("rate-limited");
+          return;
+        }
+        if (!tokenResponse.ok) throw new Error("Upload authorization failed.");
+        const { clientToken } = await tokenResponse.json() as { clientToken: string };
+        const blob = await put(pathname, attachment.file, {
           access: "private",
-          handleUploadUrl: "/api/rfq/upload",
-          clientPayload: JSON.stringify({ kind: attachment.kind }),
-          multipart: attachment.file.size > 5 * 1024 * 1024,
+          token: clientToken,
+          multipart: false,
           onUploadProgress: ({ percentage }) => {
             setUploadProgress(Math.round(((index + percentage / 100) / attachments.length) * 100));
           },
@@ -263,8 +292,13 @@ export function ContactModal({
           website,
           locale,
           files: uploadedFiles,
+          sessionToken: session.sessionToken,
         }),
       });
+      if (response.status === 429) {
+        setStatus("rate-limited");
+        return;
+      }
       const result = (await response.json()) as { reference?: string; error?: string };
       if (!response.ok || !result.reference) throw new Error(result.error || "RFQ submission failed.");
       setReference(result.reference);
@@ -454,6 +488,7 @@ export function ContactModal({
                   {status === "success" && reference && <p role="status" className="m-0 text-sm text-muted-foreground transition-[opacity,translate,scale] duration-[320ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-[opacity] motion-reduce:duration-[120ms] starting:translate-y-1 starting:scale-[0.97] starting:opacity-0">{copy[27]} · <strong className="text-foreground">{reference}</strong></p>}
                   {status === "fallback" && <p role="status" className="m-0 text-sm text-muted-foreground">{copy[28]}</p>}
                   {status === "error" && <p role="alert" className="m-0 text-sm text-destructive">{copy[29]}</p>}
+                  {status === "rate-limited" && <p role="alert" className="m-0 text-sm text-destructive">{RFQ_RATE_LIMIT_COPY[locale]}</p>}
                   <button type="submit" disabled={!canSubmit || status === "uploading" || status === "submitting" || status === "success"} className="flex h-12 items-center justify-center rounded-full bg-foreground px-7 text-[12px] font-semibold uppercase tracking-[0.06em] text-background transition-opacity disabled:cursor-not-allowed disabled:bg-[#d8d8d8] disabled:text-[#9c9c9c]">
                     {status === "uploading" ? `${copy[31]} ${uploadProgress}%` : status === "submitting" ? copy[32] : status === "success" ? copy[27] : copy[30]}
                   </button>
